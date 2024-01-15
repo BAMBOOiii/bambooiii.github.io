@@ -93,6 +93,11 @@
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M8.5 4.498a1.5 1.5 0 1 1 3 0a1.5 1.5 0 0 1-3 0zm1.5-2.5a2.5 2.5 0 0 0-2.43 3.086L5.471 4.15a1.761 1.761 0 0 0-2.317.88c-.4.882-.008 1.917.877 2.31L7 8.662v2.287l-1.877 4.645a1.75 1.75 0 0 0 3.245 1.311l1.556-3.849a.073.073 0 0 1 .028-.038a.086.086 0 0 1 .046-.012c.02 0 .035.005.046.012a.074.074 0 0 1 .028.038l1.555 3.849a1.75 1.75 0 0 0 3.245-1.311L13 10.96V8.662l2.968-1.322a1.74 1.74 0 0 0 .877-2.31a1.761 1.761 0 0 0-2.317-.88l-2.097.934a2.5 2.5 0 0 0-2.43-3.086zM4.065 5.444a.761.761 0 0 1 1-.38l3.918 1.744a2.5 2.5 0 0 0 2.034 0l3.918-1.744a.761.761 0 0 1 1 .38a.739.739 0 0 1-.373.983l-2.969 1.321a1 1 0 0 0-.593.914v2.298a1 1 0 0 0 .073.375l1.872 4.633a.75.75 0 0 1-1.39.562l-1.556-3.849c-.364-.9-1.639-.9-2.003 0l-1.555 3.85a.75.75 0 1 1-1.39-.562l1.876-4.646A1 1 0 0 0 8 10.95V8.662a1 1 0 0 0-.593-.914L4.438 6.427a.739.739 0 0 1-.373-.983z" fill="currentColor"></path></g></svg>
           <div class="ellipsis">简历</div>
         </a>
+      </li><li data-path="link">
+        <a href="/link">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M8.5 4.498a1.5 1.5 0 1 1 3 0a1.5 1.5 0 0 1-3 0zm1.5-2.5a2.5 2.5 0 0 0-2.43 3.086L5.471 4.15a1.761 1.761 0 0 0-2.317.88c-.4.882-.008 1.917.877 2.31L7 8.662v2.287l-1.877 4.645a1.75 1.75 0 0 0 3.245 1.311l1.556-3.849a.073.073 0 0 1 .028-.038a.086.086 0 0 1 .046-.012c.02 0 .035.005.046.012a.074.074 0 0 1 .028.038l1.555 3.849a1.75 1.75 0 0 0 3.245-1.311L13 10.96V8.662l2.968-1.322a1.74 1.74 0 0 0 .877-2.31a1.761 1.761 0 0 0-2.317-.88l-2.097.934a2.5 2.5 0 0 0-2.43-3.086zM4.065 5.444a.761.761 0 0 1 1-.38l3.918 1.744a2.5 2.5 0 0 0 2.034 0l3.918-1.744a.761.761 0 0 1 1 .38a.739.739 0 0 1-.373.983l-2.969 1.321a1 1 0 0 0-.593.914v2.298a1 1 0 0 0 .073.375l1.872 4.633a.75.75 0 0 1-1.39.562l-1.556-3.849c-.364-.9-1.639-.9-2.003 0l-1.555 3.85a.75.75 0 1 1-1.39-.562l1.876-4.646A1 1 0 0 0 8 10.95V8.662a1 1 0 0 0-.593-.914L4.438 6.427a.739.739 0 0 1-.373-.983z" fill="currentColor"></path></g></svg>
+          <div class="ellipsis">text-link</div>
+        </a>
       </li></ul>
   <ul></ul>
 </nav>
@@ -120,15 +125,15 @@
   </aside>
   <main>
     
-<link rel="stylesheet" href="/css/9933fb53.css">
+<link rel="stylesheet" href="/css/21599f71.css">
 
 
 <div class="roadmap">
-  <div class="timeline-bar">
-    <div id="segmented-control-container"></div>
-    <section>
-      <button class="button" id="year-dropdown" data-prefix-icon=''>
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
+  <div class="bar">
+    <cosy-tooltip placement="left">
+      <span slot="content">选择年份</span>
+      <cosy-button id="year-dropdown">
+        <svg slot="prefix" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
           <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M11.795 21H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"></path>
             <circle cx="18" cy="18" r="4"></circle>
@@ -138,23 +143,27 @@
             <path d="M18 16.496V18l1 1"></path>
           </g>
         </svg>
-        <span>2023</span>
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
+        <span slot="content">2023</span>
+        <svg slot="suffix" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
           <path d="M6 9l6 6l6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
-      </button>
-      <button class="button" id="tody-button" style="display: none;" class="tip left" data-tip="tip-roadmap-today">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
-          <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r=".5" fill="currentColor"></circle>
-            <circle cx="12" cy="12" r="9"></circle>
+      </cosy-button>
+    </cosy-tooltip>
+    <cosy-tooltip placement="right">
+      <div slot="content">
+        <span>移动到今天</span>
+        <cosy-short-key>D</cosy-short-key>
+      </div>
+      <cosy-icon id="tody-button" bordered>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+          <g fill="none">
+            <path d="M14.5 3A2.5 2.5 0 0 1 17 5.5v9a2.5 2.5 0 0 1-2.5 2.5h-3v-1h3a1.5 1.5 0 0 0 1.5-1.5V7H4v7.5A1.5 1.5 0 0 0 5.5 16h3v1h-3A2.5 2.5 0 0 1 3 14.5v-9A2.5 2.5 0 0 1 5.5 3h9zm0 1h-9A1.5 1.5 0 0 0 4 5.5V6h12v-.5A1.5 1.5 0 0 0 14.5 4zM11 9a1 1 0 1 1-2 0a1 1 0 0 1 2 0zm.884 5.07a.5.5 0 0 1-.704.064l-.68-.566V17.5a.5.5 0 1 1-1 0v-3.932l-.68.566a.5.5 0 0 1-.64-.768l1.5-1.25a.5.5 0 0 1 .64 0l1.5 1.25a.5.5 0 0 1 .064.704z" fill="currentColor"></path>
           </g>
         </svg>
-        <span>text-today</span>
-      </button>
-    </section>
+      </cosy-icon>
+    </cosy-tooltip>
   </div>
-  <div id="gantt-container" class="scrollbar-obtrusive"></div>
+  <div id="gantt-container" class="cosy-scrollbar"></div>
 </div>
 
 
@@ -165,7 +174,7 @@
 
 
 
-<script src="/js/bd9ea3ad.js"></script>
+<script src="/js/ea704e05.js"></script>
 
   </main>
 </body>

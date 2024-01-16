@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    Pwn基础入门小知识
+  </title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="sheep">
+  <link rel="canonical" href="http://example.com/2024/01/16/Pwn%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E5%B0%8F%E7%9F%A5%E8%AF%86/">
+  
+  
+  <link rel="icon" href='/img/favicon.ico'>
+  
+  
+  
+<link rel="stylesheet" href="/css/b4c95347.css">
+
+  <script>window.i18n = {"tip-status-done":"完成","tip-status-default":"全部","tip-status-todo":"计划","tip-status-doing":"进行","tip-status-other":"其他","text-select":"选择","text-move":"移动","text-esc":"退出","January":"一月","February":"二月","March":"三月","April":"四月","May":"五月","June":"六月","July":"七月","August":"八月","September":"九月","October":"十月","November":"十一月","December":"十二月"}</script>
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body id="app">
+  <aside id="aside-box" class="left-aside">
+    <div class="header">
+      
+<link rel="stylesheet" href="/css/61875ce9.css">
+
+<div class="profile">
+  <a class="badge" href="/">
+    <span>Hi</span>
+    <span>sheep</span>
+  </a>
+  <cosy-tooltip id="left-aside-button" placement="right">
+    <span slot="content">
+      <span>显示 / 隐藏 左侧导航</span>
+      <cosy-short-key>[</cosy-short-key>
+    </span>
+    <cosy-icon>
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+        <g fill="none">
+          <path d="M16 4c1.104-.019 2 .896 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h12zm1 2a1 1 0 0 0-1-1h-2.995v10H16a1 1 0 0 0 1-1V6zm-4.995 9V5H4.001a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8.004z" fill="currentColor"></path>
+        </g>
+      </svg>
+    </cosy-icon>
+  </cosy-tooltip>
+</div>
+
+<script src="/js/a66044b6.js"></script>
+
+      
+
+
+<cosy-search id="post-search" placeholder="搜索">
+  <div slot="short-key">
+    <cosy-short-key>⌘</cosy-short-key>
+    <cosy-short-key>K</cosy-short-key>
+  </div>
+</cosy-search>
+
+
+<script>
+  window.algolia = {
+    appId: "R34LY1BBPU",
+    SearchOnlyAPIKey: "4fd025154505a4b00fb416f52993d700"
+  }
+</script>
+
+
+<script src="/js/5f00f278.js"></script>
+
+    </div>
+    <div class="aside-category">
+      
+<link rel="stylesheet" href="/css/db04a759.css">
+
+
+<nav class="category-nav cosy-scrollbar">
+  <ul><li data-path="archives">
+        <a href="/archives">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M3.5 3A1.5 1.5 0 0 0 2 4.5v4A1.5 1.5 0 0 0 3.5 10h9A1.5 1.5 0 0 0 14 8.5v-4A1.5 1.5 0 0 0 12.5 3h-9zM3 4.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-4zm.5 6.5A1.5 1.5 0 0 0 2 12.5v4A1.5 1.5 0 0 0 3.5 18h9a1.5 1.5 0 0 0 1.5-1.5v-4a1.5 1.5 0 0 0-1.5-1.5h-9zM3 12.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-4zm14-.063a2.003 2.003 0 0 1-2.5-1.937A2 2 0 0 1 16 8.563a2.005 2.005 0 0 1 1 0a2 2 0 0 1 0 3.874zM16.5 3a.5.5 0 0 1 .5.5v4.041a3.02 3.02 0 0 0-1 0V3.5a.5.5 0 0 1 .5-.5zm0 10.5c-.17 0-.337-.014-.5-.041V17.5a.5.5 0 0 0 1 0v-4.041c-.163.027-.33.041-.5.041z" fill="currentColor"></path></g></svg>
+          <div class="ellipsis">归档</div>
+        </a>
+      </li><li data-path="cosy-roadmap">
+        <a href="/cosy-roadmap">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M9.384 2a1 1 0 0 0-.966.742L4.616 17H2.5a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1h-2.116L11.582 2.742A1 1 0 0 0 10.616 2H9.384zM5.651 17l.8-3H11.5a.5.5 0 0 0 0-1H6.717l.534-2H10.5a.5.5 0 0 0 0-1H7.517l1.867-7h1.232l3.733 14H5.651z" fill="currentColor"></path></g></svg>
+          <div class="ellipsis">路线图</div>
+        </a>
+      </li><li data-path="cosy-resume">
+        <a href="/cosy-resume">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M8.5 4.498a1.5 1.5 0 1 1 3 0a1.5 1.5 0 0 1-3 0zm1.5-2.5a2.5 2.5 0 0 0-2.43 3.086L5.471 4.15a1.761 1.761 0 0 0-2.317.88c-.4.882-.008 1.917.877 2.31L7 8.662v2.287l-1.877 4.645a1.75 1.75 0 0 0 3.245 1.311l1.556-3.849a.073.073 0 0 1 .028-.038a.086.086 0 0 1 .046-.012c.02 0 .035.005.046.012a.074.074 0 0 1 .028.038l1.555 3.849a1.75 1.75 0 0 0 3.245-1.311L13 10.96V8.662l2.968-1.322a1.74 1.74 0 0 0 .877-2.31a1.761 1.761 0 0 0-2.317-.88l-2.097.934a2.5 2.5 0 0 0-2.43-3.086zM4.065 5.444a.761.761 0 0 1 1-.38l3.918 1.744a2.5 2.5 0 0 0 2.034 0l3.918-1.744a.761.761 0 0 1 1 .38a.739.739 0 0 1-.373.983l-2.969 1.321a1 1 0 0 0-.593.914v2.298a1 1 0 0 0 .073.375l1.872 4.633a.75.75 0 0 1-1.39.562l-1.556-3.849c-.364-.9-1.639-.9-2.003 0l-1.555 3.85a.75.75 0 1 1-1.39-.562l1.876-4.646A1 1 0 0 0 8 10.95V8.662a1 1 0 0 0-.593-.914L4.438 6.427a.739.739 0 0 1-.373-.983z" fill="currentColor"></path></g></svg>
+          <div class="ellipsis">简历</div>
+        </a>
+      </li><li data-path="link">
+        <a href="/link">
+          <svg t="1705378180027" class="icon" viewBox="-250 -250 1400 1400" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1450" width="200" height="200"><path d="M593.94368 715.648a10.688 10.688 0 0 0-14.976 0L424.21568 870.4c-71.68 71.68-192.576 79.232-271.68 0-79.232-79.232-71.616-200 0-271.616l154.752-154.752a10.688 10.688 0 0 0 0-15.04l-52.992-52.992a10.688 10.688 0 0 0-15.04 0L84.50368 530.688a287.872 287.872 0 0 0 0 407.488 288 288 0 0 0 407.488 0l154.752-154.752a10.688 10.688 0 0 0 0-15.04l-52.736-52.736z m344.384-631.168a288.256 288.256 0 0 1 0 407.616l-154.752 154.752a10.688 10.688 0 0 1-15.04 0l-52.992-52.992a10.688 10.688 0 0 1 0-15.104l154.752-154.688c71.68-71.68 79.232-192.448 0-271.68-79.104-79.232-200-71.68-271.68 0L443.92768 307.2a10.688 10.688 0 0 1-15.04 0l-52.864-52.864a10.688 10.688 0 0 1 0-15.04l154.88-154.752a287.872 287.872 0 0 1 407.424 0z m-296.32 240.896l52.672 52.736a10.688 10.688 0 0 1 0 15.04l-301.504 301.44a10.688 10.688 0 0 1-15.04 0l-52.736-52.672a10.688 10.688 0 0 1 0-15.04l301.632-301.504a10.688 10.688 0 0 1 15.04 0z" fill="currentColor" p-id="1451"></path></svg>
+          <div class="ellipsis">友链</div>
+        </a>
+      </li></ul>
+  <ul><li class="active">
+        <a href="/categories/Pwn%E7%9F%A5%E8%AF%86/">
+          
+          <div class="ellipsis">
+            <span>Pwn知识</span>
+          </div>
+        </a>
+      </li><li class="">
+        <a href="/categories/%E6%80%BB%E7%BB%93/">
+          
+          <div class="ellipsis">
+            <span>总结</span>
+          </div>
+        </a>
+      </li></ul>
+</nav>
+
+
+<script src="/js/118098c2.js"></script>
+
+    </div>
+    <div class="bottom">
+      <cosy-tooltip id="button-preference" placement="right">
+        <span slot="content">
+          <span>偏好</span>
+          <cosy-short-key>⌘</cosy-short-key>
+          <cosy-short-key>p</cosy-short-key>
+        </span>
+        <cosy-icon bordered id="button-about-cosy-theme">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 16 16">
+            <g fill="none">
+              <path d="M8 6a2 2 0 1 0 0 4a2 2 0 0 0 0-4zM7 8a1 1 0 1 1 2 0a1 1 0 0 1-2 0zm3.618-3.602a.708.708 0 0 1-.824-.567l-.26-1.416a.354.354 0 0 0-.275-.282a6.072 6.072 0 0 0-2.519 0a.354.354 0 0 0-.275.282l-.259 1.416a.71.71 0 0 1-.936.538l-1.359-.484a.355.355 0 0 0-.382.095c-.569.627-1 1.367-1.262 2.173a.352.352 0 0 0 .108.378l1.102.931a.704.704 0 0 1 0 1.076l-1.102.931a.352.352 0 0 0-.108.378A5.986 5.986 0 0 0 3.53 12.02a.355.355 0 0 0 .382.095l1.36-.484a.708.708 0 0 1 .936.538l.258 1.416c.026.14.135.252.275.281a6.075 6.075 0 0 0 2.52 0a.353.353 0 0 0 .274-.281l.26-1.416a.71.71 0 0 1 .936-.538l1.359.484c.135.048.286.01.382-.095c.569-.627 1-1.367 1.262-2.173a.352.352 0 0 0-.108-.378l-1.102-.931a.703.703 0 0 1 0-1.076l1.102-.931a.352.352 0 0 0 .108-.378A5.985 5.985 0 0 0 12.47 3.98a.355.355 0 0 0-.382-.095l-1.36.484a.71.71 0 0 1-.111.03zm-6.62.58l.937.333a1.71 1.71 0 0 0 2.255-1.3l.177-.97a5.105 5.105 0 0 1 1.265 0l.178.97a1.708 1.708 0 0 0 2.255 1.3L12 4.977c.255.334.467.698.63 1.084l-.754.637a1.704 1.704 0 0 0 0 2.604l.755.637a4.99 4.99 0 0 1-.63 1.084l-.937-.334a1.71 1.71 0 0 0-2.255 1.3l-.178.97a5.099 5.099 0 0 1-1.265 0l-.177-.97a1.708 1.708 0 0 0-2.255-1.3L4 11.023a4.987 4.987 0 0 1-.63-1.084l.754-.638a1.704 1.704 0 0 0 0-2.603l-.755-.637c.164-.386.376-.75.63-1.084z" fill="currentColor"></path>
+            </g>
+          </svg>
+        </cosy-icon>
+      </cosy-tooltip>
+    </div>
+  </aside>
+  <main>
+    
+<link rel="stylesheet" href="/css/9bb9a539.css">
+
+
+<div class="post-container">
+  <header>
+    <div class="left">
+      
+<link rel="stylesheet" href="/css/7d333f9e.css">
+
+<nav class="breadcrumb">
+  <section>
+    <cosy-tooltip placement="bottom-left">
+      <span slot="content"><span>首页</span>
+        <cosy-short-key>⌘</cosy-short-key>
+        <cosy-short-key>H</cosy-short-key>
+      </span>
+      <cosy-icon href="/">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+          <g fill="none">
+            <path d="M8.998 2.388a1.5 1.5 0 0 1 2.005 0l5.5 4.942A1.5 1.5 0 0 1 17 8.445V15.5a1.5 1.5 0 0 1-1.5 1.5H13a1.5 1.5 0 0 1-1.5-1.5V12a.5.5 0 0 0-.5-.5H9a.5.5 0 0 0-.5.5v3.5A1.5 1.5 0 0 1 7 17H4.5A1.5 1.5 0 0 1 3 15.5V8.445c0-.425.18-.83.498-1.115l5.5-4.942zm1.336.744a.5.5 0 0 0-.668 0l-5.5 4.942A.5.5 0 0 0 4 8.445V15.5a.5.5 0 0 0 .5.5H7a.5.5 0 0 0 .5-.5V12A1.5 1.5 0 0 1 9 10.5h2a1.5 1.5 0 0 1 1.5 1.5v3.5a.5.5 0 0 0 .5.5h2.5a.5.5 0 0 0 .5-.5V8.445a.5.5 0 0 0-.166-.371l-5.5-4.942z" fill="currentColor"></path>
+          </g>
+        </svg>
+      </cosy-icon>
+    </cosy-tooltip>
+    
+    
+    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+      <g fill="none">
+        <path d="M7.733 4.207a.75.75 0 0 1 1.06.026l5.001 5.25a.75.75 0 0 1 0 1.035l-5 5.25a.75.75 0 1 1-1.087-1.034L12.216 10l-4.51-4.734a.75.75 0 0 1 .027-1.06z" fill="currentColor"></path>
+      </g>
+    </svg>
+    <a class="ellipsis" href="/categories/Pwn%E7%9F%A5%E8%AF%86/">
+      Pwn知识
+    </a>
+    
+    
+    
+    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+      <g fill="none">
+        <path d="M7.733 4.207a.75.75 0 0 1 1.06.026l5.001 5.25a.75.75 0 0 1 0 1.035l-5 5.25a.75.75 0 1 1-1.087-1.034L12.216 10l-4.51-4.734a.75.75 0 0 1 .027-1.06z" fill="currentColor"></path>
+      </g>
+    </svg>
+    <span class="ellipsis">
+      Pwn基础入门小知识
+    </span>
+    
+  </section>
+</nav>
+
+
+<script src="/js/31d6cfe0.js"></script>
+
+    </div>
+    <div class="right">
+      
+      <cosy-tooltip id="toc-show-button" placement="left">
+        <span slot="content">
+          <span>显示 / 隐藏 文章目录</span>
+          <cosy-short-key>]</cosy-short-key>
+        </span>
+        <cosy-icon>
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+            <g fill="none">
+              <path d="M4 4c-1.104-.019-2 .896-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4zM3 6a1 1 0 0 1 1-1h2.995v10H4a1 1 0 0 1-1-1V6zm4.995 9V5h8.004a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H7.995z" fill="currentColor"></path>
+            </g>
+          </svg>
+        </cosy-icon>
+      </cosy-tooltip>
+      
+    </div>
+  </header>
+  <div class="content">
+    <main class="cosy-scrollbar">
+      <div class="article-container">
+        <!-- 渲染文章内容 -->
+        <article>
+          <!-- 文章标题 -->
+          <h1 class="post-title">Pwn基础入门小知识</h1>
+          <div class="last-updated">
+            上次更新: 2024-01-16 23:32:18
+          </div>
+          <!-- 文章 -->
+          <h2 id="PWN小知识"><a href="#PWN小知识" class="headerlink" title="PWN小知识"></a>PWN小知识</h2><p>由于pwn相关的一些专业术语新手入门时不易了解(我也是)，因此在此写下零零碎碎(<strong>有错误请在评论区指出或补充</strong>)，并且还有一些相关容易忘记的命令(多看多用)</p>
+<h4 id="NX"><a href="#NX" class="headerlink" title="NX"></a>NX</h4><p>即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面上执行指令，此时CPU就会抛出异常，而不是去执行恶意指令。</p>
+<p>NX位（No-eXecute），也称为XD位（eXecute Disable），是现代CPU提供的一个硬件安全特性，用于标记内存页是否可以执行代码。启用NX位可以提高操作系统的安全性，因为它可以防止攻击者将数据区域（如栈或堆）中的代码作为执行指令。</p>
+<p>当NX位启用时：</p>
+<ul>
+<li><strong>数据执行保护（DEP）</strong>：操作系统可以利用NX位来实现数据执行保护（DEP），防止在非执行内存区域（如默认的栈和堆）执行代码。</li>
+<li><strong>防止缓冲区溢出攻击</strong>：这使得缓冲区溢出和某些类型的内存损坏攻击更加困难，因为即使攻击者能够将恶意代码注入到一个程序的内存空间，也不能执行注入的代码，因为内存页不允许执行。</li>
+<li><strong>与ASLR协同工作</strong>：NX位通常与地址空间布局随机化（ASLR）结合使用，以进一步提高安全性。</li>
+</ul>
+<p>在大多数现代操作系统中，NX位默认是启用的。例如，在Linux系统中，可以通过执行<code>dmesg | grep NX</code>来检查NX位是否启用。如果看到输出中有”NX (Execute Disable) protection: active”这样的信息，就表示NX位是启用的。</p>
+<p>在编译程序时，可以使用特定的编译器选项来确保生成的二进制文件与NX位特性兼容，例如在GCC中使用<code>-z noexecstack</code>选项可以防止栈被标记为可执行，这样就可以利用NX位提供的保护。</p>
+<h4 id="Canary"><a href="#Canary" class="headerlink" title="Canary"></a>Canary</h4><p>表示栈保护功能有没有开启。栈溢出保护是一种缓冲区溢出攻击缓解手段，当函数存在缓冲区溢出攻击漏洞时，攻击者可以覆盖栈上的返回地址来让shellcode能够得到执行。当启用栈保护后，函数开始执行的时候会先往栈里插入cookie信息，当函数真正返回的时候会验证cookie信息是否合法，如果不合法就停止程序运行。</p>
+<p>在计算机安全领域，”canary”（金丝雀）一词通常指的是”栈金丝雀”，这是一种用于检测和防止缓冲区溢出攻击的保护措施。栈金丝雀是一个已知的值，它被放置在栈上的局部变量和控制数据（如返回地址）之间。其思想是，如果发生缓冲区溢出，并且覆盖了返回地址，那么在覆盖返回地址之前，这个金丝雀值也会被覆盖。</p>
+<p>在函数调用结束之前，程序会检查栈金丝雀的值是否发生改变。如果金丝雀值被覆盖，程序就知道发生了栈溢出攻击，并且可以采取措施，通常是立即终止程序，以防止攻击者执行任意代码。这种方法是一种普遍的安全防护措施，被广泛应用于现代操作系统和编译器中。</p>
+<p>当你看到”Canary found”这样的信息时，可能是在描述一个安全检查机制发现了栈金丝雀的值已经被篡改，从而检测到了潜在的攻击。</p>
+<h4 id="GOT和PLT不为人知的关系"><a href="#GOT和PLT不为人知的关系" class="headerlink" title="GOT和PLT不为人知的关系"></a>GOT和PLT不为人知的关系</h4><p>在ELF（Executable and Linkable Format）文件中，GOT（Global Offset Table）和PLT（Procedure Linkage Table）协同工作以支持动态链接。它们通常用于动态链接库（shared libraries）中的函数调用。</p>
+<p>这里是它们如何工作的简要概述：</p>
+<ol>
+<li><strong>PLT (Procedure Linkage Table)</strong>: 当你的程序调用一个动态链接库（如 libc）中的函数时，它实际上首先调用的是PLT中的一个”桩”（stub）。这个桩是一个小的代码片段，它跳转到GOT中的一个特定条目。</li>
+<li><strong>GOT (Global Offset Table)</strong>: GOT包含了函数和变量的地址。在程序第一次调用外部函数时，GOT中相应的条目被设置为指向PLT中的另一个条目，该条目将控制权转交给动态链接器，它将查找真正的函数地址，然后更新GOT中的条目以指向该地址。这意味着在第一次调用之后，GOT条目会被更新，以后的每次调用都会直接跳转到实际的函数地址，而不再经过PLT。</li>
+</ol>
+<p>因此，回答你的问题：在程序启动时，GOT表上的函数地址并不存储PLT函数的地址，而是存储一个指向动态链接器进行符号解析的地址。一旦符号（例如函数）被解析，GOT表中的条目会<strong>被更新为指向实际的函数地址</strong>。这个过程被称为懒惰绑定（lazy binding），因为符号解析是在运行时按需进行的。</p>
+<p>简而言之，GOT最初包含指向PLT中代码的指针，用于触发动态解析。解析完成后，GOT会被更新为指向实际的函数地址。</p>
+<h4 id="RELRP"><a href="#RELRP" class="headerlink" title="RELRP"></a>RELRP</h4><p>Full RELRO（完全的重定位只读）和Partial RELRO（部分的重定位只读）是Linux系统中用来提高二进制程序安全性的技术。它们控制程序启动时动态链接器如何处理全局偏移表（GOT）和过程链接表（PLT）。以下是它们之间的主要区别：</p>
+<h5 id="Partial-RELRO"><a href="#Partial-RELRO" class="headerlink" title="Partial RELRO"></a>Partial RELRO</h5><ul>
+<li><strong>GOT保护</strong>: Partial RELRO不会将GOT设置为只读，这意味着程序运行时GOT中的条目可以被修改。</li>
+<li><strong>性能</strong>: 通常比Full RELRO有更好的性能，因为它允许延迟绑定，即在函数第一次被调用时才解析其地址。</li>
+<li><strong>安全性</strong>: 提供了一定程度的保护，但不如Full RELRO强。</li>
+<li><strong>启动时间</strong>: 启动时间较短，因为不需要在程序启动时立即解析所有的动态符号。</li>
+</ul>
+<h5 id="Full-RELRO"><a href="#Full-RELRO" class="headerlink" title="Full RELRO"></a>Full RELRO</h5><ul>
+<li><strong>GOT保护</strong>: 将GOT设置为只读，防止攻击者在运行时修改GOT中的条目。</li>
+<li><strong>PLT和GOT分离</strong>: PLT条目在程序启动时就被解析并填充到GOT中，之后GOT被标记为只读。</li>
+<li><strong>性能</strong>: 可能会有轻微的性能损失，因为启动时需要解析所有动态链接的函数地址。</li>
+<li><strong>安全性</strong>: 提供更高水平的安全性，防止了GOT覆写攻击，这是一种常见的利用技术。</li>
+<li><strong>启动时间</strong>: 启动时间可能会稍长，因为需要在程序执行前解析所有的动态符号。</li>
+</ul>
+<p>总的来说，Full RELRO提供了更高级别的安全保护，但可能会以轻微增加的启动时间和潜在的运行时性能开销为代价。Partial RELRO则提供了一个折中方案，它比没有RELRO的情况更安全，但提供的保护不如Full RELRO全面。</p>
+<p>在编译时，可以使用以下GCC链接器选项来指定RELRO的级别：</p>
+<ul>
+<li><strong>Partial RELRO</strong>: <code>-Wl,-z,relro</code></li>
+<li><strong>Full RELRO</strong>: <code>-Wl,-z,relro -Wl,-z,now</code></li>
+</ul>
+<p>选择哪种级别取决于你对安全性和性能的需求。对于安全性要求高的应用程序，推荐使用Full RELRO。</p>
+<h4 id="ASLR"><a href="#ASLR" class="headerlink" title="ASLR"></a>ASLR</h4><p>ASLR 是地址空间布局随机化（Address Space Layout Randomization）的缩写，是操作系统用来提高安全性的一种技术。ASLR 通过随机分配系统和程序的内存地址，使得攻击者很难预测和利用固定的地址来执行恶意操作。</p>
+<p>以下是关于 ASLR 的一些关键点：</p>
+<ol>
+<li><strong>随机化</strong>：ASLR 会随机化进程内存布局的关键区域的位置，例如可执行文件的基址、堆栈、堆和库的位置。</li>
+<li><strong>防止利用漏洞</strong>：ASLR 的主要目的是减少依赖于已知内存地址的攻击，如缓冲区溢出、返回到库函数攻击等。</li>
+<li><strong>实现方式</strong>：ASLR 由操作系统内核实现，通常对应用程序是透明的。但是，为了有效利用 ASLR，应用程序和系统库需要编译为位置无关代码（Position Independent Code，PIC）。</li>
+<li><strong>兼容性问题</strong>：虽然 ASLR 可以提高安全性，但有时也会导致一些假设地址不变的程序出现问题。开发者需要确保他们的程序能够适应随机化的地址。</li>
+<li><strong>绕过技术</strong>：尽管 ASLR 非常有效，但它并非万无一失。攻击者已经开发出了绕过 ASLR 的技术，比如通过暴力破解内存地址或使用信息泄露来发现进程的基址。</li>
+<li><strong>可配置性</strong>：在许多系统中，ASLR 可以根据需要进行配置甚至禁用。例如，在 Linux 系统中，<code>/proc/sys/kernel/randomize_va_space</code> 文件用于控制 ASLR 的使用。</li>
+<li><strong>栈保护和DEP</strong>：ASLR 通常与其他安全机制如栈保护和数据执行保护（Data Execution Prevention，DEP）一起使用，形成对攻击的更全面的防御。</li>
+</ol>
+<h4 id="PIE"><a href="#PIE" class="headerlink" title="PIE"></a>PIE</h4><p>简单来说pie就是指硬盘到可执行文件的映射 如果no pie那么映射就没有随机化</p>
+<p>PIE代表“位置独立可执行文件”（Position Independent Executable）。这是一种编译选项，可以使得生成的可执行文件在内存中的加载位置可以变化，而不是固定的。位置独立的代码（PIC）通常用于共享库（shared libraries），以便库可以被加载到任何内存地址，而不需要额外的重定位开销。PIE将这一概念扩展到了整个可执行文件。</p>
+<p>启用PIE的主要优点是提高了安全性，特别是与地址空间布局随机化（ASLR）一起使用时。ASLR可以随机化进程的内存布局，但如果可执行文件不是位置独立的，那么它的代码段通常会被加载到内存中的固定地址。这可能会使得某些类型的攻击（如基于内存地址的攻击）更容易执行。PIE使得整个可执行文件可以被加载到随机的地址，从而增加了攻击者成功利用内存漏洞的难度。</p>
+<p>以下是PIE的一些关键特性：</p>
+<ol>
+<li><strong>内存随机化</strong>：PIE允许操作系统在每次运行程序时将其加载到内存中的随机位置，这增加了攻击者预测程序内存布局的难度。</li>
+<li><strong>与ASLR的结合</strong>：PIE是ASLR有效的关键组成部分。没有PIE，ASLR对于可执行文件的代码段的随机化就不会那么有效。</li>
+<li><strong>性能开销</strong>：尽管现代处理器和操作系统已经对此进行了优化，但位置独立的代码可能会引入轻微的性能开销，因为它需要在运行时进行额外的地址计算。</li>
+<li><strong>链接选项</strong>：在GCC中，可以通过添加<code>-fPIE</code>（用于编译）和<code>-pie</code>（用于链接）选项来生成PIE。</li>
+</ol>
+<p>例如，使用以下命令编译和链接一个程序：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gcc <span class="token parameter variable">-fPIE</span> <span class="token parameter variable">-pie</span> <span class="token parameter variable">-o</span> my_program my_program.c<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol>
+<li><strong>广泛支持</strong>：大多数现代操作系统和编译器都支持PIE，使其成为提高软件安全性的标准做法。</li>
+</ol>
+<p>总的来说，PIE是现代软件安全的重要特性，它与ASLR等技术结合，有效地提高了操作系统的抵抗远程代码执行攻击的能力。</p>
+<h5 id="ASLR影响的是堆-共享库-栈等等"><a href="#ASLR影响的是堆-共享库-栈等等" class="headerlink" title="ASLR影响的是堆,共享库,栈等等"></a>ASLR影响的是堆,共享库,栈等等</h5><h5 id="PIE影响的是ELF本身的映射"><a href="#PIE影响的是ELF本身的映射" class="headerlink" title="PIE影响的是ELF本身的映射"></a>PIE影响的是ELF本身的映射</h5><h4 id="ROPgadget"><a href="#ROPgadget" class="headerlink" title="ROPgadget"></a>ROPgadget</h4><pre class="line-numbers language-c" data-language="c"><code class="language-c">ROPgadget <span class="token operator">--</span>binary rop  <span class="token operator">--</span>only <span class="token char">'pop|ret'</span> <span class="token operator">|</span> grep <span class="token char">'eax'</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">ROPgadget <span class="token operator">--</span>binary ret2libc1 <span class="token operator">--</span>string <span class="token char">'/bin/sh'</span> <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="一些ASCII码对应的字符"><a href="#一些ASCII码对应的字符" class="headerlink" title="一些ASCII码对应的字符"></a>一些ASCII码对应的字符</h4><p>可能有人觉得没用，我觉得在gdb的时候还是有一点点用的，因此写下，可能也是本人水平低下</p>
+<table>
+<thead>
+<tr>
+<th align="left">十进制</th>
+<th align="left">十六进制</th>
+<th align="left">控制字符</th>
+<th align="left">转义字符</th>
+<th align="left">说明</th>
+<th align="left">Ctrl + 下列字母</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">0</td>
+<td align="left">00</td>
+<td align="left">NUL</td>
+<td align="left">\0</td>
+<td align="left">Null character(空字符)</td>
+<td align="left">@</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="left">01</td>
+<td align="left">SOH</td>
+<td align="left"></td>
+<td align="left">Start of Header(标题开始)</td>
+<td align="left">A</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">02</td>
+<td align="left">STX</td>
+<td align="left"></td>
+<td align="left">Start of Text(正文开始)</td>
+<td align="left">B</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">03</td>
+<td align="left">ETX</td>
+<td align="left"></td>
+<td align="left">End of Text(正文结束)</td>
+<td align="left">C</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">04</td>
+<td align="left">EOT</td>
+<td align="left"></td>
+<td align="left">End of Transmission(传输结束)</td>
+<td align="left">D</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">05</td>
+<td align="left">ENQ</td>
+<td align="left"></td>
+<td align="left">Enquiry(请求)</td>
+<td align="left">E</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">06</td>
+<td align="left">ACK</td>
+<td align="left"></td>
+<td align="left">Acknowledgment(收到通知&#x2F;响应)</td>
+<td align="left">F</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">07</td>
+<td align="left">BEL</td>
+<td align="left">\a</td>
+<td align="left">Bell(响铃)</td>
+<td align="left">G</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left">08</td>
+<td align="left">BS</td>
+<td align="left">\b</td>
+<td align="left">Backspace(退格)</td>
+<td align="left">H</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left">09</td>
+<td align="left">HT</td>
+<td align="left">\t</td>
+<td align="left">Horizontal Tab(水平制表符)</td>
+<td align="left">I</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left">0A</td>
+<td align="left">LF</td>
+<td align="left">\n</td>
+<td align="left">Line feed(换行键)</td>
+<td align="left">J</td>
+</tr>
+<tr>
+<td align="left">11</td>
+<td align="left">0B</td>
+<td align="left">VT</td>
+<td align="left">\v</td>
+<td align="left">Vertical Tab(垂直制表符)</td>
+<td align="left">K</td>
+</tr>
+<tr>
+<td align="left">12</td>
+<td align="left">0C</td>
+<td align="left">FF</td>
+<td align="left">\f</td>
+<td align="left">Form feed(换页键)</td>
+<td align="left">L</td>
+</tr>
+<tr>
+<td align="left">13</td>
+<td align="left">0D</td>
+<td align="left">CR</td>
+<td align="left">\r</td>
+<td align="left">Carriage return(回车键)</td>
+<td align="left">M</td>
+</tr>
+<tr>
+<td align="left">14</td>
+<td align="left">0E</td>
+<td align="left">SO</td>
+<td align="left"></td>
+<td align="left">Shift Out(不用切换)</td>
+<td align="left">N</td>
+</tr>
+<tr>
+<td align="left">15</td>
+<td align="left">0F</td>
+<td align="left">SI</td>
+<td align="left"></td>
+<td align="left">Shift In(启用切换)</td>
+<td align="left">O</td>
+</tr>
+<tr>
+<td align="left">16</td>
+<td align="left">10</td>
+<td align="left">DLE</td>
+<td align="left"></td>
+<td align="left">Data Link Escape(数据链路转义)</td>
+<td align="left">P</td>
+</tr>
+<tr>
+<td align="left">17</td>
+<td align="left">11</td>
+<td align="left">DC1</td>
+<td align="left"></td>
+<td align="left">Device Control 1(设备控制1) &#x2F;XON(Transmit On)</td>
+<td align="left">Q</td>
+</tr>
+<tr>
+<td align="left">18</td>
+<td align="left">12</td>
+<td align="left">DC2</td>
+<td align="left"></td>
+<td align="left">Device Control 2(设备控制2)</td>
+<td align="left">R</td>
+</tr>
+<tr>
+<td align="left">19</td>
+<td align="left">13</td>
+<td align="left">DC3</td>
+<td align="left"></td>
+<td align="left">Device Control 3(设备控制3) &#x2F;XOFF(Transmit Off)</td>
+<td align="left">S</td>
+</tr>
+<tr>
+<td align="left">20</td>
+<td align="left">14</td>
+<td align="left">DC4</td>
+<td align="left"></td>
+<td align="left">Device Control 4(设备控制4)</td>
+<td align="left">T</td>
+</tr>
+<tr>
+<td align="left">21</td>
+<td align="left">15</td>
+<td align="left">NAK</td>
+<td align="left"></td>
+<td align="left">Negative Acknowledgement(拒绝接收&#x2F;无响应)</td>
+<td align="left">U</td>
+</tr>
+<tr>
+<td align="left">22</td>
+<td align="left">16</td>
+<td align="left">SYN</td>
+<td align="left"></td>
+<td align="left">Synchronous Idle(同步空闲)</td>
+<td align="left">V</td>
+</tr>
+<tr>
+<td align="left">23</td>
+<td align="left">17</td>
+<td align="left">ETB</td>
+<td align="left"></td>
+<td align="left">End of Trans the Block(传输块结束)</td>
+<td align="left">W</td>
+</tr>
+<tr>
+<td align="left">24</td>
+<td align="left">18</td>
+<td align="left">CAN</td>
+<td align="left"></td>
+<td align="left">Cancel(取消)</td>
+<td align="left">X</td>
+</tr>
+<tr>
+<td align="left">25</td>
+<td align="left">19</td>
+<td align="left">EM</td>
+<td align="left"></td>
+<td align="left">End of Medium(已到介质末端&#x2F;介质存储已满)</td>
+<td align="left">Y</td>
+</tr>
+<tr>
+<td align="left">26</td>
+<td align="left">1A</td>
+<td align="left">SUB</td>
+<td align="left"></td>
+<td align="left">Substitute(替补&#x2F;替换)</td>
+<td align="left">Z</td>
+</tr>
+<tr>
+<td align="left">27</td>
+<td align="left">1B</td>
+<td align="left">ESC</td>
+<td align="left">\e</td>
+<td align="left">Escape(溢出&#x2F;逃离&#x2F;取消)</td>
+<td align="left">[</td>
+</tr>
+<tr>
+<td align="left">28</td>
+<td align="left">1C</td>
+<td align="left">FS</td>
+<td align="left"></td>
+<td align="left">File Separator(文件分割符)</td>
+<td align="left">\</td>
+</tr>
+<tr>
+<td align="left">29</td>
+<td align="left">1D</td>
+<td align="left">GS</td>
+<td align="left"></td>
+<td align="left">Group Separator(分组符)</td>
+<td align="left">]</td>
+</tr>
+<tr>
+<td align="left">30</td>
+<td align="left">1E</td>
+<td align="left">RS</td>
+<td align="left"></td>
+<td align="left">Record Separator(记录分隔符)</td>
+<td align="left">^</td>
+</tr>
+<tr>
+<td align="left">31</td>
+<td align="left">1F</td>
+<td align="left">US</td>
+<td align="left"></td>
+<td align="left">Unit Separator(单元分隔符)</td>
+<td align="left">_</td>
+</tr>
+<tr>
+<td align="left">32</td>
+<td align="left">20</td>
+<td align="left">SP</td>
+<td align="left"></td>
+<td align="left">White space</td>
+<td align="left">[Space]</td>
+</tr>
+<tr>
+<td align="left">127</td>
+<td align="left">7F</td>
+<td align="left">DEL</td>
+<td align="left"></td>
+<td align="left">Delete(删除)</td>
+<td align="left">?</td>
+</tr>
+</tbody></table>
+
+          <div class="post-tags">
+            <!-- 文章tags -->
+            
+            
+            <cosy-label href="/tags/%E7%9F%A5%E8%AF%86%E7%82%B9/" size="sm"># 知识点</cosy-label>
+            
+            
+          </div>
+          <p class="motto">重拾纯粹的写作</p>
+        </article>
+        <!-- 评论 -->
+        <div id="vcomments"></div>
+      </div>
+    </main>
+    <!-- toc -->
+    
+    <cosy-drag-box id="toc-drag-box" trigger="left" min-width="220" uid="toc-box">
+      <div class="meta-container">
+        <div class="toc-wrapper cosy-scrollbar">
+          <p class="catalog">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
+              <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 6h16"></path>
+                <path d="M4 12h16"></path>
+                <path d="M4 18h12"></path>
+              </g>
+            </svg>
+            <span>目录</span>
+          </p>
+          <!-- 文章toc -->
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PWN%E5%B0%8F%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">PWN小知识</span></a></li></ol>
+        </div>
+      </div>
+    </cosy-drag-box>
+    
+  </div>
+
+</div>
+
+<script>
+  window.page = {
+    use: 'valine'
+  }
+  window.katex = {
+    enable: "",
+    jsCdn: "//cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js",
+    cssCdn: "//cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css"
+  }
+  window.mermaid = {
+    enable: "",
+    theme: "",
+    cdn: "//cdn.jsdelivr.net/npm/mermaid@10.4.0/dist/mermaid.min.js",
+  }
+  window.valine = {
+    enable: "",
+    appId: '4Q4EAMdq8elmFDwiIj0R0Z80-gzGzoHsz',
+    appKey: 'JRv5ulQZAwmbGgfeetCXRvoW',
+    avatar: 'monsterid',
+    cdn: '//unpkg.com/valine@latest/dist/Valine.min.js',
+    serverURLs: ''
+  };
+</script>
+
+
+<script src="/js/0af3d6bb.js"></script>
+
+  </main>
+</body>
+
+<script>
+  window.theme = {
+    color: 'hsl(238,50%,56%)'
+  }
+</script>
+
+
+<script src="/js/69a216b6.js"></script>
+
+
+</html>

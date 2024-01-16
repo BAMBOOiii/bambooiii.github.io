@@ -5,12 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>
-    Hello World
+    sheep&#39;s blog
   </title>
   <meta name="description" content="">
   <meta name="keywords" content="">
   <meta name="author" content="sheep">
-  <link rel="canonical" href="http://example.com/2024/01/15/hello-world/">
+  <link rel="canonical" href="http://example.com">
   
   
   <link rel="icon" href='/img/favicon.ico'>
@@ -99,7 +99,14 @@
           <div class="ellipsis">友链</div>
         </a>
       </li></ul>
-  <ul></ul>
+  <ul><li class="active">
+        <a href="/categories/%E6%80%BB%E7%BB%93/">
+          
+          <div class="ellipsis">
+            <span>总结</span>
+          </div>
+        </a>
+      </li></ul>
 </nav>
 
 
@@ -125,10 +132,12 @@
   </aside>
   <main>
     
-<link rel="stylesheet" href="/css/9bb9a539.css">
+<link rel="stylesheet" href="/css/32fa10f2.css">
 
 
-<div class="post-container">
+
+
+<div class="category">
   <header>
     <div class="left">
       
@@ -150,15 +159,15 @@
       </cosy-icon>
     </cosy-tooltip>
     
-    
     <svg class="arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
       <g fill="none">
         <path d="M7.733 4.207a.75.75 0 0 1 1.06.026l5.001 5.25a.75.75 0 0 1 0 1.035l-5 5.25a.75.75 0 1 1-1.087-1.034L12.216 10l-4.51-4.734a.75.75 0 0 1 .027-1.06z" fill="currentColor"></path>
       </g>
     </svg>
     <span class="ellipsis">
-      Hello World
+      总结
     </span>
+    
     
   </section>
 </nav>
@@ -166,111 +175,54 @@
 
 <script src="/js/31d6cfe0.js"></script>
 
+      <!-- 筛选 -->
+      <cosy-button type="dashed" id="filter-button">
+        <svg slot="prefix" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+          <g fill="none">
+            <path d="M7.5 13h5a.5.5 0 0 1 .09.992L12.5 14h-5a.5.5 0 0 1-.09-.992L7.5 13h5h-5zm-2-4h9a.5.5 0 0 1 .09.992L14.5 10h-9a.5.5 0 0 1-.09-.992L5.5 9h9h-9zm-2-4h13a.5.5 0 0 1 .09.992L16.5 6h-13a.5.5 0 0 1-.09-.992L3.5 5h13h-13z" fill="currentColor"></path>
+          </g>
+        </svg>
+        <span slot="content">筛选</span>
+      </cosy-button>
     </div>
-    <div class="right">
-      
-      <cosy-tooltip id="toc-show-button" placement="left">
-        <span slot="content">
-          <span>显示 / 隐藏 文章目录</span>
-          <cosy-short-key>]</cosy-short-key>
-        </span>
-        <cosy-icon>
-          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
-            <g fill="none">
-              <path d="M4 4c-1.104-.019-2 .896-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4zM3 6a1 1 0 0 1 1-1h2.995v10H4a1 1 0 0 1-1-1V6zm4.995 9V5h8.004a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H7.995z" fill="currentColor"></path>
-            </g>
-          </svg>
-        </cosy-icon>
-      </cosy-tooltip>
+    <div class="center">
+      <!-- 分页代码 -->
       
     </div>
   </header>
-  <div class="content">
-    <main class="cosy-scrollbar">
-      <div class="article-container">
-        <!-- 渲染文章内容 -->
-        <article>
-          <!-- 文章标题 -->
-          <h1 class="post-title">Hello World</h1>
-          <div class="last-updated">
-            上次更新: 2024-01-15 21:02:58
-          </div>
-          <!-- 文章 -->
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-          <div class="post-tags">
-            <!-- 文章tags -->
-            
-          </div>
-          <p class="motto">重拾纯粹的写作</p>
-        </article>
-        <!-- 评论 -->
-        <div id="vcomments"></div>
-      </div>
-    </main>
-    <!-- toc -->
+  <!-- 分类文章列表 -->
+  <ul class="post-list cosy-scrollbar">
     
-    <cosy-drag-box id="toc-drag-box" trigger="left" min-width="220" uid="toc-box">
-      <div class="meta-container">
-        <div class="toc-wrapper cosy-scrollbar">
-          <p class="catalog">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
-              <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 6h16"></path>
-                <path d="M4 12h16"></path>
-                <path d="M4 18h12"></path>
-              </g>
-            </svg>
-            <span>目录</span>
-          </p>
-          <!-- 文章toc -->
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
-        </div>
-      </div>
-    </cosy-drag-box>
+    <li data-status="">
+      <a href="/2024/01/16/My-first-blog/">
+        
+        <p class="ellipsis">
+          <span>My first blog</span>
+          <!-- <cosy-tooltip placement="bottom-left" max-width="250px">
+            <span slot="content">这是我的第一篇博客以后我的博客将会记录我在技术学习以及研究路上的记录和坎坷
+也会记录我的学习成果，做题记录等等
+希望我的</span>
+            <span></span>
+          </cosy-tooltip> -->
+
+        </p>
+        <span class="post-date">
+          
+          <cosy-tooltip placement="left">
+            <span slot="content">创建于: 2024-01-16 13:10:35</span>
+            Jan 16
+          </cosy-tooltip>
+        </span>
+      </a>
+    </li>
     
-  </div>
+  </ul>
 
 </div>
 
-<script>
-  window.page = {
-    use: 'valine'
-  }
-  window.katex = {
-    enable: "",
-    jsCdn: "//cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js",
-    cssCdn: "//cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css"
-  }
-  window.mermaid = {
-    enable: "",
-    theme: "",
-    cdn: "//cdn.jsdelivr.net/npm/mermaid@10.4.0/dist/mermaid.min.js",
-  }
-  window.valine = {
-    enable: "",
-    appId: '4Q4EAMdq8elmFDwiIj0R0Z80-gzGzoHsz',
-    appKey: 'JRv5ulQZAwmbGgfeetCXRvoW',
-    avatar: 'monsterid',
-    cdn: '//unpkg.com/valine@latest/dist/Valine.min.js',
-    serverURLs: ''
-  };
-</script>
 
-
-<script src="/js/0af3d6bb.js"></script>
+<script src="/js/4fb54408.js"></script>
 
   </main>
 </body>

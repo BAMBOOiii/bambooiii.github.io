@@ -218,11 +218,11 @@
           <!-- 文章标题 -->
           <h1 class="post-title">Pwn基础入门小知识</h1>
           <div class="last-updated">
-            上次更新: 2024-01-16 23:32:18
+            上次更新: 2024-01-16 23:50:45
           </div>
           <!-- 文章 -->
           <h2 id="PWN小知识"><a href="#PWN小知识" class="headerlink" title="PWN小知识"></a>PWN小知识</h2><p>由于pwn相关的一些专业术语新手入门时不易了解(我也是)，因此在此写下零零碎碎(<strong>有错误请在评论区指出或补充</strong>)，并且还有一些相关容易忘记的命令(多看多用)</p>
-<h4 id="NX"><a href="#NX" class="headerlink" title="NX"></a>NX</h4><p>即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面上执行指令，此时CPU就会抛出异常，而不是去执行恶意指令。</p>
+<h3 id="NX"><a href="#NX" class="headerlink" title="NX"></a>NX</h3><p>即No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面上执行指令，此时CPU就会抛出异常，而不是去执行恶意指令。</p>
 <p>NX位（No-eXecute），也称为XD位（eXecute Disable），是现代CPU提供的一个硬件安全特性，用于标记内存页是否可以执行代码。启用NX位可以提高操作系统的安全性，因为它可以防止攻击者将数据区域（如栈或堆）中的代码作为执行指令。</p>
 <p>当NX位启用时：</p>
 <ul>
@@ -232,11 +232,11 @@
 </ul>
 <p>在大多数现代操作系统中，NX位默认是启用的。例如，在Linux系统中，可以通过执行<code>dmesg | grep NX</code>来检查NX位是否启用。如果看到输出中有”NX (Execute Disable) protection: active”这样的信息，就表示NX位是启用的。</p>
 <p>在编译程序时，可以使用特定的编译器选项来确保生成的二进制文件与NX位特性兼容，例如在GCC中使用<code>-z noexecstack</code>选项可以防止栈被标记为可执行，这样就可以利用NX位提供的保护。</p>
-<h4 id="Canary"><a href="#Canary" class="headerlink" title="Canary"></a>Canary</h4><p>表示栈保护功能有没有开启。栈溢出保护是一种缓冲区溢出攻击缓解手段，当函数存在缓冲区溢出攻击漏洞时，攻击者可以覆盖栈上的返回地址来让shellcode能够得到执行。当启用栈保护后，函数开始执行的时候会先往栈里插入cookie信息，当函数真正返回的时候会验证cookie信息是否合法，如果不合法就停止程序运行。</p>
+<h3 id="Canary"><a href="#Canary" class="headerlink" title="Canary"></a>Canary</h3><p>表示栈保护功能有没有开启。栈溢出保护是一种缓冲区溢出攻击缓解手段，当函数存在缓冲区溢出攻击漏洞时，攻击者可以覆盖栈上的返回地址来让shellcode能够得到执行。当启用栈保护后，函数开始执行的时候会先往栈里插入cookie信息，当函数真正返回的时候会验证cookie信息是否合法，如果不合法就停止程序运行。</p>
 <p>在计算机安全领域，”canary”（金丝雀）一词通常指的是”栈金丝雀”，这是一种用于检测和防止缓冲区溢出攻击的保护措施。栈金丝雀是一个已知的值，它被放置在栈上的局部变量和控制数据（如返回地址）之间。其思想是，如果发生缓冲区溢出，并且覆盖了返回地址，那么在覆盖返回地址之前，这个金丝雀值也会被覆盖。</p>
 <p>在函数调用结束之前，程序会检查栈金丝雀的值是否发生改变。如果金丝雀值被覆盖，程序就知道发生了栈溢出攻击，并且可以采取措施，通常是立即终止程序，以防止攻击者执行任意代码。这种方法是一种普遍的安全防护措施，被广泛应用于现代操作系统和编译器中。</p>
 <p>当你看到”Canary found”这样的信息时，可能是在描述一个安全检查机制发现了栈金丝雀的值已经被篡改，从而检测到了潜在的攻击。</p>
-<h4 id="GOT和PLT不为人知的关系"><a href="#GOT和PLT不为人知的关系" class="headerlink" title="GOT和PLT不为人知的关系"></a>GOT和PLT不为人知的关系</h4><p>在ELF（Executable and Linkable Format）文件中，GOT（Global Offset Table）和PLT（Procedure Linkage Table）协同工作以支持动态链接。它们通常用于动态链接库（shared libraries）中的函数调用。</p>
+<h3 id="GOT和PLT不为人知的关系"><a href="#GOT和PLT不为人知的关系" class="headerlink" title="GOT和PLT不为人知的关系"></a>GOT和PLT不为人知的关系</h3><p>在ELF（Executable and Linkable Format）文件中，GOT（Global Offset Table）和PLT（Procedure Linkage Table）协同工作以支持动态链接。它们通常用于动态链接库（shared libraries）中的函数调用。</p>
 <p>这里是它们如何工作的简要概述：</p>
 <ol>
 <li><strong>PLT (Procedure Linkage Table)</strong>: 当你的程序调用一个动态链接库（如 libc）中的函数时，它实际上首先调用的是PLT中的一个”桩”（stub）。这个桩是一个小的代码片段，它跳转到GOT中的一个特定条目。</li>
@@ -244,14 +244,14 @@
 </ol>
 <p>因此，回答你的问题：在程序启动时，GOT表上的函数地址并不存储PLT函数的地址，而是存储一个指向动态链接器进行符号解析的地址。一旦符号（例如函数）被解析，GOT表中的条目会<strong>被更新为指向实际的函数地址</strong>。这个过程被称为懒惰绑定（lazy binding），因为符号解析是在运行时按需进行的。</p>
 <p>简而言之，GOT最初包含指向PLT中代码的指针，用于触发动态解析。解析完成后，GOT会被更新为指向实际的函数地址。</p>
-<h4 id="RELRP"><a href="#RELRP" class="headerlink" title="RELRP"></a>RELRP</h4><p>Full RELRO（完全的重定位只读）和Partial RELRO（部分的重定位只读）是Linux系统中用来提高二进制程序安全性的技术。它们控制程序启动时动态链接器如何处理全局偏移表（GOT）和过程链接表（PLT）。以下是它们之间的主要区别：</p>
-<h5 id="Partial-RELRO"><a href="#Partial-RELRO" class="headerlink" title="Partial RELRO"></a>Partial RELRO</h5><ul>
+<h3 id="RELRP"><a href="#RELRP" class="headerlink" title="RELRP"></a>RELRP</h3><p>Full RELRO（完全的重定位只读）和Partial RELRO（部分的重定位只读）是Linux系统中用来提高二进制程序安全性的技术。它们控制程序启动时动态链接器如何处理全局偏移表（GOT）和过程链接表（PLT）。以下是它们之间的主要区别：</p>
+<h4 id="Partial-RELRO"><a href="#Partial-RELRO" class="headerlink" title="Partial RELRO"></a>Partial RELRO</h4><ul>
 <li><strong>GOT保护</strong>: Partial RELRO不会将GOT设置为只读，这意味着程序运行时GOT中的条目可以被修改。</li>
 <li><strong>性能</strong>: 通常比Full RELRO有更好的性能，因为它允许延迟绑定，即在函数第一次被调用时才解析其地址。</li>
 <li><strong>安全性</strong>: 提供了一定程度的保护，但不如Full RELRO强。</li>
 <li><strong>启动时间</strong>: 启动时间较短，因为不需要在程序启动时立即解析所有的动态符号。</li>
 </ul>
-<h5 id="Full-RELRO"><a href="#Full-RELRO" class="headerlink" title="Full RELRO"></a>Full RELRO</h5><ul>
+<h4 id="Full-RELRO"><a href="#Full-RELRO" class="headerlink" title="Full RELRO"></a>Full RELRO</h4><ul>
 <li><strong>GOT保护</strong>: 将GOT设置为只读，防止攻击者在运行时修改GOT中的条目。</li>
 <li><strong>PLT和GOT分离</strong>: PLT条目在程序启动时就被解析并填充到GOT中，之后GOT被标记为只读。</li>
 <li><strong>性能</strong>: 可能会有轻微的性能损失，因为启动时需要解析所有动态链接的函数地址。</li>
@@ -265,7 +265,7 @@
 <li><strong>Full RELRO</strong>: <code>-Wl,-z,relro -Wl,-z,now</code></li>
 </ul>
 <p>选择哪种级别取决于你对安全性和性能的需求。对于安全性要求高的应用程序，推荐使用Full RELRO。</p>
-<h4 id="ASLR"><a href="#ASLR" class="headerlink" title="ASLR"></a>ASLR</h4><p>ASLR 是地址空间布局随机化（Address Space Layout Randomization）的缩写，是操作系统用来提高安全性的一种技术。ASLR 通过随机分配系统和程序的内存地址，使得攻击者很难预测和利用固定的地址来执行恶意操作。</p>
+<h3 id="ASLR"><a href="#ASLR" class="headerlink" title="ASLR"></a>ASLR</h3><p>ASLR 是地址空间布局随机化（Address Space Layout Randomization）的缩写，是操作系统用来提高安全性的一种技术。ASLR 通过随机分配系统和程序的内存地址，使得攻击者很难预测和利用固定的地址来执行恶意操作。</p>
 <p>以下是关于 ASLR 的一些关键点：</p>
 <ol>
 <li><strong>随机化</strong>：ASLR 会随机化进程内存布局的关键区域的位置，例如可执行文件的基址、堆栈、堆和库的位置。</li>
@@ -276,7 +276,7 @@
 <li><strong>可配置性</strong>：在许多系统中，ASLR 可以根据需要进行配置甚至禁用。例如，在 Linux 系统中，<code>/proc/sys/kernel/randomize_va_space</code> 文件用于控制 ASLR 的使用。</li>
 <li><strong>栈保护和DEP</strong>：ASLR 通常与其他安全机制如栈保护和数据执行保护（Data Execution Prevention，DEP）一起使用，形成对攻击的更全面的防御。</li>
 </ol>
-<h4 id="PIE"><a href="#PIE" class="headerlink" title="PIE"></a>PIE</h4><p>简单来说pie就是指硬盘到可执行文件的映射 如果no pie那么映射就没有随机化</p>
+<h3 id="PIE"><a href="#PIE" class="headerlink" title="PIE"></a>PIE</h3><p>简单来说pie就是指硬盘到可执行文件的映射 如果no pie那么映射就没有随机化</p>
 <p>PIE代表“位置独立可执行文件”（Position Independent Executable）。这是一种编译选项，可以使得生成的可执行文件在内存中的加载位置可以变化，而不是固定的。位置独立的代码（PIC）通常用于共享库（shared libraries），以便库可以被加载到任何内存地址，而不需要额外的重定位开销。PIE将这一概念扩展到了整个可执行文件。</p>
 <p>启用PIE的主要优点是提高了安全性，特别是与地址空间布局随机化（ASLR）一起使用时。ASLR可以随机化进程的内存布局，但如果可执行文件不是位置独立的，那么它的代码段通常会被加载到内存中的固定地址。这可能会使得某些类型的攻击（如基于内存地址的攻击）更容易执行。PIE使得整个可执行文件可以被加载到随机的地址，从而增加了攻击者成功利用内存漏洞的难度。</p>
 <p>以下是PIE的一些关键特性：</p>
@@ -293,11 +293,11 @@
 <li><strong>广泛支持</strong>：大多数现代操作系统和编译器都支持PIE，使其成为提高软件安全性的标准做法。</li>
 </ol>
 <p>总的来说，PIE是现代软件安全的重要特性，它与ASLR等技术结合，有效地提高了操作系统的抵抗远程代码执行攻击的能力。</p>
-<h5 id="ASLR影响的是堆-共享库-栈等等"><a href="#ASLR影响的是堆-共享库-栈等等" class="headerlink" title="ASLR影响的是堆,共享库,栈等等"></a>ASLR影响的是堆,共享库,栈等等</h5><h5 id="PIE影响的是ELF本身的映射"><a href="#PIE影响的是ELF本身的映射" class="headerlink" title="PIE影响的是ELF本身的映射"></a>PIE影响的是ELF本身的映射</h5><h4 id="ROPgadget"><a href="#ROPgadget" class="headerlink" title="ROPgadget"></a>ROPgadget</h4><pre class="line-numbers language-c" data-language="c"><code class="language-c">ROPgadget <span class="token operator">--</span>binary rop  <span class="token operator">--</span>only <span class="token char">'pop|ret'</span> <span class="token operator">|</span> grep <span class="token char">'eax'</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5 id="ASLR影响的是堆-共享库-栈等等"><a href="#ASLR影响的是堆-共享库-栈等等" class="headerlink" title="ASLR影响的是堆,共享库,栈等等"></a>ASLR影响的是堆,共享库,栈等等</h5><h5 id="PIE影响的是ELF本身的映射"><a href="#PIE影响的是ELF本身的映射" class="headerlink" title="PIE影响的是ELF本身的映射"></a>PIE影响的是ELF本身的映射</h5><h3 id="ROPgadget"><a href="#ROPgadget" class="headerlink" title="ROPgadget"></a>ROPgadget</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">ROPgadget <span class="token operator">--</span>binary rop  <span class="token operator">--</span>only <span class="token char">'pop|ret'</span> <span class="token operator">|</span> grep <span class="token char">'eax'</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">ROPgadget <span class="token operator">--</span>binary ret2libc1 <span class="token operator">--</span>string <span class="token char">'/bin/sh'</span> <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h4 id="一些ASCII码对应的字符"><a href="#一些ASCII码对应的字符" class="headerlink" title="一些ASCII码对应的字符"></a>一些ASCII码对应的字符</h4><p>可能有人觉得没用，我觉得在gdb的时候还是有一点点用的，因此写下，可能也是本人水平低下</p>
+<h3 id="一些ASCII码对应的字符"><a href="#一些ASCII码对应的字符" class="headerlink" title="一些ASCII码对应的字符"></a>一些ASCII码对应的字符</h3><p>可能有人觉得没用，我觉得在gdb的时候还是有一点点用的，因此写下，可能也是本人水平低下</p>
 <table>
 <thead>
 <tr>
@@ -613,7 +613,7 @@
             <span>目录</span>
           </p>
           <!-- 文章toc -->
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PWN%E5%B0%8F%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">PWN小知识</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PWN%E5%B0%8F%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">PWN小知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NX"><span class="toc-number">1.1.</span> <span class="toc-text">NX</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Canary"><span class="toc-number">1.2.</span> <span class="toc-text">Canary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GOT%E5%92%8CPLT%E4%B8%8D%E4%B8%BA%E4%BA%BA%E7%9F%A5%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.3.</span> <span class="toc-text">GOT和PLT不为人知的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RELRP"><span class="toc-number">1.4.</span> <span class="toc-text">RELRP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ASLR"><span class="toc-number">1.5.</span> <span class="toc-text">ASLR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PIE"><span class="toc-number">1.6.</span> <span class="toc-text">PIE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ROPgadget"><span class="toc-number">1.7.</span> <span class="toc-text">ROPgadget</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%BA%9BASCII%E7%A0%81%E5%AF%B9%E5%BA%94%E7%9A%84%E5%AD%97%E7%AC%A6"><span class="toc-number">1.8.</span> <span class="toc-text">一些ASCII码对应的字符</span></a></li></ol></li></ol>
         </div>
       </div>
     </cosy-drag-box>

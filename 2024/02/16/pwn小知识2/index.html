@@ -5,12 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>
-    ROIS冬令营
+    pwn小知识2
   </title>
   <meta name="description" content="">
   <meta name="keywords" content="">
   <meta name="author" content="sheep">
-  <link rel="canonical" href="http://example.com/2024/01/17/ROIS%E5%86%AC%E4%BB%A4%E8%90%A5/">
+  <link rel="canonical" href="http://example.com/2024/02/16/pwn%E5%B0%8F%E7%9F%A5%E8%AF%862/">
   
   
   <link rel="icon" href='/img/favicon.ico'>
@@ -99,14 +99,14 @@
           <div class="ellipsis">友链</div>
         </a>
       </li></ul>
-  <ul><li class="active">
+  <ul><li class="">
         <a href="/categories/2024ROIS%E5%86%AC%E4%BB%A4%E8%90%A5/">
           
           <div class="ellipsis">
             <span>2024ROIS冬令营</span>
           </div>
         </a>
-      </li><li class="">
+      </li><li class="active">
         <a href="/categories/Pwn%E7%9F%A5%E8%AF%86/">
           
           <div class="ellipsis">
@@ -184,8 +184,8 @@
         <path d="M7.733 4.207a.75.75 0 0 1 1.06.026l5.001 5.25a.75.75 0 0 1 0 1.035l-5 5.25a.75.75 0 1 1-1.087-1.034L12.216 10l-4.51-4.734a.75.75 0 0 1 .027-1.06z" fill="currentColor"></path>
       </g>
     </svg>
-    <a class="ellipsis" href="/categories/2024ROIS%E5%86%AC%E4%BB%A4%E8%90%A5/">
-      2024ROIS冬令营
+    <a class="ellipsis" href="/categories/Pwn%E7%9F%A5%E8%AF%86/">
+      Pwn知识
     </a>
     
     
@@ -196,7 +196,7 @@
       </g>
     </svg>
     <span class="ellipsis">
-      ROIS冬令营
+      pwn小知识2
     </span>
     
   </section>
@@ -216,12 +216,37 @@
         <!-- 渲染文章内容 -->
         <article>
           <!-- 文章标题 -->
-          <h1 class="post-title">ROIS冬令营</h1>
+          <h1 class="post-title">pwn小知识2</h1>
           <div class="last-updated">
-            上次更新: 2024-01-27 00:07:10
+            上次更新: 2024-02-18 12:39:04
           </div>
           <!-- 文章 -->
-          <p>我将在这里记录我的学习笔记，主要还是不让贴wp，日后再进行总结</p>
+          <p>在我们调试的时候总会遇到一些突然出现的heap，但是我们并不知道为什么出现，此时很大可能是因为一些函数调用的时候创建的堆块</p>
+<p>我会记录下我遇到的所有函数虽然可能没什么用</p>
+<ul>
+<li>printf()[0x1041]</li>
+<li>fget()[0x1041]</li>
+</ul>
+<p>接下来就是一些记录，没有什么规律</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">fd <span class="token operator">=</span> <span class="token function">open</span><span class="token punctuation">(</span><span class="token string">"/dev/urandom"</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">read</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> <span class="token operator">&amp;</span>buf<span class="token punctuation">,</span> <span class="token number">8uLL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                         <span class="token comment">// 获得随机字节</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;time.h></span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 使用当前时间作为种子</span>
+    <span class="token function">srand</span><span class="token punctuation">(</span><span class="token function">time</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 生成随机数</span>
+    <span class="token keyword">int</span> random_number <span class="token operator">=</span> <span class="token function">rand</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Random number: %d\n"</span><span class="token punctuation">,</span> random_number<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
           <div class="post-tags">
             <!-- 文章tags -->

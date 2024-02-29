@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    堆bug利用总结
+  </title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="sheep">
+  <link rel="canonical" href="http://example.com/2024/02/29/%E5%A0%86bug%E5%88%A9%E7%94%A8%E6%80%BB%E7%BB%93/">
+  
+  
+  <link rel="icon" href='/img/favicon.ico'>
+  
+  
+  
+<link rel="stylesheet" href="/css/b4c95347.css">
+
+  <script>window.i18n = {"tip-status-done":"完成","tip-status-default":"全部","tip-status-todo":"计划","tip-status-doing":"进行","tip-status-other":"其他","text-select":"选择","text-move":"移动","text-esc":"退出","January":"一月","February":"二月","March":"三月","April":"四月","May":"五月","June":"六月","July":"七月","August":"八月","September":"九月","October":"十月","November":"十一月","December":"十二月"}</script>
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body id="app">
+  <aside id="aside-box" class="left-aside">
+    <div class="header">
+      
+<link rel="stylesheet" href="/css/61875ce9.css">
+
+<div class="profile">
+  <a class="badge" href="/">
+    <span>Hi</span>
+    <span>sheep</span>
+  </a>
+  <cosy-tooltip id="left-aside-button" placement="right">
+    <span slot="content">
+      <span>显示 / 隐藏 左侧导航</span>
+      <cosy-short-key>[</cosy-short-key>
+    </span>
+    <cosy-icon>
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+        <g fill="none">
+          <path d="M16 4c1.104-.019 2 .896 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h12zm1 2a1 1 0 0 0-1-1h-2.995v10H16a1 1 0 0 0 1-1V6zm-4.995 9V5H4.001a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8.004z" fill="currentColor"></path>
+        </g>
+      </svg>
+    </cosy-icon>
+  </cosy-tooltip>
+</div>
+
+<script src="/js/a66044b6.js"></script>
+
+      
+
+
+<cosy-search id="post-search" placeholder="搜索">
+  <div slot="short-key">
+    <cosy-short-key>⌘</cosy-short-key>
+    <cosy-short-key>K</cosy-short-key>
+  </div>
+</cosy-search>
+
+
+<script>
+  window.algolia = {
+    appId: "R34LY1BBPU",
+    SearchOnlyAPIKey: "4fd025154505a4b00fb416f52993d700"
+  }
+</script>
+
+
+<script src="/js/5f00f278.js"></script>
+
+    </div>
+    <div class="aside-category">
+      
+<link rel="stylesheet" href="/css/db04a759.css">
+
+
+<nav class="category-nav cosy-scrollbar">
+  <ul><li data-path="archives">
+        <a href="/archives">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M3.5 3A1.5 1.5 0 0 0 2 4.5v4A1.5 1.5 0 0 0 3.5 10h9A1.5 1.5 0 0 0 14 8.5v-4A1.5 1.5 0 0 0 12.5 3h-9zM3 4.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-4zm.5 6.5A1.5 1.5 0 0 0 2 12.5v4A1.5 1.5 0 0 0 3.5 18h9a1.5 1.5 0 0 0 1.5-1.5v-4a1.5 1.5 0 0 0-1.5-1.5h-9zM3 12.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-4zm14-.063a2.003 2.003 0 0 1-2.5-1.937A2 2 0 0 1 16 8.563a2.005 2.005 0 0 1 1 0a2 2 0 0 1 0 3.874zM16.5 3a.5.5 0 0 1 .5.5v4.041a3.02 3.02 0 0 0-1 0V3.5a.5.5 0 0 1 .5-.5zm0 10.5c-.17 0-.337-.014-.5-.041V17.5a.5.5 0 0 0 1 0v-4.041c-.163.027-.33.041-.5.041z" fill="currentColor"></path></g></svg>
+          <div class="ellipsis">归档</div>
+        </a>
+      </li><li data-path="cosy-roadmap">
+        <a href="/cosy-roadmap">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M9.384 2a1 1 0 0 0-.966.742L4.616 17H2.5a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1h-2.116L11.582 2.742A1 1 0 0 0 10.616 2H9.384zM5.651 17l.8-3H11.5a.5.5 0 0 0 0-1H6.717l.534-2H10.5a.5.5 0 0 0 0-1H7.517l1.867-7h1.232l3.733 14H5.651z" fill="currentColor"></path></g></svg>
+          <div class="ellipsis">路线图</div>
+        </a>
+      </li><li data-path="cosy-resume">
+        <a href="/cosy-resume">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M8.5 4.498a1.5 1.5 0 1 1 3 0a1.5 1.5 0 0 1-3 0zm1.5-2.5a2.5 2.5 0 0 0-2.43 3.086L5.471 4.15a1.761 1.761 0 0 0-2.317.88c-.4.882-.008 1.917.877 2.31L7 8.662v2.287l-1.877 4.645a1.75 1.75 0 0 0 3.245 1.311l1.556-3.849a.073.073 0 0 1 .028-.038a.086.086 0 0 1 .046-.012c.02 0 .035.005.046.012a.074.074 0 0 1 .028.038l1.555 3.849a1.75 1.75 0 0 0 3.245-1.311L13 10.96V8.662l2.968-1.322a1.74 1.74 0 0 0 .877-2.31a1.761 1.761 0 0 0-2.317-.88l-2.097.934a2.5 2.5 0 0 0-2.43-3.086zM4.065 5.444a.761.761 0 0 1 1-.38l3.918 1.744a2.5 2.5 0 0 0 2.034 0l3.918-1.744a.761.761 0 0 1 1 .38a.739.739 0 0 1-.373.983l-2.969 1.321a1 1 0 0 0-.593.914v2.298a1 1 0 0 0 .073.375l1.872 4.633a.75.75 0 0 1-1.39.562l-1.556-3.849c-.364-.9-1.639-.9-2.003 0l-1.555 3.85a.75.75 0 1 1-1.39-.562l1.876-4.646A1 1 0 0 0 8 10.95V8.662a1 1 0 0 0-.593-.914L4.438 6.427a.739.739 0 0 1-.373-.983z" fill="currentColor"></path></g></svg>
+          <div class="ellipsis">简历</div>
+        </a>
+      </li><li data-path="link">
+        <a href="/link">
+          <svg t="1705378180027" class="icon" viewBox="-250 -250 1400 1400" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1450" width="200" height="200"><path d="M593.94368 715.648a10.688 10.688 0 0 0-14.976 0L424.21568 870.4c-71.68 71.68-192.576 79.232-271.68 0-79.232-79.232-71.616-200 0-271.616l154.752-154.752a10.688 10.688 0 0 0 0-15.04l-52.992-52.992a10.688 10.688 0 0 0-15.04 0L84.50368 530.688a287.872 287.872 0 0 0 0 407.488 288 288 0 0 0 407.488 0l154.752-154.752a10.688 10.688 0 0 0 0-15.04l-52.736-52.736z m344.384-631.168a288.256 288.256 0 0 1 0 407.616l-154.752 154.752a10.688 10.688 0 0 1-15.04 0l-52.992-52.992a10.688 10.688 0 0 1 0-15.104l154.752-154.688c71.68-71.68 79.232-192.448 0-271.68-79.104-79.232-200-71.68-271.68 0L443.92768 307.2a10.688 10.688 0 0 1-15.04 0l-52.864-52.864a10.688 10.688 0 0 1 0-15.04l154.88-154.752a287.872 287.872 0 0 1 407.424 0z m-296.32 240.896l52.672 52.736a10.688 10.688 0 0 1 0 15.04l-301.504 301.44a10.688 10.688 0 0 1-15.04 0l-52.736-52.672a10.688 10.688 0 0 1 0-15.04l301.632-301.504a10.688 10.688 0 0 1 15.04 0z" fill="currentColor" p-id="1451"></path></svg>
+          <div class="ellipsis">友链</div>
+        </a>
+      </li></ul>
+  <ul><li class="">
+        <a href="/categories/2024ROIS%E5%86%AC%E4%BB%A4%E8%90%A5/">
+          
+          <div class="ellipsis">
+            <span>2024ROIS冬令营</span>
+          </div>
+        </a>
+      </li><li class="">
+        <a href="/categories/Pwn%E7%9F%A5%E8%AF%86/">
+          
+          <div class="ellipsis">
+            <span>Pwn知识</span>
+          </div>
+        </a>
+      </li><li class="">
+        <a href="/categories/%E5%B0%8F%E6%AF%94%E8%B5%9B/">
+          
+          <div class="ellipsis">
+            <span>小比赛</span>
+          </div>
+        </a>
+      </li><li class="active">
+        <a href="/categories/%E6%80%BB%E7%BB%93/">
+          
+          <div class="ellipsis">
+            <span>总结</span>
+          </div>
+        </a>
+      </li></ul>
+</nav>
+
+
+<script src="/js/118098c2.js"></script>
+
+    </div>
+    <div class="bottom">
+      <cosy-tooltip id="button-preference" placement="right">
+        <span slot="content">
+          <span>偏好</span>
+          <cosy-short-key>⌘</cosy-short-key>
+          <cosy-short-key>p</cosy-short-key>
+        </span>
+        <cosy-icon bordered id="button-about-cosy-theme">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 16 16">
+            <g fill="none">
+              <path d="M8 6a2 2 0 1 0 0 4a2 2 0 0 0 0-4zM7 8a1 1 0 1 1 2 0a1 1 0 0 1-2 0zm3.618-3.602a.708.708 0 0 1-.824-.567l-.26-1.416a.354.354 0 0 0-.275-.282a6.072 6.072 0 0 0-2.519 0a.354.354 0 0 0-.275.282l-.259 1.416a.71.71 0 0 1-.936.538l-1.359-.484a.355.355 0 0 0-.382.095c-.569.627-1 1.367-1.262 2.173a.352.352 0 0 0 .108.378l1.102.931a.704.704 0 0 1 0 1.076l-1.102.931a.352.352 0 0 0-.108.378A5.986 5.986 0 0 0 3.53 12.02a.355.355 0 0 0 .382.095l1.36-.484a.708.708 0 0 1 .936.538l.258 1.416c.026.14.135.252.275.281a6.075 6.075 0 0 0 2.52 0a.353.353 0 0 0 .274-.281l.26-1.416a.71.71 0 0 1 .936-.538l1.359.484c.135.048.286.01.382-.095c.569-.627 1-1.367 1.262-2.173a.352.352 0 0 0-.108-.378l-1.102-.931a.703.703 0 0 1 0-1.076l1.102-.931a.352.352 0 0 0 .108-.378A5.985 5.985 0 0 0 12.47 3.98a.355.355 0 0 0-.382-.095l-1.36.484a.71.71 0 0 1-.111.03zm-6.62.58l.937.333a1.71 1.71 0 0 0 2.255-1.3l.177-.97a5.105 5.105 0 0 1 1.265 0l.178.97a1.708 1.708 0 0 0 2.255 1.3L12 4.977c.255.334.467.698.63 1.084l-.754.637a1.704 1.704 0 0 0 0 2.604l.755.637a4.99 4.99 0 0 1-.63 1.084l-.937-.334a1.71 1.71 0 0 0-2.255 1.3l-.178.97a5.099 5.099 0 0 1-1.265 0l-.177-.97a1.708 1.708 0 0 0-2.255-1.3L4 11.023a4.987 4.987 0 0 1-.63-1.084l.754-.638a1.704 1.704 0 0 0 0-2.603l-.755-.637c.164-.386.376-.75.63-1.084z" fill="currentColor"></path>
+            </g>
+          </svg>
+        </cosy-icon>
+      </cosy-tooltip>
+    </div>
+  </aside>
+  <main>
+    
+<link rel="stylesheet" href="/css/9bb9a539.css">
+
+
+<div class="post-container">
+  <header>
+    <div class="left">
+      
+<link rel="stylesheet" href="/css/7d333f9e.css">
+
+<nav class="breadcrumb">
+  <section>
+    <cosy-tooltip placement="bottom-left">
+      <span slot="content"><span>首页</span>
+        <cosy-short-key>⌘</cosy-short-key>
+        <cosy-short-key>H</cosy-short-key>
+      </span>
+      <cosy-icon href="/">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+          <g fill="none">
+            <path d="M8.998 2.388a1.5 1.5 0 0 1 2.005 0l5.5 4.942A1.5 1.5 0 0 1 17 8.445V15.5a1.5 1.5 0 0 1-1.5 1.5H13a1.5 1.5 0 0 1-1.5-1.5V12a.5.5 0 0 0-.5-.5H9a.5.5 0 0 0-.5.5v3.5A1.5 1.5 0 0 1 7 17H4.5A1.5 1.5 0 0 1 3 15.5V8.445c0-.425.18-.83.498-1.115l5.5-4.942zm1.336.744a.5.5 0 0 0-.668 0l-5.5 4.942A.5.5 0 0 0 4 8.445V15.5a.5.5 0 0 0 .5.5H7a.5.5 0 0 0 .5-.5V12A1.5 1.5 0 0 1 9 10.5h2a1.5 1.5 0 0 1 1.5 1.5v3.5a.5.5 0 0 0 .5.5h2.5a.5.5 0 0 0 .5-.5V8.445a.5.5 0 0 0-.166-.371l-5.5-4.942z" fill="currentColor"></path>
+          </g>
+        </svg>
+      </cosy-icon>
+    </cosy-tooltip>
+    
+    
+    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+      <g fill="none">
+        <path d="M7.733 4.207a.75.75 0 0 1 1.06.026l5.001 5.25a.75.75 0 0 1 0 1.035l-5 5.25a.75.75 0 1 1-1.087-1.034L12.216 10l-4.51-4.734a.75.75 0 0 1 .027-1.06z" fill="currentColor"></path>
+      </g>
+    </svg>
+    <a class="ellipsis" href="/categories/%E6%80%BB%E7%BB%93/">
+      总结
+    </a>
+    
+    
+    
+    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+      <g fill="none">
+        <path d="M7.733 4.207a.75.75 0 0 1 1.06.026l5.001 5.25a.75.75 0 0 1 0 1.035l-5 5.25a.75.75 0 1 1-1.087-1.034L12.216 10l-4.51-4.734a.75.75 0 0 1 .027-1.06z" fill="currentColor"></path>
+      </g>
+    </svg>
+    <span class="ellipsis">
+      堆bug利用总结
+    </span>
+    
+  </section>
+</nav>
+
+
+<script src="/js/31d6cfe0.js"></script>
+
+    </div>
+    <div class="right">
+      
+      <cosy-tooltip id="toc-show-button" placement="left">
+        <span slot="content">
+          <span>显示 / 隐藏 文章目录</span>
+          <cosy-short-key>]</cosy-short-key>
+        </span>
+        <cosy-icon>
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+            <g fill="none">
+              <path d="M4 4c-1.104-.019-2 .896-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4zM3 6a1 1 0 0 1 1-1h2.995v10H4a1 1 0 0 1-1-1V6zm4.995 9V5h8.004a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H7.995z" fill="currentColor"></path>
+            </g>
+          </svg>
+        </cosy-icon>
+      </cosy-tooltip>
+      
+    </div>
+  </header>
+  <div class="content">
+    <main class="cosy-scrollbar">
+      <div class="article-container">
+        <!-- 渲染文章内容 -->
+        <article>
+          <!-- 文章标题 -->
+          <h1 class="post-title">堆bug利用总结</h1>
+          <div class="last-updated">
+            上次更新: 2024-02-29 18:19:52
+          </div>
+          <!-- 文章 -->
+          <h1 id="All-bug的利用条件，相关检查，相关例子和小手法"><a href="#All-bug的利用条件，相关检查，相关例子和小手法" class="headerlink" title="All bug的利用条件，相关检查，相关例子和小手法"></a>All bug的利用条件，相关检查，相关例子和小手法</h1><p><strong>配合heap bug note食用</strong></p>
+<h1 id="off-by-one"><a href="#off-by-one" class="headerlink" title="off-by-one"></a>off-by-one</h1><h3 id="off-by-one-利用思路"><a href="#off-by-one-利用思路" class="headerlink" title="off-by-one 利用思路"></a>off-by-one 利用思路</h3><ol>
+<li>溢出字节为可控制任意字节：通过修改大小造成块结构之间出现重叠，从而泄露其他块数据，或是覆盖其他块数据。也可使用 NULL 字节溢出的方法</li>
+<li>溢出字节为 NULL 字节：在 size 为 0x100 的时候，溢出 NULL 字节可以使得 <code>prev_in_use</code> 位被清，这样前块会被认为是 free 块。（1） 这时可以选择使用 unlink 方法（见 unlink 部分）进行处理。（2） 另外，这时 <code>prev_size</code> 域就会启用，就可以伪造 <code>prev_size</code> ，从而造成块之间发生重叠。此方法的关键在于 unlink 的时候没有检查按照 <code>prev_size</code> 找到的块的大小与<code>prev_size</code> 是否一致。</li>
+</ol>
+<h3 id="check"><a href="#check" class="headerlink" title="check"></a>check</h3><p>高版本的unlink：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">/* consolidate backward */</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">prev_inuse</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      prevsize <span class="token operator">=</span> <span class="token function">prev_size</span> <span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      size <span class="token operator">+=</span> prevsize<span class="token punctuation">;</span>
+      p <span class="token operator">=</span> <span class="token function">chunk_at_offset</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">long</span><span class="token punctuation">)</span> prevsize<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">/* 后两行代码在最新版本中加入，则 2 的第二种方法无法使用，但是 2.28 及之前都没有问题 */</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">__glibc_unlikely</span> <span class="token punctuation">(</span><span class="token function">chunksize</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token operator">!=</span> prevsize<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token function">malloc_printerr</span> <span class="token punctuation">(</span><span class="token string">"corrupted size vs. prev_size while consolidating"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">unlink_chunk</span> <span class="token punctuation">(</span>av<span class="token punctuation">,</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><ol>
+<li>for 循环的边界没有控制好导致写入多执行了一次</li>
+<li>strlen 和 strcpy 的行为不一致却导致了 off-by-one 的发生**。 **strlen 这个函数在计算字符串长度时是不把结束符 <code>\x00</code> 计算在内的，但是 strcpy 在复制字符串时会拷贝结束符 <code>\x00</code></li>
+</ol>
+<h2 id="Chunk-Extend-and-Overlapping"><a href="#Chunk-Extend-and-Overlapping" class="headerlink" title="Chunk Extend and Overlapping"></a>Chunk Extend and Overlapping</h2><h3 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h3><ul>
+<li>程序中存在基于堆的漏洞</li>
+<li>漏洞可以控制 chunk header 中的数据</li>
+</ul>
+<p><strong>ptmalloc 通过 chunk header 的数据判断 chunk 的使用情况和对 chunk 的前后块进行定位。</strong>简而言之，chunk extend 就是通过控制 size 和 pre_size 域来实现跨越块操作从而导致 overlapping 的。</p>
+<h3 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h3><ol>
+<li>对 inuse 的 fastbin 进行 extend</li>
+<li>对 inuse 的 smallbin 进行 extend</li>
+<li>对 free 的 smallbin 进行 extend</li>
+<li>通过 extend 后向 overlapping</li>
+<li>通过 extend 前向 overlapping</li>
+</ol>
+<p>通过<strong>修改 pre_size 域可以跨越多个 chunk 进行合并实现 overlapping</strong>。</p>
+<h1 id="Unlink"><a href="#Unlink" class="headerlink" title="Unlink"></a>Unlink</h1><p>只有free中的_int_free调用了unlink宏</p>
+<h3 id="check-1"><a href="#check-1" class="headerlink" title="check"></a>check</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// 由于 P 已经在双向链表中，所以有两个地方记录其大小，所以检查一下其大小是否一致(size检查)</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">__builtin_expect</span> <span class="token punctuation">(</span><span class="token function">chunksize</span><span class="token punctuation">(</span>P<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token function">prev_size</span> <span class="token punctuation">(</span><span class="token function">next_chunk</span><span class="token punctuation">(</span>P<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>      
+      <span class="token function">malloc_printerr</span> <span class="token punctuation">(</span><span class="token string">"corrupted size vs. prev_size"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>               
+<span class="token comment">// 检查 fd 和 bk 指针(双向链表完整性检查)</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">__builtin_expect</span> <span class="token punctuation">(</span>FD<span class="token operator">-></span>bk <span class="token operator">!=</span> P <span class="token operator">||</span> BK<span class="token operator">-></span>fd <span class="token operator">!=</span> P<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>                      
+  <span class="token function">malloc_printerr</span> <span class="token punctuation">(</span>check_action<span class="token punctuation">,</span> <span class="token string">"corrupted double-linked list"</span><span class="token punctuation">,</span> P<span class="token punctuation">,</span> AV<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+
+  <span class="token comment">// largebin 中 next_size 双向链表完整性检查 </span>
+              <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">__builtin_expect</span> <span class="token punctuation">(</span>P<span class="token operator">-></span>fd_nextsize<span class="token operator">-></span>bk_nextsize <span class="token operator">!=</span> P<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>              
+                <span class="token operator">||</span> <span class="token function">__builtin_expect</span> <span class="token punctuation">(</span>P<span class="token operator">-></span>bk_nextsize<span class="token operator">-></span>fd_nextsize <span class="token operator">!=</span> P<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    
+              <span class="token function">malloc_printerr</span> <span class="token punctuation">(</span>check_action<span class="token punctuation">,</span>                                      
+                               <span class="token string">"corrupted double-linked list (not small)"</span><span class="token punctuation">,</span>    
+                               P<span class="token punctuation">,</span> AV<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">FD<span class="token operator">=</span>P<span class="token operator">-></span>fd
+BK<span class="token operator">=</span>P<span class="token operator">-></span>bk
+FD<span class="token operator">-></span>bk <span class="token operator">=</span> BK
+BK<span class="token operator">-></span>fd <span class="token operator">=</span> FD<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>将 nextchunk 的 FD 指针指向了 fakeFD，将 nextchunk 的 BK 指针指向了 fakeBK 。那么为了通过验证，我们需要</p>
+<ul>
+<li><code>fakeFD -&gt; bk == P</code> &lt;&#x3D;&gt; <code>*(fakeFD + 12) == P</code></li>
+<li><code>fakeBK -&gt; fd == P</code> &lt;&#x3D;&gt; <code>*(fakeBK + 8) == P</code></li>
+</ul>
+<p>当满足上述两式时，可以进入 Unlink 的环节，进行如下操作：</p>
+<ul>
+<li><code>fakeFD -&gt; bk = fakeBK</code> &lt;&#x3D;&gt; <code>*(fakeFD + 12) = fakeBK</code></li>
+<li><code>fakeBK -&gt; fd = fakeFD</code> &lt;&#x3D;&gt; <code>*(fakeBK + 8) = fakeFD</code></li>
+</ul>
+<p><strong>简而言之，unlink实现的效果就使得要unlink的chunk的fd和bk分别所指向的chunk的bk&#x2F;fd发生改变</strong></p>
+<h1 id="Use-After-Free"><a href="#Use-After-Free" class="headerlink" title="Use After Free"></a>Use After Free</h1><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>内存块被释放后，其对应的指针没有被设置为 NULL ，然后在它下一次被使用之前，没有代码对这块内存块进行修改，那么<strong>程序很有可能可以正常运转</strong>。</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">+</span>                       
+<span class="token operator">|</span>   printnote函数  <span class="token operator">|</span>                       
+<span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">+</span>                       
+<span class="token operator">|</span>   content       <span class="token operator">|</span>       size              
+<span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-></span><span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span>
+                                       <span class="token operator">|</span>     real       <span class="token operator">|</span>
+                                       <span class="token operator">|</span>    content     <span class="token operator">|</span>
+                                       <span class="token operator">|</span>                <span class="token operator">|</span>
+                                       <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这个结构体的real content在free后没有置NULL</p>
+<ul>
+<li>申请 note0，real content size 为 16（大小与 note 大小所在的 bin 不一样即可）</li>
+<li>申请 note1，real content size 为 16（<strong>大小与 note 大小所在的 bin 不一样即可</strong>）</li>
+<li>释放 note0</li>
+<li>释放 note1</li>
+<li>此时，<strong>大小为 16 的 fast bin chunk 中链表为 note1-&gt;note0</strong></li>
+<li><strong>申请 note2，并且设置 real content 的大小为 8</strong>，那么根据堆的分配规则</li>
+<li><strong>note2 其实会分配 note1 对应的内存块。</strong></li>
+<li><strong>real content 对应的 chunk 其实是 note0</strong>。</li>
+<li>如果我们这时候向 note2 real content 的 chunk 部分写入 magic 的地址，那么由于我们没有 note0 为 NULL。<strong>当我们再次尝试输出 note0 的时候，程序就会调用 magic 函数。</strong></li>
+</ul>
+<h1 id="Fastbin-Attack"><a href="#Fastbin-Attack" class="headerlink" title="Fastbin Attack"></a>Fastbin Attack</h1><h3 id="利用前提"><a href="#利用前提" class="headerlink" title="利用前提"></a>利用前提</h3><ul>
+<li><strong>存在堆溢出、use-after-free 等能控制 chunk 内容的漏洞</strong></li>
+<li><strong>漏洞发生于 fastbin 类型的 chunk 中</strong></li>
+</ul>
+<p>如果细分的话，可以做如下的分类：</p>
+<ul>
+<li><strong>Fastbin Double Free</strong></li>
+<li><strong>House of Spirit</strong></li>
+<li><strong>Alloc to Stack</strong></li>
+<li><strong>Arbitrary Alloc</strong></li>
+</ul>
+<p>其中，前两种主要漏洞侧重于利用 <code>free</code> 函数释放<strong>真的 chunk 或伪造的 chunk</strong>，然后再次申请 chunk 进行攻击，后两种侧重于<strong>故意修改 <code>fd</code> 指针</strong>，直接利用 <code>malloc</code> 申请指定位置 chunk 进行攻击。</p>
+<h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><p>fastbin attack 存在的原因在于 fastbin 是使用单链表来维护释放的堆块的，并且由 fastbin 管理的 chunk 即使被释放，其 next_chunk 的 prev_inuse 位也不会被清空。</p>
+<h2 id="Fastbin-Double-Free"><a href="#Fastbin-Double-Free" class="headerlink" title="Fastbin Double Free"></a>Fastbin Double Free</h2><h3 id="check-2"><a href="#check-2" class="headerlink" title="check"></a>check</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">/* Another simple check: make sure the top of the bin is not the
+       record we are going to add (i.e., double free).  */</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">__builtin_expect</span> <span class="token punctuation">(</span>old <span class="token operator">==</span> p<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">&#123;</span>
+        errstr <span class="token operator">=</span> <span class="token string">"double free or corruption (fasttop)"</span><span class="token punctuation">;</span>
+        <span class="token keyword">goto</span> errout<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>只检查了相邻的两个fastbin是不是一样的</p>
+<h3 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h3><p>Fastbin为FIFO机制</p>
+<p>第一次释放<code>free(chunk1)</code></p>
+<p><img src="https://ctf-wiki.org/pwn/linux/user-mode/heap/ptmalloc2/figure/fastbin_free_chunk1.png" alt="img"></p>
+<p>第二次释放<code>free(chunk2)</code></p>
+<p><img src="https://ctf-wiki.org/pwn/linux/user-mode/heap/ptmalloc2/figure/fastbin_free_chunk2.png" alt="img"></p>
+<p>第三次释放<code>free(chunk1)</code></p>
+<p><img src="https://ctf-wiki.org/pwn/linux/user-mode/heap/ptmalloc2/figure/fastbin_free_chunk3.png" alt="img"></p>
+<p>之后malloc一个将chunk1释放出去，然后再修改chunk1的fd内容构造main_arena&#x3D;&gt;chun2&#x3D;&gt;chunk1&#x3D;&gt;target_addr</p>
+<p>但是_int_malloc 会对<strong>欲分配位置的 size 域进行验证</strong>，如果其 size 与当前 fastbin 链表应有 size 不符就会抛出异常</p>
+<h2 id="House-Of-Spirit"><a href="#House-Of-Spirit" class="headerlink" title="House Of Spirit"></a>House Of Spirit</h2><h3 id="原理-3"><a href="#原理-3" class="headerlink" title="原理"></a>原理</h3><p>该技术的核心在于在目标位置处伪造 fastbin chunk，并将其释放，从而达到分配<strong>指定地址</strong>的 chunk 的目的。</p>
+<h3 id="利用条件-1"><a href="#利用条件-1" class="headerlink" title="利用条件"></a>利用条件</h3><ul>
+<li>fake chunk 的 <strong>ISMMAP 位不能为 1</strong>，因为 free 时，如果是 mmap 的 chunk，会单独处理。</li>
+<li>fake chunk <strong>地址需要对齐</strong>， MALLOC_ALIGN_MASK</li>
+<li>fake chunk 的 size 大小需要<strong>满足对应的 fastbin 的需求</strong>，同时也得<strong>对齐</strong>。</li>
+<li>fake chunk 的 **next chunk 的大小不能小于 <code>2 * SIZE_SZ</code>**，同时也不能大于<code>av-&gt;system_mem</code> 。</li>
+<li>fake chunk 对应的 fastbin <strong>链表头部不能是该 fake chunk</strong>，即不能构成 double free 的情况。</li>
+</ul>
+<h2 id="Alloc-to-Stack"><a href="#Alloc-to-Stack" class="headerlink" title="Alloc to Stack"></a>Alloc to Stack</h2><h3 id="原理-4"><a href="#原理-4" class="headerlink" title="原理"></a>原理</h3><p><strong>劫持 fastbin 链表中 chunk 的 fd 指针</strong>，把 fd 指针<strong>指向我们想要分配的栈上</strong>，从而实现控制栈中的一些关键数据，比如返回地址等。</p>
+<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">typedef</span> <span class="token keyword">struct</span> <span class="token class-name">_chunk</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">long</span> <span class="token keyword">long</span> pre_size<span class="token punctuation">;</span>
+    <span class="token keyword">long</span> <span class="token keyword">long</span> size<span class="token punctuation">;</span>
+    <span class="token keyword">long</span> <span class="token keyword">long</span> fd<span class="token punctuation">;</span>
+    <span class="token keyword">long</span> <span class="token keyword">long</span> bk<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span> CHUNK<span class="token punctuation">,</span><span class="token operator">*</span>PCHUNK<span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    CHUNK stack_chunk<span class="token punctuation">;</span>
+
+    <span class="token keyword">void</span> <span class="token operator">*</span>chunk1<span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token operator">*</span>chunk_a<span class="token punctuation">;</span>
+
+    stack_chunk<span class="token punctuation">.</span>size<span class="token operator">=</span><span class="token number">0x21</span><span class="token punctuation">;</span>
+    chunk1<span class="token operator">=</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">0x10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">free</span><span class="token punctuation">(</span>chunk1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">long</span> <span class="token keyword">long</span> <span class="token operator">*</span><span class="token punctuation">)</span>chunk1<span class="token operator">=</span><span class="token operator">&amp;</span>stack_chunk<span class="token punctuation">;</span>  <span class="token comment">//劫持fd指针</span>
+    <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">0x10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    chunk_a<span class="token operator">=</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">0x10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过该技术我们可以<strong>把 fastbin chunk 分配到栈中</strong>，从而<strong>控制返回地址等关键数据</strong>。要实现这一点我们需要劫持 fastbin 中 chunk 的 fd 域，把它指到栈上，当然同时需要栈上存在有满足条件的 size 值。</p>
+<h2 id="Arbitrary-Alloc"><a href="#Arbitrary-Alloc" class="headerlink" title="Arbitrary Alloc"></a>Arbitrary Alloc</h2><p>Arbitrary Alloc 其实与 Alloc to stack 是完全相同的，唯一的区别是分配的目标不再是栈中。 事实上只要满足目标地址存在合法的 size 域（这个 size 域是构造的，还是自然存在的都无妨），我们可以把 chunk 分配到任意的可写内存中，比如 bss、heap、data、stack 等等。</p>
+<h4 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h4><p>Arbitrary Alloc 在 CTF 中用地更加频繁。我们可以<strong>利用字节错位等方法来绕过 size 域的检验</strong>，<strong>实现任意地址分配 chunk</strong>，最后的效果<strong>也就相当于任意地址写任意值</strong>。</p>
+<h1 id="Unsorted-Bin-Attack"><a href="#Unsorted-Bin-Attack" class="headerlink" title="Unsorted Bin Attack"></a>Unsorted Bin Attack</h1><p>Unsorted Bin 在使用的过程中，采用的遍历顺序是 FIFO</p>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><p><strong>初始状态时</strong></p>
+<p>unsorted bin 的 fd 和 bk 均指向 unsorted bin 本身。</p>
+<p><strong>执行 free(p)</strong></p>
+<p>由于释放的 chunk 大小不属于 fast bin 范围内，所以会首先放入到 unsorted bin 中。</p>
+<p><strong>修改 p[1]</strong></p>
+<p>经过修改之后，原来在 unsorted bin 中的 p 的 bk 指针就会指向 target addr-16 处伪造的 chunk，即 Target Value 处于伪造 chunk 的 fd 处。</p>
+<p><strong>申请 400 大小的 chunk</strong></p>
+<p>此时，所申请的 chunk 处于 small bin 所在的范围，其对应的 bin 中暂时没有 chunk，所以会去 unsorted bin 中找，发现 unsorted bin 不空，于是把 unsorted bin 中的最后一个 chunk 拿出来。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210115162039295.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjAyMjM3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>就会变成这样，因为有个条件没有满足，因此unsorted bin链表被破坏，但是target的值被改成了unsorted bin的地址，</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ul>
+<li><strong>我们通过修改循环的次数来使得程序可以执行多次循环。</strong></li>
+<li><strong>我们可以修改 heap 中的 global_max_fast 来使得更大的 chunk 可以被视为 fast bin，这样我们就可以去执行一些 fast bin attack 了。</strong></li>
+</ul>
+<h1 id="Large-Bin-Attack"><a href="#Large-Bin-Attack" class="headerlink" title="Large Bin Attack"></a>Large Bin Attack</h1><h3 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"> <span class="token number">1</span> <span class="token comment">// gcc -g -no-pie hollk.c -o hollk</span>
+ <span class="token number">2</span> #include <span class="token operator">&lt;</span>stdio<span class="token punctuation">.</span>h<span class="token operator">></span>
+ <span class="token number">3</span> #include <span class="token operator">&lt;</span>stdlib<span class="token punctuation">.</span>h<span class="token operator">></span>
+ <span class="token number">4</span> 
+ <span class="token number">5</span> <span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ <span class="token number">6</span> <span class="token punctuation">&#123;</span>
+ <span class="token number">7</span> 
+ <span class="token number">8</span>     <span class="token keyword">unsigned</span> <span class="token keyword">long</span> stack_var1 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+ <span class="token number">9</span>     <span class="token keyword">unsigned</span> <span class="token keyword">long</span> stack_var2 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token number">10</span> 
+<span class="token number">11</span>     <span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span> <span class="token string">"stack_var1 (%p): %ld\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>stack_var1<span class="token punctuation">,</span> stack_var1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">12</span>     <span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span> <span class="token string">"stack_var2 (%p): %ld\n\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>stack_var2<span class="token punctuation">,</span> stack_var2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">13</span> 
+<span class="token number">14</span>     <span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token operator">*</span>p1 <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">0x320</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">15</span>     <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">0x20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">16</span>     <span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token operator">*</span>p2 <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">0x400</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">17</span>     <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">0x20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">18</span>     <span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token operator">*</span>p3 <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">0x400</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">19</span>     <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">0x20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">20</span> 
+<span class="token number">21</span>     <span class="token function">free</span><span class="token punctuation">(</span>p1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">22</span>     <span class="token function">free</span><span class="token punctuation">(</span>p2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">23</span> 
+<span class="token number">24</span>     <span class="token keyword">void</span><span class="token operator">*</span> p4 <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">0x90</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">25</span> 
+<span class="token number">26</span>     <span class="token function">free</span><span class="token punctuation">(</span>p3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">27</span> 
+<span class="token number">28</span>     p2<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x3f1</span><span class="token punctuation">;</span>
+<span class="token number">29</span>     p2<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token number">30</span>     p2<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token number">31</span>     p2<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">long</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>stack_var1 <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">32</span>     p2<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">long</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>stack_var2 <span class="token operator">-</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">33</span> 
+<span class="token number">34</span>     <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">0x90</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">35</span> 
+<span class="token number">36</span>     <span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span> <span class="token string">"stack_var1 (%p): %p\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>stack_var1<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span>stack_var1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">37</span>     <span class="token function">fprintf</span><span class="token punctuation">(</span><span class="token constant">stderr</span><span class="token punctuation">,</span> <span class="token string">"stack_var2 (%p): %p\n"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>stack_var2<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span>stack_var2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token number">38</span> 
+<span class="token number">39</span>     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token number">40</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="https://img-blog.csdnimg.cn/20210120161024708.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjAyMjM3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><strong>stack_var1和stack_var2中的值已经被修改成了P3的头指针</strong></p>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><strong>可以修改一个 large bin chunk 的 data</strong></li>
+<li><strong>从 unsorted bin 中来的 large bin chunk 要紧跟在被构造过的 chunk 的后面</strong></li>
+<li><strong>通过 large bin attack 可以辅助 Tcache Stash Unlink+ 攻击</strong></li>
+<li><strong>可以修改 _IO_list_all 便于伪造 _IO_FILE 结构体进行 FSOP。</strong></li>
+</ul>
+<h1 id="Tcache-attack"><a href="#Tcache-attack" class="headerlink" title="Tcache attack"></a>Tcache attack</h1><h3 id="原理-5"><a href="#原理-5" class="headerlink" title="原理"></a>原理</h3><p>内存分配的 malloc 函数中有多处，会将内存块移入 tcache 中。</p>
+<p><strong>（1）首先，申请的内存块符合 fastbin 大小时并且在 fastbin 内找到可用的空闲块时，会把该 fastbin 链上的其他内存块放入 tcache 中。</strong></p>
+<p><strong>（2）其次，申请的内存块符合 smallbin 大小时并且在 smallbin 内找到可用的空闲块时，会把该 smallbin 链上的其他内存块放入 tcache 中。</strong></p>
+<p><strong>（3）当在 unsorted bin 链上循环处理时，当找到大小合适的链时，并不直接返回，而是先放到 tcache 中，继续处理。</strong></p>
+<h2 id="tcache-poisoning"><a href="#tcache-poisoning" class="headerlink" title="tcache poisoning"></a>tcache poisoning</h2><h3 id="原理-6"><a href="#原理-6" class="headerlink" title="原理"></a>原理</h3><p>通过覆盖 tcache 中的 next，不需要伪造任何 chunk 结构即<strong>可实现 malloc 到任何地址</strong>。</p>
+<p>tcache的next指针与fd指针在同一位置</p>
+<h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token class-name">size_t</span> target<span class="token punctuation">;</span>
+<span class="token class-name">intptr_t</span> <span class="token operator">*</span>a <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">128</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">intptr_t</span> <span class="token operator">*</span>b <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">128</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">free</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">free</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+b<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">intptr_t</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>target<span class="token punctuation">;</span>
+<span class="token class-name">intptr_t</span> <span class="token operator">*</span>c <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">128</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"malloc_point is target: %p\n"</span><span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="tcache-dup"><a href="#tcache-dup" class="headerlink" title="tcache dup"></a>tcache dup</h2><h3 id="原理-7"><a href="#原理-7" class="headerlink" title="原理"></a>原理</h3><p>tcache_put() 的检查可以忽略不计</p>
+<h3 id="实现-2"><a href="#实现-2" class="headerlink" title="实现"></a>实现</h3><p>因为没有任何检查，所以我们可以<strong>对同一个 chunk 多次 free，造成 cycliced list。</strong></p>
+<p>最新的 <strong>libc 2.29</strong> 的 <a target="_blank" rel="noopener" href="https://sourceware.org/git/gitweb.cgi?p=glibc.git;a=blobdiff;f=malloc/malloc.c;h=f730d7a2ee496d365bf3546298b9d19b8bddc0d0;hp=6d7a6a8cabb4edbf00881cb7503473a8ed4ec0b7;hb=bcdaad21d4635931d1bd3b54a7894276925d081d;hpb=5770c0ad1e0c784e817464ca2cf9436a58c9beb7">commit</a> 中更新了 Tcache 的 double free 的 check</p>
+<p>目前为止，只看到了<strong>在 free 操作的时候的 check</strong> ，似乎没有对 get 进行新的 check。</p>
+<h2 id="tcache-perthread-corruption"><a href="#tcache-perthread-corruption" class="headerlink" title="tcache perthread corruption"></a>tcache perthread corruption</h2><h3 id="原理-8"><a href="#原理-8" class="headerlink" title="原理"></a>原理</h3><p><code>tcache_perthread_struct</code> 是整个 tcache 的管理结构</p>
+<h3 id="实现-3"><a href="#实现-3" class="headerlink" title="实现"></a>实现</h3><p>设想有如下的堆排布情况</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">tcache_    <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span>
+\perthread <span class="token operator">|</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>      <span class="token operator">|</span>
+\_struct   <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span>
+           <span class="token operator">|</span>counts<span class="token punctuation">[</span>i<span class="token punctuation">]</span>   <span class="token operator">|</span>
+           <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span>
+           <span class="token operator">|</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>      <span class="token operator">|</span>          <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span>
+           <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span>          <span class="token operator">|</span>header    <span class="token operator">|</span>
+           <span class="token operator">|</span>entries<span class="token punctuation">[</span>i<span class="token punctuation">]</span>  <span class="token operator">|</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-></span><span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span>
+           <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span>          <span class="token operator">|</span><span class="token constant">NULL</span>      <span class="token operator">|</span>
+           <span class="token operator">|</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>      <span class="token operator">|</span>          <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span>
+           <span class="token operator">|</span>            <span class="token operator">|</span>          <span class="token operator">|</span>          <span class="token operator">|</span>
+           <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span>          <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>通过一些手段（如 <code>tcache posioning</code>），我们将其改为了</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">tcache_    <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span><span class="token operator">&lt;</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">+</span>
+\perthread <span class="token operator">|</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>      <span class="token operator">|</span>                            <span class="token operator">|</span>
+\_struct   <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span>                            <span class="token operator">|</span>
+           <span class="token operator">|</span>counts<span class="token punctuation">[</span>i<span class="token punctuation">]</span>   <span class="token operator">|</span>                            <span class="token operator">|</span>
+           <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span>                            <span class="token operator">|</span>
+           <span class="token operator">|</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>      <span class="token operator">|</span>          <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span>      <span class="token operator">|</span>
+           <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span>          <span class="token operator">|</span>header    <span class="token operator">|</span>      <span class="token operator">|</span>
+           <span class="token operator">|</span>entries<span class="token punctuation">[</span>i<span class="token punctuation">]</span>  <span class="token operator">|</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-></span><span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span>      <span class="token operator">|</span>
+           <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span>          <span class="token operator">|</span>target    <span class="token operator">|</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span>
+           <span class="token operator">|</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>      <span class="token operator">|</span>          <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span>
+           <span class="token operator">|</span>            <span class="token operator">|</span>          <span class="token operator">|</span>          <span class="token operator">|</span>
+           <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span>          <span class="token operator">+</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">+</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这样，两次 malloc 后我们就返回了 <code>tcache_perthread_struct</code> 的地址，就可以控制整个 tcache 了。</p>
+<h2 id="tcache-house-of-spirit"><a href="#tcache-house-of-spirit" class="headerlink" title="tcache house of spirit"></a>tcache house of spirit</h2><h3 id="原理-9"><a href="#原理-9" class="headerlink" title="原理"></a>原理</h3><p>由于tcache_put()函数检查不严格造成的，在释放的时候没有检查被释放的指针是否真的是堆块的malloc指针，如果我们<strong>构造一个size符合tcache bin size的fake_chunk</strong>，那么理论上讲其实<strong>可以将任意地址作为chunk进行释放</strong>。</p>
+<h2 id="libc-leak"><a href="#libc-leak" class="headerlink" title="libc leak"></a>libc leak</h2><p>在 2.26 之后的 libc 版本后，我们首先得先把 tcache 填满</p>
+<h2 id="tcache-stashing-unlink-attack"><a href="#tcache-stashing-unlink-attack" class="headerlink" title="tcache stashing unlink attack"></a>tcache stashing unlink attack</h2><h3 id="手法"><a href="#手法" class="headerlink" title="手法"></a>手法</h3><p><strong>简单来说就是在smallbin里面构造一个至少两个bin的chunk链，其中最后进入的(因为smallbin是FIFO)chunk的bk指向任意地址，那么smallbin就构造成了多一个chunk的链这时候calloc一个chunk，其余chunk进入tcache(保证刚好够得到任意地址进入tcache)，那么此时再malloc一个chunk，就malloc到了任意地址，就是先对任意地址的修改</strong></p>
+
+          <div class="post-tags">
+            <!-- 文章tags -->
+            
+          </div>
+          <p class="motto">重拾纯粹的写作</p>
+        </article>
+        <!-- 评论 -->
+        <div id="vcomments"></div>
+      </div>
+    </main>
+    <!-- toc -->
+    
+    <cosy-drag-box id="toc-drag-box" trigger="left" min-width="220" uid="toc-box">
+      <div class="meta-container">
+        <div class="toc-wrapper cosy-scrollbar">
+          <p class="catalog">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
+              <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 6h16"></path>
+                <path d="M4 12h16"></path>
+                <path d="M4 18h12"></path>
+              </g>
+            </svg>
+            <span>目录</span>
+          </p>
+          <!-- 文章toc -->
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#All-bug%E7%9A%84%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6%EF%BC%8C%E7%9B%B8%E5%85%B3%E6%A3%80%E6%9F%A5%EF%BC%8C%E7%9B%B8%E5%85%B3%E4%BE%8B%E5%AD%90%E5%92%8C%E5%B0%8F%E6%89%8B%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">All bug的利用条件，相关检查，相关例子和小手法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#off-by-one"><span class="toc-number">2.</span> <span class="toc-text">off-by-one</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#off-by-one-%E5%88%A9%E7%94%A8%E6%80%9D%E8%B7%AF"><span class="toc-number">2.0.1.</span> <span class="toc-text">off-by-one 利用思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#check"><span class="toc-number">2.0.2.</span> <span class="toc-text">check</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-number">2.0.3.</span> <span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chunk-Extend-and-Overlapping"><span class="toc-number">2.1.</span> <span class="toc-text">Chunk Extend and Overlapping</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.1.1.</span> <span class="toc-text">利用条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90-1"><span class="toc-number">2.1.2.</span> <span class="toc-text">例子</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Unlink"><span class="toc-number">3.</span> <span class="toc-text">Unlink</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#check-1"><span class="toc-number">3.0.1.</span> <span class="toc-text">check</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.0.2.</span> <span class="toc-text">实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Use-After-Free"><span class="toc-number">4.</span> <span class="toc-text">Use After Free</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">4.0.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">4.0.2.</span> <span class="toc-text">示例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Fastbin-Attack"><span class="toc-number">5.</span> <span class="toc-text">Fastbin Attack</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E5%89%8D%E6%8F%90"><span class="toc-number">5.0.1.</span> <span class="toc-text">利用前提</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-1"><span class="toc-number">5.0.2.</span> <span class="toc-text">原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fastbin-Double-Free"><span class="toc-number">5.1.</span> <span class="toc-text">Fastbin Double Free</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#check-2"><span class="toc-number">5.1.1.</span> <span class="toc-text">check</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-2"><span class="toc-number">5.1.2.</span> <span class="toc-text">原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#House-Of-Spirit"><span class="toc-number">5.2.</span> <span class="toc-text">House Of Spirit</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-3"><span class="toc-number">5.2.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6-1"><span class="toc-number">5.2.2.</span> <span class="toc-text">利用条件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Alloc-to-Stack"><span class="toc-number">5.3.</span> <span class="toc-text">Alloc to Stack</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-4"><span class="toc-number">5.3.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-1"><span class="toc-number">5.3.2.</span> <span class="toc-text">示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.3.3.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Arbitrary-Alloc"><span class="toc-number">5.4.</span> <span class="toc-text">Arbitrary Alloc</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Unsorted-Bin-Attack"><span class="toc-number">6.</span> <span class="toc-text">Unsorted Bin Attack</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-number">6.0.1.</span> <span class="toc-text">流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-number">6.0.2.</span> <span class="toc-text">作用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Large-Bin-Attack"><span class="toc-number">7.</span> <span class="toc-text">Large Bin Attack</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8"><span class="toc-number">7.0.1.</span> <span class="toc-text">利用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-1"><span class="toc-number">7.0.2.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tcache-attack"><span class="toc-number">8.</span> <span class="toc-text">Tcache attack</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-5"><span class="toc-number">8.0.1.</span> <span class="toc-text">原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tcache-poisoning"><span class="toc-number">8.1.</span> <span class="toc-text">tcache poisoning</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-6"><span class="toc-number">8.1.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0-1"><span class="toc-number">8.1.2.</span> <span class="toc-text">实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tcache-dup"><span class="toc-number">8.2.</span> <span class="toc-text">tcache dup</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-7"><span class="toc-number">8.2.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0-2"><span class="toc-number">8.2.2.</span> <span class="toc-text">实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tcache-perthread-corruption"><span class="toc-number">8.3.</span> <span class="toc-text">tcache perthread corruption</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-8"><span class="toc-number">8.3.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0-3"><span class="toc-number">8.3.2.</span> <span class="toc-text">实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tcache-house-of-spirit"><span class="toc-number">8.4.</span> <span class="toc-text">tcache house of spirit</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-9"><span class="toc-number">8.4.1.</span> <span class="toc-text">原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#libc-leak"><span class="toc-number">8.5.</span> <span class="toc-text">libc leak</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tcache-stashing-unlink-attack"><span class="toc-number">8.6.</span> <span class="toc-text">tcache stashing unlink attack</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E6%B3%95"><span class="toc-number">8.6.1.</span> <span class="toc-text">手法</span></a></li></ol></li></ol></li></ol>
+        </div>
+      </div>
+    </cosy-drag-box>
+    
+  </div>
+
+</div>
+
+<script>
+  window.page = {
+    use: 'valine'
+  }
+  window.katex = {
+    enable: "",
+    jsCdn: "//cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js",
+    cssCdn: "//cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css"
+  }
+  window.mermaid = {
+    enable: "",
+    theme: "",
+    cdn: "//cdn.jsdelivr.net/npm/mermaid@10.4.0/dist/mermaid.min.js",
+  }
+  window.valine = {
+    enable: "",
+    appId: '4Q4EAMdq8elmFDwiIj0R0Z80-gzGzoHsz',
+    appKey: 'JRv5ulQZAwmbGgfeetCXRvoW',
+    avatar: 'monsterid',
+    cdn: '//unpkg.com/valine@latest/dist/Valine.min.js',
+    serverURLs: ''
+  };
+</script>
+
+
+<script src="/js/0af3d6bb.js"></script>
+
+  </main>
+</body>
+
+<script>
+  window.theme = {
+    color: 'hsl(238,50%,56%)'
+  }
+</script>
+
+
+<script src="/js/69a216b6.js"></script>
+
+
+</html>

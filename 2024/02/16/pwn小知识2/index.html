@@ -218,7 +218,7 @@
           <!-- 文章标题 -->
           <h1 class="post-title">pwn小知识2</h1>
           <div class="last-updated">
-            上次更新: 2024-02-18 12:39:04
+            上次更新: 2024-02-25 20:25:42
           </div>
           <!-- 文章 -->
           <p>在我们调试的时候总会遇到一些突然出现的heap，但是我们并不知道为什么出现，此时很大可能是因为一些函数调用的时候创建的堆块</p>
@@ -247,6 +247,15 @@
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>**<code>fread</code>**函数是C标准库中用于从文件中读取数据的函数。它的原型如下：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token class-name">size_t</span> <span class="token function">fread</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>ptr<span class="token punctuation">,</span> <span class="token class-name">size_t</span> size<span class="token punctuation">,</span> <span class="token class-name">size_t</span> count<span class="token punctuation">,</span> FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>该函数从指定的文件流（stream）中读取数据，并将其存储到指定的内存缓冲区（ptr）中。参数size指定每个元素的大小（以字节为单位），而参数count指定要读取的元素数量。</p>
+<p>fread函数的返回值是实际读取的元素数量。如果返回值与count不相等，可能表示发生了错误或到达了文件结尾。</p>
+<p>**<code>strtol</code>**函数是C标准库中的一个函数，用于将字符串转换为长整型数值。它的原型如下：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">long</span> <span class="token function">strtol</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>nptr<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>endptr<span class="token punctuation">,</span> <span class="token keyword">int</span> base<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>该函数将字符串<code>nptr</code>中的内容解析为长整型数值，并返回结果。参数<code>endptr</code>是一个指向字符指针的指针，用于存储转换后的字符串的结束位置。参数<code>base</code>指定了进制，可以是 0、2-36之间的任意整数。当<code>base</code>为 0 时，函数会根据字符串的前缀来确定进制（0x 或 0X 表示十六进制，0 表示八进制，其他情况为十进制）。</p>
 
           <div class="post-tags">
             <!-- 文章tags -->

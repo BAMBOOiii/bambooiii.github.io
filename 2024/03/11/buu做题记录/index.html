@@ -239,14 +239,14 @@
           <!-- 文章标题 -->
           <h1 class="post-title">buu做题记录</h1>
           <div class="last-updated">
-            上次更新: 2024-03-11 23:08:46
+            上次更新: 2024-03-11 23:11:48
           </div>
           <!-- 文章 -->
           <h1 id="buu做题记录1"><a href="#buu做题记录1" class="headerlink" title="buu做题记录1"></a>buu做题记录1</h1><p>算是最近得做题记录了，就是一开始的比较简单呃就挺简洁的，所以后面跳到5，6页了，算是总结吧，之后也不知道要干什么，就这样子吧</p>
-<h2 id="第五空间2019-决赛-PWN5"><a href="#第五空间2019-决赛-PWN5" class="headerlink" title="[第五空间2019 决赛]PWN5"></a>[第五空间2019 决赛]PWN5</h2><h3 id="静态分析"><a href="#静态分析" class="headerlink" title="静态分析"></a>静态分析</h3><img src="C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20240303211815707.png" alt="image-20240303211815707" style="zoom:50%;" />
+<h2 id="第五空间2019-决赛-PWN5"><a href="#第五空间2019-决赛-PWN5" class="headerlink" title="[第五空间2019 决赛]PWN5"></a>[第五空间2019 决赛]PWN5</h2><h3 id="静态分析"><a href="#静态分析" class="headerlink" title="静态分析"></a>静态分析</h3><img src="https://img.hijwei.top/2/24/65ef1f0b0a3da.png" alt="image-20240303211815707" style="zoom:50%;" />
 
 <p>可以看到有格式字符串漏洞，原本因为1想的是password会在栈上出现，但是并没有应该是被覆盖掉了，因此我们想到直接修改password</p>
-<img src="C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20240303211726790.png" alt="image-20240303211726790" style="zoom:50%;" />
+<img src="https://img.hijwei.top/2/24/65ef1f0eddeed.png" alt="image-20240303211726790" style="zoom:50%;" />
 
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span><span class="token operator">*</span>
 <span class="token comment">#sh=process('./pwn5')</span>
@@ -462,11 +462,11 @@ Unique gadgets found<span class="token operator">:</span> <span class="token num
 <p>但是我们发现好像没法玩，因为什么都没有</p>
 <p>这时候是在搞不了发现原来有后门函数，真的绷不住了</p>
 <p>首先shift+F12找到有个flag.txt字符串，然后ctrl+x找到调用的函数</p>
-<img src="C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20240306192130678.png" alt="image-20240306192130678" style="zoom:50%;" />
+<img src="https://img.hijwei.top/2/24/65ef1f11bb73f.png" alt="image-20240306192130678" style="zoom:50%;" />
 
 <p>然后发现只有fget，实在是不会了，该flag位置在0x80ECA2D然后ctrl+s有rw权限因此读flag</p>
-<p><img src="C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20240306193620444.png" alt="image-20240306193620444"></p>
-<p>但是有个问题，我发现<img src="C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20240306195251819.png" alt="image-20240306195251819"></p>
+<p><img src="https://img.hijwei.top/2/24/65ef1f1517a83.png" alt="image-20240306193620444"></p>
+<p>但是有个问题，我发现<img src="https://img.hijwei.top/2/24/65ef1f184315f.png" alt="image-20240306195251819"></p>
 <p>他根本没有push ebp，靠！</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">from pwn import<span class="token operator">*</span>
 from LibcSearcher import<span class="token operator">*</span>
@@ -728,22 +728,22 @@ PIE<span class="token operator">:</span>      No <span class="token function">PI
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>首先是系统调用read和write，搞得不能泄露libc基址，很显然栈溢出</p>
-<img src="C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20240306231221635.png" alt="image-20240306231221635" style="zoom: 50%;" />
+<img src="https://img.hijwei.top/2/24/65ef1f1b8de18.png" alt="image-20240306231221635" style="zoom: 50%;" />
 
 <p>没有leave，因此0x10后面就是ret</p>
-<p><img src="C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20240306231332851.png" alt="image-20240306231332851"></p>
+<p><img src="https://img.hijwei.top/2/24/65ef1f1f00781.png" alt="image-20240306231332851"></p>
 <p>两个gadget，一个rax&#x3D;15是sigreturn ，一个是rax&#x3D;59是execve</p>
 <p>而vuln是系统调用就有syscall</p>
 <p>那么很显然是SROP，万事俱备只差&#x2F;bin&#x2F;sh\x00的addr</p>
 <p>那只能自己写</p>
 <p>那就只能调用read_write看看能不能写到跟&#x2F;bin&#x2F;sh\x00偏移固定的地址啦</p>
-<img src="C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20240307010520356.png" alt="image-20240307010520356" style="zoom:50%;" />
+<img src="https://img.hijwei.top/2/24/65ef1f22b5815.png" alt="image-20240307010520356" style="zoom:50%;" />
 
 <p>这个东西一看就知道是地址，就gdb进去看，然后出来看，减一下</p>
-<img src="C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20240307010810093.png" alt="image-20240307010810093" style="zoom:50%;" />
+<img src="https://img.hijwei.top/2/24/65ef1f25bf6e6.png" alt="image-20240307010810093" style="zoom:50%;" />
 
 <p>突然发觉可以用search，记下来</p>
-<img src="C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20240307010855890.png" alt="image-20240307010855890" style="zoom:50%;" />
+<img src="https://img.hijwei.top/2/24/65ef1f28d571d.png" alt="image-20240307010855890" style="zoom:50%;" />
 
 <p>偏移是128：这是一个大坑，因为glibc版本不同，他的偏移也是不同的！！！！其实是0x118偏移，但是不改libc版本就是0x128偏移</p>
 <p>因为buf是在rsp+10，而write能写0x30个字节，那么就会有rbp在里面</p>
@@ -802,9 +802,9 @@ PIE<span class="token operator">:</span>      PIE enabled<span aria-hidden="true
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">find_fake_fast addr<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>找到堆块</p>
-<p><img src="C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20240308142904319.png" alt="image-20240308142904319"></p>
+<p><img src="https://img.hijwei.top/2/24/65ef1f2c26500.png" alt="image-20240308142904319"></p>
 <p>填充完就这样</p>
-<p><img src="C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20240308145448733.png" alt="image-20240308145448733"></p>
+<p><img src="https://img.hijwei.top/2/24/65ef1f2f76b32.png" alt="image-20240308145448733"></p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span><span class="token operator">*</span>
 <span class="token comment">#sh=process('./babyheap_0ctf_2017')</span>
 sh<span class="token operator">=</span>remote<span class="token punctuation">(</span><span class="token string">"node5.buuoj.cn"</span><span class="token punctuation">,</span><span class="token number">28594</span><span class="token punctuation">)</span>
@@ -1210,7 +1210,7 @@ sh<span class="token punctuation">.</span>interactive<span class="token punctuat
 sh<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="metasequoia-2020-summoner"><a href="#metasequoia-2020-summoner" class="headerlink" title="metasequoia_2020_summoner"></a>metasequoia_2020_summoner</h2><p>本题其实只是一个纸老虎<img src="C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20240311224248322.png" alt="image-20240311224248322"></p>
+<h2 id="metasequoia-2020-summoner"><a href="#metasequoia-2020-summoner" class="headerlink" title="metasequoia_2020_summoner"></a>metasequoia_2020_summoner</h2><p>本题其实只是一个纸老虎<img src="https://img.hijwei.top/2/24/65ef1f33060b5.png" alt="image-20240311224248322"></p>
 <p>这便是题目的大意</p>
 <p>但是他在free的时候free的其实是存储name的堆块，因此就很好构造</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>

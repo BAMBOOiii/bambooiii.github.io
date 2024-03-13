@@ -239,7 +239,7 @@
           <!-- 文章标题 -->
           <h1 class="post-title">heap note</h1>
           <div class="last-updated">
-            上次更新: 2024-02-29 18:22:12
+            上次更新: 2024-03-13 21:01:37
           </div>
           <!-- 文章 -->
           <h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>本篇文章摘自华庭大佬的<code>Glibc 内存管理</code>一书，只是插入了一些记录</p>
@@ -306,7 +306,7 @@ malloc函数用于分配至少n个字节大小的内存块，并返回指向该�
 </ul>
 <h4 id="内存分配背后的系统调用"><a href="#内存分配背后的系统调用" class="headerlink" title="内存分配背后的系统调用"></a>内存分配背后的系统调用</h4><p>在前面提到的函数中，无论是 malloc 函数还是 free 函数，我们动态申请和释放内存时，都经常会使用，但是它们并不是真正与系统交互的函数。这些函数背后的系统调用主要是 <a target="_blank" rel="noopener" href="http://man7.org/linux/man-pages/man2/sbrk.2.html">(s)brk</a> 函数以及 <a target="_blank" rel="noopener" href="http://man7.org/linux/man-pages/man2/mmap.2.html">mmap, munmap</a> 函数。</p>
 <p>如下图所示，我们主要考虑对堆进行申请内存块的操作。</p>
-<p><img src="https://ctf-wiki.org/pwn/linux/user-mode/heap/ptmalloc2/figure/brk%26mmap.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132101103.png" alt="img"></p>
 <h4 id="s-brk"><a href="#s-brk" class="headerlink" title="(s)brk"></a>(s)brk</h4><p>对于堆的操作，操作系统提供了 brk 函数，glibc 库提供了 sbrk 函数，我们可以通过增加 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Sbrk">brk</a> 的大小来向操作系统申请内存。</p>
 <p>初始时，堆的起始地址 <a target="_blank" rel="noopener" href="http://elixir.free-electrons.com/linux/v3.8/source/include/linux/mm_types.h#L365">start_brk</a> 以及堆的当前末尾 <a target="_blank" rel="noopener" href="http://elixir.free-electrons.com/linux/v3.8/source/include/linux/mm_types.h#L365">brk</a> 指向同一地址。根据是否开启 ASLR，两者的具体位置会有所不同</p>
 <ul>
@@ -314,7 +314,7 @@ malloc函数用于分配至少n个字节大小的内存块，并返回指向该�
 <li>开启 ASLR 保护时，start_brk 以及 brk 也会指向同一位置，只是这个位置是在 data&#x2F;bss 段结尾后的随机偏移处。</li>
 </ul>
 <p>具体效果如下图（这个图片与网上流传的基本一致，这里是因为要画一张大图，所以自己单独画了下）所示</p>
-<p><img src="https://ctf-wiki.org/pwn/linux/user-mode/heap/ptmalloc2/figure/program_virtual_address_memory_space.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132101104.png" alt="img"></p>
 <p><strong>例子</strong></p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">/* sbrk and brk example */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
@@ -894,7 +894,7 @@ nextchunk<span class="token operator">-></span> <span class="token operator">+</
 <h5 id="5-2-1-Small-bins"><a href="#5-2-1-Small-bins" class="headerlink" title="5.2.1 Small bins"></a>5.2.1 Small bins</h5><p>​	ptmalloc使用small bins管理空闲小chunk，每个small bin中的chunk的大小与bin的index 有如下关系： 	<strong>Chunk_size&#x3D;2 * SIZE_SZ * index</strong> </p>
 <p>​	在 <strong>SIZE_SZ 为 4B</strong> 的平台上，small bins 中的 chunk <strong>大小是以 8B 为公差的等差数列</strong>，最大 的 chunk 大小为 <strong>504B</strong>，最小的 chunk 大小为 <strong>16B</strong>，所以<strong>实际共 62 个 bin</strong>。分别为 <strong>16B、24B、 32B，„„，504B</strong>。在 <strong>SIZE_SZ 为 8B</strong> 的平台上，small bins 中的 chunk <strong>大小是以 16B 为公差的等差数列</strong>，最大的 chunk 大小为 <strong>1008B</strong>，最小的 chunk 大小为 <strong>32B</strong>，所以<strong>实际共 62 个 bin</strong>。 分别为 <strong>32B、48B、64B，…… ，1008B</strong>。 </p>
 <p>​	<strong>ptmalloc 维护了 62 个双向环形链表</strong>（每个链表<strong>都具有链表头节点</strong>，加头节点的最大作用就是便于对链表内节点的统一处理，即简化编程），<strong>每一个链表内的各空闲 chunk 的大小一致</strong>，因此<strong>当应用程序需要分配某个字节大小的内存空间时直接在对应的链表内取就可以了</strong>， 这样既可以很好的满足应用程序的内存空间申请请求而又不会出现太多的内存碎片。我们可 以用如下图来表示在 SIZE_SZ 为 4B 的平台上 ptmalloc 对 512B 字节以下的空闲 chunk 组织方 式（所谓的分箱机制）</p>
-<p><img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20231219202911816.png" alt="image-20231219202911816"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132101105.png" alt="image-20231219202911816"></p>
 <h5 id="5-2-2-Large-bins"><a href="#5-2-2-Large-bins" class="headerlink" title="5.2.2 Large bins"></a>5.2.2 Large bins</h5><p>​	在 SIZE_SZ 为 4B 的平台上，大于等于 512B 的空闲 chunk，或者，在 SIZE_SZ 为 8B 的平 台上，大小大于等于 1024B 的空闲 chunk，由 sorted bins 管理。<strong>Large bins 一共包括 63 个 bin</strong>， <strong>每个 bin 中的 chunk 大小不是一个固定公差的等差数列</strong>，而是<strong>分成 6 组 bin</strong>，<strong>每组 bin 是一个 固定公差的等差数列</strong>，每组的 bin <strong>数量依次为 32、16、8、4、2、1</strong>，<strong>公差依次为 64B、512B、 4096B、32768B、262144B 等</strong>。</p>
 <p>​	以 SIZE_SZ 为 4B 的平台为例，第一个 large bin 的起始 chunk 大小为 512B，共 32 个 bin， 公差为 64B，等差数列满足如下关系：</p>
 <p>​	<strong>Chunk_size&#x3D;512 + 64 * index</strong></p>
@@ -1044,7 +1044,7 @@ BK <span class="token operator">=</span> P<span class="token operator">-></span>
 <p>上面的宏的定义比较明显，<strong>把 bin[1]设置为 unsorted bin 的 chunk 链表头</strong>，对 top chunk 的初始化，也暂时把 top chunk 初始化为 unsort chunk，<strong>仅仅是初始化一个值而已</strong>，这个 chunk 的内容肯定不能用于 top chunk 来分配内存，主要原因是 <strong>top chunk 不属于任何 bin</strong>，<strong>但 ptmalloc 中的一些 check 代码，可能需要 top chunk 属于一个合法的 bin。</strong></p>
 <h5 id="5-2-4-Fast-bins"><a href="#5-2-4-Fast-bins" class="headerlink" title="5.2.4  Fast bins"></a>5.2.4  Fast bins</h5><p>Fast bins 主要是用于提高小内存的分配效率，<strong>默认情况下，对于 SIZE_SZ 为 4B 的平台， 小于 64B 的 chunk 分配请求，对于 SIZE_SZ 为 8B 的平台，小于 128B 的 chunk 分配请求， 首先会查找 fast bins 中是否有所需大小的 chunk 存在（精确匹配），</strong>如果存在，就直接返回。 </p>
 <p>Fast bins 可以看着是 small bins 的一小部分 cache，<strong>默认情况下，fast bins 只 cache 了 small  bins 的前 7 个大小的空闲 chunk</strong>，也就是说，对于 SIZE_SZ 为 4B 的平台，fast bins 有 7 个 chunk 空闲链表（bin），每个 bin 的 chunk 大小依次为 16B，24B，32B，40B，48B，56B，64B；对于 SIZE_SZ 为 8B 的平台，fast bins 有 7 个 chunk 空闲链表（bin），每个 bin 的 chunk 大小依 次为 <strong>32B</strong>，48B，64B，80B，96B，112B，<strong>128B</strong>。以 32 为系统为例，分配的内存大小与 chunk 大小和 fast bins 的对应关系如下表所示：</p>
-<p><img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20231219224233213.png" alt="image-20231219224233213"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132101106.png" alt="image-20231219224233213"></p>
 <p>Fast bins 可以看着是 LIFO 的栈，使用单向链表实现。</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">/*
  Fastbins
@@ -1340,7 +1340,7 @@ For 64 bit systems:
 <li><p><code>chunk</code>为分配给用户的内存的一个单位，每当我们分配一段内存的时候其实就是分配得到了一个chunk，我们就可以在chunk当中进行一定的操作了。不过为了进行动态分配，chunk本身也有一些数据（元数据），是用来指示其分配等等的数据。</p>
 </li>
 <li><p>glibc的malloc源码中涉及三种最重要数据结构：<strong>Arena、Heap、Chunk</strong> ，分别对应结构体<strong>malloc_state、heap_info、malloc_chunk 。</strong>每个数据结构都有对应的结构体实现,如图:</p>
-<p><img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20231220232830154.png" alt="image-20231220232830154"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132101107.png" alt="image-20231220232830154"></p>
 <ul>
 <li><strong>Thread - Arena</strong> ： <strong>一个Arena对应多个线程Thread</strong>。即<strong>每个线程都有一个Arena</strong>，但是**有可能多个线程共用一个Arena(同一时间只能一对一)**。每个Arena都包含一个malloc_state结构体，保存bins, top chunk, Last reminder chunk等信息。</li>
 <li><strong>Arena - Heap</strong>：一个Arena可能拥有多个heap。Arena开始的时候只有一个heap，<strong>但是当这个heap的空间用尽时，就需要获取新的heap</strong>。(也可以理解为subheap子堆)</li>
@@ -1672,7 +1672,7 @@ For 64 bit systems:
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>这里我们以 small bin 的 unlink 为例子介绍一下。对于 large bin 的 unlink，与其类似，只是多了一个 nextsize 的处理。</p>
-<p><img src="https://ctf-wiki.org/pwn/linux/user-mode/heap/ptmalloc2/implementation/figure/unlink_smallbin_intro.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132101108.png" alt="img"></p>
 <p>可以看出， <strong>P 最后的 fd 和 bk 指针并没有发生变化</strong>，但是当我们去遍历整个双向链表时，已经遍历不到对应的链表了。这一点没有变化还是很有用处的，因为我们有时候可以使用这个方法来泄漏地址</p>
 <ul>
 <li><strong>libc 地址</strong><ul>
@@ -2746,7 +2746,7 @@ brk <span class="token operator">=</span> snd_brk <span class="token operator">=
 <li><strong><code>counts</code> 记录了 <code>tcache_entry</code> 链上空闲 chunk 的数目，每条链上最多可以有 7 个 chunk。</strong>（为了在tcache中保持较小的内存开销和更好的性能，可能在不同libc上有不同的限制，例如较早版本有的4或者8）</li>
 </ul>
 <p>用图表示大概是：<strong>（next指针存在fd区域）</strong></p>
-<img src="file:///C:\Users\Lenovo\Documents\Tencent Files\3025734103\nt_qq\nt_data\Pic\2024-01\Ori\1ede6b8f8429dfb325c1a8233c08766d.jpeg" alt="img" style="zoom: 67%;" />
+<img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132101109.jpeg" alt="img" style="zoom: 67%;" />
 
 <h4 id="基本工作方式"><a href="#基本工作方式" class="headerlink" title="基本工作方式"></a>基本工作方式</h4><ul>
 <li><strong>第一次 malloc 时，会先 malloc 一块内存用来存放 <code>tcache_perthread_struct</code> 。</strong></li>

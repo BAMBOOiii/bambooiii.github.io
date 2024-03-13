@@ -239,7 +239,7 @@
           <!-- 文章标题 -->
           <h1 class="post-title">堆bug利用总结</h1>
           <div class="last-updated">
-            上次更新: 2024-02-29 18:30:33
+            上次更新: 2024-03-13 21:01:08
           </div>
           <!-- 文章 -->
           <h1 id="All-bug的利用条件，相关检查，相关例子和小手法"><a href="#All-bug的利用条件，相关检查，相关例子和小手法" class="headerlink" title="All bug的利用条件，相关检查，相关例子和小手法"></a>All bug的利用条件，相关检查，相关例子和小手法</h1><p><strong>配合heap bug note食用</strong></p>
@@ -354,11 +354,11 @@ BK<span class="token operator">-></span>fd <span class="token operator">=</span>
 <p>只检查了相邻的两个fastbin是不是一样的</p>
 <h3 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h3><p>Fastbin为FIFO机制</p>
 <p>第一次释放<code>free(chunk1)</code></p>
-<p><img src="https://ctf-wiki.org/pwn/linux/user-mode/heap/ptmalloc2/figure/fastbin_free_chunk1.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132100467.png" alt="img"></p>
 <p>第二次释放<code>free(chunk2)</code></p>
-<p><img src="https://ctf-wiki.org/pwn/linux/user-mode/heap/ptmalloc2/figure/fastbin_free_chunk2.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132100468.png" alt="img"></p>
 <p>第三次释放<code>free(chunk1)</code></p>
-<p><img src="https://ctf-wiki.org/pwn/linux/user-mode/heap/ptmalloc2/figure/fastbin_free_chunk3.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132100469.png" alt="img"></p>
 <p>之后malloc一个将chunk1释放出去，然后再修改chunk1的fd内容构造main_arena&#x3D;&gt;chun2&#x3D;&gt;chunk1&#x3D;&gt;target_addr</p>
 <p>但是_int_malloc 会对<strong>欲分配位置的 size 域进行验证</strong>，如果其 size 与当前 fastbin 链表应有 size 不符就会抛出异常</p>
 <h2 id="House-Of-Spirit"><a href="#House-Of-Spirit" class="headerlink" title="House Of Spirit"></a>House Of Spirit</h2><h3 id="原理-3"><a href="#原理-3" class="headerlink" title="原理"></a>原理</h3><p>该技术的核心在于在目标位置处伪造 fastbin chunk，并将其释放，从而达到分配<strong>指定地址</strong>的 chunk 的目的。</p>
@@ -408,7 +408,7 @@ BK<span class="token operator">-></span>fd <span class="token operator">=</span>
 <p>经过修改之后，原来在 unsorted bin 中的 p 的 bk 指针就会指向 target addr-16 处伪造的 chunk，即 Target Value 处于伪造 chunk 的 fd 处。</p>
 <p><strong>申请 400 大小的 chunk</strong></p>
 <p>此时，所申请的 chunk 处于 small bin 所在的范围，其对应的 bin 中暂时没有 chunk，所以会去 unsorted bin 中找，发现 unsorted bin 不空，于是把 unsorted bin 中的最后一个 chunk 拿出来。</p>
-<p><img src="https://img-blog.csdnimg.cn/20210115162039295.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjAyMjM3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132100470.png" alt="在这里插入图片描述"></p>
 <p>就会变成这样，因为有个条件没有满足，因此unsorted bin链表被破坏，但是target的值被改成了unsorted bin的地址，</p>
 <h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ul>
 <li><strong>我们通过修改循环的次数来使得程序可以执行多次循环。</strong></li>
@@ -455,7 +455,7 @@ BK<span class="token operator">-></span>fd <span class="token operator">=</span>
 <span class="token number">39</span>     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token number">40</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://img-blog.csdnimg.cn/20210120161024708.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjAyMjM3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132100471.png" alt="在这里插入图片描述"></p>
 <p><strong>stack_var1和stack_var2中的值已经被修改成了P3的头指针</strong></p>
 <h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><ul>
 <li><strong>可以修改一个 large bin chunk 的 data</strong></li>

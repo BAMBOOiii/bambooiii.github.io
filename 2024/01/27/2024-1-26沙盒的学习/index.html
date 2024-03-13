@@ -239,7 +239,7 @@
           <!-- 文章标题 -->
           <h1 class="post-title">2024-1-26沙盒的学习</h1>
           <div class="last-updated">
-            上次更新: 2024-01-27 00:05:25
+            上次更新: 2024-03-13 21:06:17
           </div>
           <!-- 文章 -->
           <h1 id="沙盒"><a href="#沙盒" class="headerlink" title="沙盒"></a>沙盒</h1><h2 id="什么是orw？"><a href="#什么是orw？" class="headerlink" title="什么是orw？"></a>什么是orw？</h2><p>所谓orw就是open read write 打开flag 写入flag 输出flag</p>
@@ -677,11 +677,11 @@ s <span class="token operator">=</span> <span class="token keyword">lambda</span
 
 <p><strong>这些是定义一个函数，然后lambda后面的是参数，看着挺好用的，第一次学会</strong></p>
 <h2 id="simple-shellcode"><a href="#simple-shellcode" class="headerlink" title="simple_shellcode"></a>simple_shellcode</h2><p>这种<code>shellcode</code>题目除了掌握基本的<code>orw_shellcode</code>外，要时刻关注执行<code>shellcode</code>前后的寄存器变化，根据寄存器写<code>shellcode</code>。</p>
-<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t1/218678/6/25270/21739/63b83fb5Fc42dc228/e207fa91b6c24ab5.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132105733.png" alt="image-20240313210417540"></p>
 <ul>
 <li>首先<code>shellcode</code>有<code>16</code>个字节大小的限制，这也就意味着接下来我们要用<code>16</code>个字节大小限制的<code>shellcode</code>扩大漏洞利用能力。</li>
 </ul>
-<p><img src="https://kjimg10.360buyimg.com/ott/jfs/t1/157748/33/33698/56517/63b8408eFc10e2b83/c51017ea28f05343.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132105734.png" alt="img"></p>
 <ul>
 <li>调试并根据寄存器编写一下<code>shellcode</code>，目标是写入更多数据到<code>0xcafe0000</code>这片空间并执行：</li>
 </ul>

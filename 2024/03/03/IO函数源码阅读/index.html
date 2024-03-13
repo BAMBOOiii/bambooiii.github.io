@@ -239,7 +239,7 @@
           <!-- 文章标题 -->
           <h1 class="post-title">IO函数源码阅读</h1>
           <div class="last-updated">
-            上次更新: 2024-03-03 14:31:59
+            上次更新: 2024-03-13 21:01:54
           </div>
           <!-- 文章 -->
           <h1 id="IO函数详解"><a href="#IO函数详解" class="headerlink" title="IO函数详解"></a>IO函数详解</h1><p>该版本为libc-2.31</p>
@@ -417,7 +417,7 @@
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<img src="C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20240301235011497.png" alt="image-20240301235011497" style="zoom:50%;" />
+<img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132101139.png" alt="image-20240301235011497" style="zoom:50%;" />
 
 <p>这张图非常好的描述了初始化后的情况</p>
 <h3 id="链接file部分"><a href="#链接file部分" class="headerlink" title="链接file部分"></a>链接file部分</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">_IO_new_file_init_internal</span> <span class="token punctuation">(</span><span class="token operator">&amp;</span>new_f<span class="token operator">-></span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span>                    <span class="token comment">//third：将file链接到_IO_list_all</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -522,7 +522,7 @@
 
 <p>函数的主要功能就是执行系统调用<code>open</code>打开文件，并将文件描述符赋值给FILE结构体的<code>_fileno</code>字段，最后再次调用<code>_IO_link_in</code>函数，确保该结构体被链接进入<code>_IO_list_all</code>链表。</p>
 <p>执行完<code>_IO_new_file_fopen</code>函数后，FILE结构体为：</p>
-<img src="C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20240302003003453.png" alt="image-20240302003003453" style="zoom:50%;" />
+<img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132101140.png" alt="image-20240302003003453" style="zoom:50%;" />
 
 <p>该函数执行完后，程序返回FILE结构体指针</p>
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>看完代码后，可以将fopen整体的流程可以归纳为：</p>
@@ -533,10 +533,10 @@
 <li><code>_IO_file_fopen</code>执行系统调用打开文件。</li>
 </ol>
 <p>整个流程还是比较简单的，fopen返回之后<code>_IO_list_all</code>链表指向返回的FILE结构体，且FILE结构体的_chain字段指向之前的结构体（没有其他额外打开文件的话，将是指向<code>stderr</code>），同时其他的字段大多都是默认的null值，<code>vtable</code>存储的是<code>__GI__IO_file_jumps</code>函数表</p>
-<img src="C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20240302003126840.png" alt="image-20240302003126840" style="zoom:50%;" />
+<img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132101141.png" alt="image-20240302003126840" style="zoom:50%;" />
 
 <h2 id="fread"><a href="#fread" class="headerlink" title="fread"></a>fread</h2><p>大致的流程如下</p>
-<img src="C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20240302135632361.png" alt="image-20240302135632361" style="zoom:50%;" />
+<img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132101143.png" alt="image-20240302135632361" style="zoom:50%;" />
 
 <h3 id="IO-fread"><a href="#IO-fread" class="headerlink" title="_IO_fread"></a>_IO_fread</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token class-name">size_t</span>
 <span class="token function">_IO_fread</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>buf<span class="token punctuation">,</span> <span class="token class-name">size_t</span> size<span class="token punctuation">,</span> <span class="token class-name">size_t</span> count<span class="token punctuation">,</span> FILE <span class="token operator">*</span>fp<span class="token punctuation">)</span>   <span class="token comment">//buf：缓冲区，fp：要读取的文件</span>
@@ -693,7 +693,7 @@
 <span class="token function">libc_hidden_def</span> <span class="token punctuation">(</span>_IO_doallocbuf<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>其中又调用了系统调用<code>_IO_DOALLOCATE</code>，其中调用了<code>IO_file_doallocate</code>，又调用了vtable中的<code>_IO_file_stat</code>函数，而后又执行了系统调用<code>fstat</code>，这个系统调用是来获取文件状态，并且初始化st结构体的。可以看到此时的st_blksize为4096，而这个st_blksize也就是接下来malloc申请的内存大小（也就是reserve area的大小）</p>
-<img src="C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20240302213145338.png" alt="image-20240302213145338" style="zoom:50%;" />
+<img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132101144.png" alt="image-20240302213145338" style="zoom:50%;" />
 
 <p>而后出来之后又调用<code>_IO_setb</code></p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span>

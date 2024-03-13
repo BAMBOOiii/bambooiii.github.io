@@ -239,14 +239,14 @@
           <!-- 文章标题 -->
           <h1 class="post-title">2024mapna</h1>
           <div class="last-updated">
-            上次更新: 2024-01-21 22:34:01
+            上次更新: 2024-03-13 21:06:48
           </div>
           <!-- 文章 -->
           <p>这算是赛后总结吧，学长说对新手很友好，我看不出来，只能说真的很”友好”。</p>
 <p>这次虽然只做出一道题，但是总的来说收获还是非常多的</p>
 <h1 id="ninipwn"><a href="#ninipwn" class="headerlink" title="ninipwn"></a>ninipwn</h1><p>这道题思路还是比较清晰的，主要还是脚本十分难写</p>
 <p>首先check一下</p>
-<p><img src="https://img.hijwei.top/2/24/65ad2b2e99d6b.png" alt="image-20240121214012422"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132106825.png" alt="image-20240121214012422"></p>
 <p>发现是64位的然后保护全开，主要是注意PIE和Canary保护</p>
 <h2 id="IDA静态分析"><a href="#IDA静态分析" class="headerlink" title="IDA静态分析"></a>IDA静态分析</h2><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> __cdecl <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>envp<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
@@ -289,7 +289,7 @@
 
 <p>首先能我们会看到一些比较显眼的漏洞，就是第一个<code>printf(key);</code> 这个明显key是可控的，有着一个格式化字符串漏洞</p>
 <p>然后key是一个char[8]型的然而能输入0xA个字符，显然数组越界</p>
-<p>再深入探查的话<img src="https://img.hijwei.top/2/24/65ad2b2f75f90.png" alt="image-20240121214710570"></p>
+<p>再深入探查的话<img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132106826.png" alt="image-20240121214710570"></p>
 <p>会发现text_length的前两位是可以覆盖的，然后由于是小端存储 而且题目限定text_length我们输入进去的要小于0x101，因此<strong>覆盖的两位就是我们的text_length大小</strong>这点很重要，是整道题目的核心</p>
 <hr>
 <p><strong>这里插入一点：</strong></p>
@@ -299,8 +299,8 @@
 
 <p>有了text_length的覆盖那么这段的text_length的大小就是可控的，而buf段位于栈上，因此有显然的栈溢出的漏洞，所以本题的核心就是覆盖返回地址</p>
 <p>但是其中还有很多细节需要注意，就是本题开启了Canary保护，我们要绕过该保护，而PIE保护也要绕过，PIE使得整个可执行文件可以被加载到随机的地址，但是后12位(64位)无论是ASLR或者PIE都不会改变</p>
-<p>但是本题目，覆盖的时候，只需要覆盖后8位即可更简便<img src="https://img.hijwei.top/2/24/65ad2b307bd1a.png" alt="image-20240121220314128" style="zoom:50%;" /></p>
-<p><img src="https://img.hijwei.top/2/24/65ad2b31922a4.png" alt="image-20240121220337900"></p>
+<p>但是本题目，覆盖的时候，只需要覆盖后8位即可更简便<img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132106827.png" alt="image-20240121220314128" style="zoom:50%;" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132106829.png" alt="image-20240121220337900"></p>
 <p>可以看到只有后8位不一样，因此只需要覆盖后八位即可，这样既方便又可以绕过PIE保护</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">__int64 __fastcall <span class="token function">encrypt</span><span class="token punctuation">(</span>__int64 a1<span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>

